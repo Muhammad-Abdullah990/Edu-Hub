@@ -6,7 +6,7 @@ export function Footer() {
   return (
     <footer className="bg-slate-900 text-white pt-16 pb-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.6fr_1.4fr_1fr_1fr] gap-8 mb-12">
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2 inline-flex group">
               <img src={logoUrl} alt="Toppers Coaching Center" className="h-16 w-auto group-hover:scale-105 transition-transform bg-white/10 rounded-xl p-1" />
@@ -33,11 +33,11 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="text-accent shrink-0" size={20} />
-                <span className="text-slate-400">+92 300 1234567</span>
+                <span className="text-slate-400">+92 326 3987 552</span>
               </li>
-              <li className="flex items-center gap-3">
-                <Mail className="text-accent shrink-0" size={20} />
-                <span className="text-slate-400">info@topperscoachingcenter.com</span>
+              <li className="flex items-start gap-3">
+                <Mail className="text-accent shrink-0 mt-0.5" size={20} />
+                <span className="text-slate-400 break-all">info@topperscoachingcenter.com</span>
               </li>
             </ul>
           </div>

@@ -56,7 +56,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="font-semibold text-slate-900">Phone</p>
-                    <p className="text-slate-600 text-sm mt-1">+92 300 1234567</p>
+                    <p className="text-slate-600 text-sm mt-1">+92 326 3987 552</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-4">
@@ -81,7 +81,7 @@ export default function Contact() {
 
               <div className="mt-8 pt-8 border-t border-slate-100">
                 <a 
-                  href="https://wa.me/923001234567" 
+                  href="https://wa.me/923263987552" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white py-4 rounded-xl font-bold transition-colors shadow-lg shadow-[#25D366]/20"
