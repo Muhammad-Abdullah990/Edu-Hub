@@ -1,0 +1,279 @@
+Create a **highly professional, multi-page educational website** using **React ONLY (frontend)**. Do NOT use Node.js or backend frameworks.
+
+This is for a coaching center named:
+**"Toppers Coaching Center"**
+
+---
+
+# 🎯 BRAND STORY (USE EMOTION + AUTHORITY)
+
+* Established in 2006
+* Founded by a Montessori Directress (20+ years experience)
+* Now run by:
+
+  * Software Engineer (Muhammad Abdullah)
+  * Doctor of Pharmacy (Tayyaba Gul)
+* All students are taught personally by family (NO external teachers)
+* 97%+ results every year
+* Mission: Achieve 98% results
+* Vision: Educate Baldia
+* Affordable fees + extra holiday sessions
+* Guaranteed performance improvement
+
+---
+
+# 🌐 WEBSITE STRUCTURE (STRICT: MULTI-PAGE)
+
+Use React Router for navigation.
+
+Pages:
+
+1. Home
+2. About
+3. Faculty
+4. Results
+5. Student Success
+6. Testimonials
+7. Programs
+8. Contact
+
+⚠️ NO ONE-PAGE DESIGN
+⚠️ NO CONTENT DUPLICATION
+
+---
+
+# 🧊 HEADER DESIGN (VERY IMPORTANT)
+
+* Use **LIQUID GLASSMORPHISM**
+* Transparent blurred navbar
+* Sticky + smooth scroll effect
+* Glow border + backdrop blur
+* Navigation items:
+  Home | About | Results | Programs | Testimonials | Contact
+
+---
+
+# 🏠 HOME PAGE (HIGH-END LANDING)
+
+## Hero Section
+
+* Background: Sky blue gradient with soft rays (like poster)
+
+* Big heading:
+  "Shaping Toppers Since 2006"
+
+* Subheading:
+  "From Montessori to Matric — We Build Futures"
+
+* CTA:
+
+  * Admissions Open (RED BUTTON)
+  * View Results
+
+* Add floating animations:
+
+  * Books
+  * Graduation cap
+  * Subtle particles
+
+---
+
+## Trust Strip
+
+* 97%+ Results
+* Since 2006
+* Limited Students = Maximum Focus
+
+---
+
+## Results Highlight
+
+* Animated counters
+* 97% → target 98%
+
+---
+
+## Achievers Section
+
+* Cards:
+
+  * Shazil Malik (BBA)
+  * Afnan Adil (Pharm D)
+* Show journey-based storytelling
+
+---
+
+## CTA Banner
+
+Red ribbon style (like poster):
+"Admissions Open Now"
+
+---
+
+# 👨‍🏫 FACULTY PAGE (CRITICAL DESIGN)
+
+⚠️ DO NOT SHOW REAL IMAGES
+
+Instead:
+
+* Use:
+
+  * Abstract silhouettes
+  * Glass cards
+  * Glow borders
+  * Animated hover effects
+
+Each card shows:
+
+* Role
+* Experience
+* Teaching philosophy
+
+👉 Must feel premium so user DOES NOT notice missing images
+
+---
+
+# 📊 RESULTS PAGE
+
+* Graphs (use chart library)
+* Show yearly performance
+* Progress tracking
+* Highlight 97% consistency
+
+---
+
+# 🌟 STUDENT SUCCESS PAGE
+
+* Case studies:
+
+  * Journey from start to matric
+  * Career counseling impact
+
+---
+
+# 🎥 TESTIMONIALS PAGE (STRICT STRUCTURE)
+
+## Section 1: Students Testimonials
+
+* Grid layout
+* Video cards (5 videos)
+* Hover play animation
+
+---
+
+## Section 2: Parents Testimonials (SEPARATE)
+
+* Desktop:
+  Show **3 videos in a row**
+  Auto-slide carousel
+
+* Mobile:
+  Show **1 video at a time**
+  Smooth swipe
+
+* Auto transition every few seconds
+
+👉 Must feel emotional + trust-building
+
+---
+
+# 📘 PROGRAMS PAGE
+
+* Mont to Matric coverage
+* Teaching method
+* Extra holiday sessions
+* Performance tracking
+
+---
+
+# 📞 CONTACT PAGE
+
+* Contact form (frontend only)
+* WhatsApp button
+* Location map
+
+---
+
+# 🎨 DESIGN SYSTEM (BASED ON PROVIDED POSTER)
+
+## Colors:
+
+* Yellow Gradient: #FFD54F → #FFB300
+* Blue: #1E3A8A
+* Red: #E53935
+* Sky Blue: #2196F3
+* Green: #43A047
+
+---
+
+## UI STYLE:
+
+* Glassmorphism (header + cards)
+* Ribbon banners (like "Admissions Open")
+* Soft shadows
+* Smooth animations
+
+---
+
+## ANIMATIONS (VERY IMPORTANT)
+
+Use Framer Motion:
+
+* Fade-in sections
+* Slide-up cards
+* Hover scaling
+* Floating elements in hero
+* Smooth page transitions
+
+---
+
+# ⚡ UX REQUIREMENTS
+
+* Fully responsive (mobile-first)
+* Fast loading
+* Clean spacing
+* Strong CTA visibility
+
+---
+
+# 🧠 PSYCHOLOGY
+
+* Build trust for parents
+* Show authority (since 2006)
+* Highlight results
+* Emotional storytelling
+
+---
+
+# 🧩 TECH STACK
+
+* React
+* React Router
+* Tailwind CSS
+* Framer Motion
+
+---
+
+# 🚫 STRICT RULES
+
+* NO Node.js
+* NO one-page design
+* NO repeated content
+* NO faculty images
+* NO basic/template UI
+
+---
+
+# 🎯 FINAL GOAL
+
+The website must feel:
+
+* Premium
+* Trustworthy
+* Result-driven
+* Emotionally convincing
+
+Parents should feel:
+"This is the best place for my child."
+
+---

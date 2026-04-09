@@ -16,6 +16,16 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - **API codegen**: Orval (from OpenAPI spec)
 - **Build**: esbuild (CJS bundle)
 
+## Artifacts
+
+### Toppers Coaching Center (`artifacts/toppers-coaching`)
+- **Type**: React + Vite (frontend-only, no backend)
+- **Preview Path**: `/`
+- **Tech**: React, Tailwind CSS v4, Framer Motion, Recharts, Wouter (routing)
+- **Pages**: Home, About, Faculty, Results, Student Success, Testimonials, Programs, Contact
+- **Brand Colors**: Blue #1E3A8A, Red #E53935, Yellow #FFD54F→#FFB300, Sky Blue #2196F3, Green #43A047
+- **Design**: Glassmorphism header, animated hero with floating icons, animated counters, results charts
+
 ## Key Commands
 
 - `pnpm run typecheck` — full typecheck across all packages
