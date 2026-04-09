@@ -33,7 +33,9 @@ export default function FacultyAbdullah() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Engineer Muhammad Abdullah</h1>
-              <p className="text-2xl text-primary font-medium mb-6">Software Engineer, Co-Director</p>
+              <p className="text-2xl text-primary font-medium mb-6">
+                Software Engineer<br />Co - Director
+              </p>
               <div className="flex flex-wrap gap-3">
                 <span className="px-4 py-2 bg-sky-50 text-sky-700 rounded-full text-sm font-semibold flex items-center">
                   <Code className="w-4 h-4 mr-2" /> Tech Meets Education
@@ -66,7 +68,7 @@ export default function FacultyAbdullah() {
                   <Award className="w-6 h-6 text-accent mr-2" /> Key Achievements
                 </h3>
                 <ul className="space-y-3 text-slate-600">
-                  <li className="flex items-start"><div className="w-2 h-2 rounded-full bg-primary mt-2 mr-3 shrink-0" /> Integrated visual aids for STEM subjects.</li>
+                  <li className="flex items-start"><div className="w-2 h-2 rounded-full bg-primary mt-2 mr-3 shrink-0" /> A structured and logical approach to problem-solving, specifically designed for high school students, ensuring clarity, coherence, and effective understanding.</li>
                   <li className="flex items-start"><div className="w-2 h-2 rounded-full bg-primary mt-2 mr-3 shrink-0" /> Restructured logical problem solving for high schoolers.</li>
                   <li className="flex items-start"><div className="w-2 h-2 rounded-full bg-primary mt-2 mr-3 shrink-0" /> Created automated testing systems for continuous tracking.</li>
                 </ul>
@@ -116,9 +118,9 @@ export default function FacultyAbdullah() {
                     <span className="w-3 h-3 bg-white rounded-full"></span>
                   </div>
                   <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl shadow-sm bg-white border border-slate-100">
-                    <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center justify-between gap-2 mb-1">
                       <h4 className="font-bold text-slate-900">Revolutionized STEM</h4>
-                      <span className="text-sm font-medium text-indigo-600">Present</span>
+                      <span className="text-sm font-medium text-indigo-600 whitespace-nowrap shrink-0">Present</span>
                     </div>
                     <p className="text-sm text-slate-600">Modern teaching methodology leading to exceptional math & science results.</p>
                   </div>

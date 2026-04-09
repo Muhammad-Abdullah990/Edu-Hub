@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { BookOpen, GraduationCap, Star, Pencil, Trophy, Users, Target, ShieldCheck, ArrowRight } from "lucide-react";
-import logoUrl from "@assets/Transparent_1775751353427.png";
+import logoUrl from "@assets/Logo_1775767926640.png";
 
 export default function Home() {
   return (
@@ -74,7 +74,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-xl md:text-2xl text-slate-600 mb-10 max-w-2xl mx-auto font-medium"
             >
-              We Don't Teach -- We Built TOPPERS
+              We Don't Teach - We Build TOPPERS
             </motion.p>
 
             <motion.div

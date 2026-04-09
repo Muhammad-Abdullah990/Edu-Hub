@@ -34,10 +34,10 @@ export default function FacultyAamera() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Miss Aamera Ishaque</h1>
-              <p className="text-2xl text-primary font-medium mb-6">Montessori Directress, Founder</p>
+              <p className="text-2xl text-primary font-medium mb-6">Montessori Directoress | Founder | PTC | AMI Directoress | English Language & Others</p>
               <div className="flex flex-wrap gap-3">
                 <span className="px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-semibold flex items-center">
-                  <Clock className="w-4 h-4 mr-2" /> 20+ Years Experience
+                  <Clock className="w-4 h-4 mr-2" /> 35+ Years Legacy
                 </span>
                 <span className="px-4 py-2 bg-purple-50 text-purple-700 rounded-full text-sm font-semibold flex items-center">
                   <Award className="w-4 h-4 mr-2" /> Early Childhood Specialist
@@ -67,10 +67,10 @@ export default function FacultyAamera() {
                   <Award className="w-6 h-6 text-accent mr-2" /> Key Achievements
                 </h3>
                 <ul className="space-y-3 text-slate-600">
-                  <li className="flex items-start"><div className="w-2 h-2 rounded-full bg-primary mt-2 mr-3 shrink-0" /> Pioneered the coaching center in 2006.</li>
-                  <li className="flex items-start"><div className="w-2 h-2 rounded-full bg-primary mt-2 mr-3 shrink-0" /> Developed custom curriculum for early childhood education.</li>
-                  <li className="flex items-start"><div className="w-2 h-2 rounded-full bg-primary mt-2 mr-3 shrink-0" /> Mentored thousands of students who went on to top universities.</li>
-                  <li className="flex items-start"><div className="w-2 h-2 rounded-full bg-primary mt-2 mr-3 shrink-0" /> Over 18+ years of transforming young minds.</li>
+                  <li className="flex items-start"><div className="w-2 h-2 rounded-full bg-primary mt-2 mr-3 shrink-0" /> Mentored countless students who went on to reputed universities</li>
+                  <li className="flex items-start"><div className="w-2 h-2 rounded-full bg-primary mt-2 mr-3 shrink-0" /> Over 35+ years of transforming young minds</li>
+                  <li className="flex items-start"><div className="w-2 h-2 rounded-full bg-primary mt-2 mr-3 shrink-0" /> 35+ Years Legacy of consistent excellence</li>
+                  <li className="flex items-start"><div className="w-2 h-2 rounded-full bg-primary mt-2 mr-3 shrink-0" /> Founder of Baldia's most trusted family coaching center</li>
                 </ul>
               </div>
             </motion.div>
@@ -119,7 +119,7 @@ export default function FacultyAamera() {
                   </div>
                   <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl shadow-sm bg-white border border-slate-100">
                     <div className="flex items-center justify-between mb-1">
-                      <h4 className="font-bold text-slate-900">18+ Years Legacy</h4>
+                      <h4 className="font-bold text-slate-900">35+ Years Legacy</h4>
                       <span className="text-sm font-medium text-purple-600">Present</span>
                     </div>
                     <p className="text-sm text-slate-600">Transforming young minds and shaping futures continuously.</p>

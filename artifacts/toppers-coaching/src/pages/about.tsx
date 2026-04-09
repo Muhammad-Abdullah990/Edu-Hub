@@ -34,7 +34,7 @@ export default function About() {
             <h2 className="text-3xl font-bold text-slate-900 mb-6">A Legacy of Education</h2>
             <div className="space-y-6 text-slate-600 text-lg leading-relaxed">
               <p>
-                Founded by a passionate Montessori Directress with over 20 years of experience, Toppers was built on the philosophy that every child has the potential to excel if given the right guidance and attention. 
+                Founded by a passionate Montessori Directress with over 35+ years combined teaching experience, Toppers was built on the philosophy that every child has the potential to excel if given the right guidance and attention. 
               </p>
               <p>
                 What started as a small initiative has grown into Baldia's premier coaching center. Unlike commercial institutes that rely on rotating hired staff, Toppers is a family-run institution. Our founders and management are the teachers. 
@@ -60,7 +60,7 @@ export default function About() {
               <Target className="w-12 h-12 text-secondary mb-6" />
               <h3 className="text-2xl font-bold text-slate-900 mb-4">Our Mission</h3>
               <p className="text-slate-600 text-lg">
-                To consistently achieve a 98% success rate by providing highly personalized, concept-driven education. We commit to understanding each student's learning style and guiding them to their absolute best.
+                To consistently attain a 98% success rate by delivering highly personalized, concept-focused education. We are committed to clearly understanding each student's unique learning style and effectively guiding them to reach their fullest potential with clarity, completeness, and precision.
               </p>
             </motion.div>
 

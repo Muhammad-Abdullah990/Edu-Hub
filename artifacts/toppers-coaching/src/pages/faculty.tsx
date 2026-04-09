@@ -78,7 +78,7 @@ export default function Faculty() {
               {/* Glow Effect behind card */}
               <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-secondary rounded-3xl blur opacity-0 group-hover:opacity-20 transition duration-500"></div>
               
-              <div className="relative h-full bg-white/80 backdrop-blur-xl p-8 rounded-3xl border border-slate-200/50 shadow-xl shadow-slate-200/20 overflow-hidden">
+              <div className="relative h-full flex flex-col bg-white/80 backdrop-blur-xl p-8 rounded-3xl border border-slate-200/50 shadow-xl shadow-slate-200/20 overflow-hidden">
                 {/* Abstract Avatar Graphic */}
                 <div className={`w-32 h-32 mx-auto rounded-full bg-gradient-to-br ${teacher.color} flex items-center justify-center mb-8 relative overflow-hidden`}>
                   <svg className="absolute inset-0 w-full h-full opacity-60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">

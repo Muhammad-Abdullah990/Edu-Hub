@@ -33,7 +33,9 @@ export default function FacultyTayyaba() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Doctor Tayyaba Gul</h1>
-              <p className="text-2xl text-primary font-medium mb-6">Pharm D, Co-Director</p>
+              <p className="text-2xl text-primary font-medium mb-6">
+                Pharm D<br />Co-Director
+              </p>
               <div className="flex flex-wrap gap-3">
                 <span className="px-4 py-2 bg-emerald-50 text-emerald-700 rounded-full text-sm font-semibold flex items-center">
                   <Pill className="w-4 h-4 mr-2" /> Pharmacy Background

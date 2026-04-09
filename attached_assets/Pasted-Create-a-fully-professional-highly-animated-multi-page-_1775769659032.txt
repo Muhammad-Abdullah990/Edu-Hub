@@ -1,0 +1,340 @@
+Create a **fully professional, highly animated, multi-page educational website** using **React ONLY (frontend)**. Do NOT use Node.js or any backend.
+
+Website Name:
+**Toppers Coaching Center**
+
+---
+
+# 🖼️ LOGO (IMPORTANT)
+
+* Use the **provided attached image as the official logo**
+* Use it in:
+
+  * Header
+  * Footer
+  * Hero section (subtle watermark style)
+
+---
+
+# 🎯 BRAND CORE
+
+* Established: 2006
+
+* Experience: **35+ Years (combined teaching experience)**
+
+* Slogan (STRICT USE):
+  **"We Don't Teach - We Build TOPPERS"**
+
+* Vision: Educate Baldia
+
+* Mission:
+
+"To consistently attain a 98% success rate by delivering highly personalized, concept-focused education. We are committed to clearly understanding each student’s unique learning style and effectively guiding them to reach their fullest potential with clarity, completeness, and precision."
+
+---
+
+# 📍 CONTACT INFO
+
+* Address: House Number 770, New Saeedabad Baldia Town Karachi
+* Email: [info@topperscoachingcenter.com](mailto:info@topperscoachingcenter.com)
+* Instagram (Footer):
+  https://www.instagram.com/topperscoachingcenter/
+
+---
+
+# 🎨 COLOR SYSTEM (STRICT)
+
+Primary:
+
+* #FFD54F → #FFB300 (Golden Gradient)
+* #1E3A8A (Deep Blue)
+* #E53935 (Red CTA)
+
+Secondary:
+
+* #6EC6FF → #2196F3 (Sky Gradient)
+* #43A047 (Green)
+* #F9FAFB (White)
+
+---
+
+# 🧊 GLOBAL UI RULES
+
+* Glassmorphism header (liquid glass)
+* Smooth animations everywhere
+* Premium layout (no clutter)
+* Fully responsive
+
+---
+
+# 🔥 BUTTON DESIGN (VERY IMPORTANT)
+
+ALL buttons must:
+
+* Animate on hover:
+
+  * Scale
+  * Glow
+  * Gradient shift
+* Click animation (bounce/ripple)
+* Use RED (#E53935) for main CTA
+* Add subtle pulse animation for primary CTA
+
+---
+
+# 🌐 WEBSITE STRUCTURE
+
+Pages:
+
+* Home
+* About
+* Faculty
+* faculty/aamera-ishaque
+* faculty/muhammad-abdullah
+* faculty/tayyaba-gul
+* Results
+* Student Success
+* Testimonials
+* Programs
+* Contact
+
+⚠️ NO ONE-PAGE DESIGN
+⚠️ NO CONTENT DUPLICATION
+
+---
+
+# 🏠 HOME PAGE
+
+## Hero Section
+
+Heading:
+**"Shaping Toppers Since 2006"**
+
+👉 "Since 2006" must be colored **#1E3A8A**
+
+Subheading (STRICT):
+**"We Don't Teach - We Build TOPPERS"**
+
+CTA:
+
+* Admissions Open
+* View Results
+
+---
+
+## Results Section (IMPORTANT CHANGE)
+
+Instead of "Above Regional Average"
+
+👉 Use more powerful line:
+**"Consistently Outperforming Academic Standards"**
+
+Add:
+
+* Animated stats
+* Visual progress indicators
+
+---
+
+## Achievers Section
+
+* Shazil Malik (BBA, Bahria University)
+* Afnan Adil (Pharm D, Hamdard University)
+
+---
+
+# 🎨 BACKGROUND RULE
+
+* Home: Custom hero background
+* Other pages: soft gradient (blue + white + yellow glow)
+
+---
+
+# 📖 ABOUT PAGE
+
+## Our Story
+
+* Include:
+
+  * Established in 2006
+  * **35+ years experience**
+  * Family-run teaching system
+  * Personal attention model
+
+---
+
+## Mission Section
+
+Use EXACT provided text (no changes)
+
+---
+
+# 👨‍🏫 FACULTY PAGE
+
+* Ensure ALL cards are aligned perfectly
+* FIX:
+  👉 “View Profile” button of **Doctor Tayyaba Gul** must match others exactly (alignment + size)
+
+---
+
+# 👤 FACULTY DETAIL PAGES
+
+---
+
+## 1. faculty/aamera-ishaque
+
+### Title:
+
+"Montessori Directoress
+Founder
+PTC
+AMI Directoress
+English Language and others"
+
+---
+
+### Key Achievements (REPLACE TEXT)
+
+* "Mentored number of students who went to Reputated Universities"
+* "Over 35+ years of transforming young minds."
+* "35+ Years Legacy"
+
+---
+
+## 2. faculty/muhammad-abdullah
+
+### Title:
+
+"Software Engineer
+Co - Director"
+
+---
+
+### Key Achievement (REPLACE TEXT):
+
+"A structured and logical approach to problem-solving, specifically designed for high school students, ensuring clarity, coherence, and effective understanding."
+
+---
+
+### UI FIX:
+
+👉 In "Revolutionized STEM" section:
+
+* Fix "Present" alignment issue (desktop & tablet)
+* Ensure it's visually aligned within layout
+
+---
+
+## 3. faculty/tayyaba-gul
+
+### Title:
+
+"Pharm D
+Co-Director"
+
+---
+
+# 🎥 TESTIMONIALS PAGE
+
+## Students Section
+
+* Grid layout
+* 5 video cards
+
+---
+
+## Parents Section (STRICT)
+
+Desktop:
+
+* 3 videos in a row
+* Auto-slide
+
+Mobile:
+
+* 1 video at a time
+* Swipe enabled
+
+Behavior:
+
+* Auto change videos
+* Smooth transitions
+
+---
+
+# 📘 PROGRAMS PAGE
+
+* Mont to Matric
+* Extra sessions
+* Performance tracking
+
+---
+
+# 📞 CONTACT PAGE
+
+* Form (frontend only)
+* Map embed
+* WhatsApp button
+
+---
+
+# 🦶 FOOTER (IMPORTANT ORDER)
+
+3 Sections in this EXACT order:
+
+1. Contact Us
+2. Programs
+3. Quick Links
+
+Include:
+
+* Instagram link
+* Logo
+* Address
+* Email
+
+---
+
+# 🎬 ANIMATIONS
+
+Use Framer Motion:
+
+* Page transitions
+* Scroll animations
+* Hover effects
+* Floating hero elements
+
+---
+
+# ⚡ UX
+
+* Fully responsive
+* Mobile-first
+* Fast
+* CTA-focused
+
+---
+
+# 🚫 STRICT RULES
+
+* NO Node.js
+* NO real tutor images
+* NO misalignment
+* NO repeated content
+* NO basic UI
+
+---
+
+# 🎯 FINAL GOAL
+
+Website must feel:
+
+* Premium
+* Trustworthy
+* Emotional
+* Result-driven
+
+Parents should feel:
+👉 "This is where my child becomes a TOPPER."
+
+---

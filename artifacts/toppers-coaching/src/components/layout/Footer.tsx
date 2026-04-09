@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { BookOpen, MapPin, Phone, Mail, Instagram, Facebook } from "lucide-react";
-import logoUrl from "@assets/Transparent_1775751353427.png";
+import logoUrl from "@assets/Logo_1775767926640.png";
 
 export function Footer() {
   return (
@@ -18,32 +18,10 @@ export function Footer() {
               <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors text-white">
                 <Facebook size={20} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors text-white">
+              <a href="https://www.instagram.com/topperscoachingcenter/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors text-white">
                 <Instagram size={20} />
               </a>
             </div>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-lg mb-6">Quick Links</h3>
-            <ul className="space-y-3">
-              <li><Link href="/about" className="text-slate-400 hover:text-accent transition-colors">About Us</Link></li>
-              <li><Link href="/faculty" className="text-slate-400 hover:text-accent transition-colors">Our Faculty</Link></li>
-              <li><Link href="/results" className="text-slate-400 hover:text-accent transition-colors">Results</Link></li>
-              <li><Link href="/programs" className="text-slate-400 hover:text-accent transition-colors">Programs</Link></li>
-              <li><Link href="/contact" className="text-slate-400 hover:text-accent transition-colors">Contact</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-lg mb-6">Programs</h3>
-            <ul className="space-y-3">
-              <li className="text-slate-400">Montessori</li>
-              <li className="text-slate-400">Primary Level</li>
-              <li className="text-slate-400">Middle School</li>
-              <li className="text-slate-400">Matriculation</li>
-              <li className="text-slate-400">Career Counseling</li>
-            </ul>
           </div>
 
           <div>
@@ -61,6 +39,28 @@ export function Footer() {
                 <Mail className="text-accent shrink-0" size={20} />
                 <span className="text-slate-400">info@topperscoachingcenter.com</span>
               </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-semibold text-lg mb-6">Programs</h3>
+            <ul className="space-y-3">
+              <li className="text-slate-400">Montessori</li>
+              <li className="text-slate-400">Primary Level</li>
+              <li className="text-slate-400">Middle School</li>
+              <li className="text-slate-400">Matriculation</li>
+              <li className="text-slate-400">Career Counseling</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-semibold text-lg mb-6">Quick Links</h3>
+            <ul className="space-y-3">
+              <li><Link href="/about" className="text-slate-400 hover:text-accent transition-colors">About Us</Link></li>
+              <li><Link href="/faculty" className="text-slate-400 hover:text-accent transition-colors">Our Faculty</Link></li>
+              <li><Link href="/results" className="text-slate-400 hover:text-accent transition-colors">Results</Link></li>
+              <li><Link href="/programs" className="text-slate-400 hover:text-accent transition-colors">Programs</Link></li>
+              <li><Link href="/contact" className="text-slate-400 hover:text-accent transition-colors">Contact</Link></li>
             </ul>
           </div>
         </div>
