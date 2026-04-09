@@ -19,8 +19,6 @@ export function WaveWrap({
   return (
     <div className={cn("wave-btn-wrap", `wave-${variant}`, rounded, className)}>
       <span className={cn("wave-ring", rounded)} aria-hidden="true" />
-      <span className={cn("wave-ring", rounded)} aria-hidden="true" />
-      <span className={cn("wave-ring", rounded)} aria-hidden="true" />
       {children}
     </div>
   );
