@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, BookOpen } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { WaveWrap } from "@/components/ui/wave-button";
 import logoUrl from "@assets/Logo_1775767926640.png";
 
 const navItems = [
@@ -63,15 +64,12 @@ export function Navbar() {
               </Link>
             ))}
             <Link href="/contact" className="ml-4">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                animate={{ boxShadow: ["0px 0px 0px rgba(229,57,53,0)", "0px 0px 15px rgba(229,57,53,0.4)", "0px 0px 0px rgba(229,57,53,0)"] }}
-                transition={{ boxShadow: { repeat: Infinity, duration: 2 } }}
-                className="rounded-full"
-              >
-                <Button className="bg-destructive hover:bg-destructive/90 text-white rounded-full px-6 shadow-lg shadow-destructive/20 transition-all">
-                  Admissions
-                </Button>
+              <motion.div whileHover={{ scale: 1.05 }} className="rounded-full">
+                <WaveWrap variant="red" rounded="rounded-full">
+                  <Button className="bg-destructive hover:bg-destructive/90 text-white rounded-full px-6 transition-all">
+                    Admissions
+                  </Button>
+                </WaveWrap>
               </motion.div>
             </Link>
           </nav>
@@ -111,15 +109,12 @@ export function Navbar() {
               ))}
               <div className="pt-4 pb-2 px-4">
                 <Link href="/contact" className="block w-full">
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    animate={{ boxShadow: ["0px 0px 0px rgba(229,57,53,0)", "0px 0px 15px rgba(229,57,53,0.4)", "0px 0px 0px rgba(229,57,53,0)"] }}
-                    transition={{ boxShadow: { repeat: Infinity, duration: 2 } }}
-                    className="rounded-xl w-full"
-                  >
-                    <Button className="w-full bg-destructive hover:bg-destructive/90 text-white rounded-xl py-6 text-lg transition-all">
-                      Admissions Open
-                    </Button>
+                  <motion.div whileHover={{ scale: 1.02 }} className="rounded-xl w-full">
+                    <WaveWrap variant="red" rounded="rounded-xl" className="w-full">
+                      <Button className="w-full bg-destructive hover:bg-destructive/90 text-white rounded-xl py-6 text-lg transition-all">
+                        Admissions Open
+                      </Button>
+                    </WaveWrap>
                   </motion.div>
                 </Link>
               </div>

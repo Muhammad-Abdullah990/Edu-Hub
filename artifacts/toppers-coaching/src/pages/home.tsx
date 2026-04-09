@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
+import { WaveWrap } from "@/components/ui/wave-button";
 import { BookOpen, GraduationCap, Star, Pencil, Trophy, Users, Target, ShieldCheck, ArrowRight } from "lucide-react";
 import logoUrl from "@assets/Logo_1775767926640.png";
 
@@ -84,22 +85,23 @@ export default function Home() {
               className="flex flex-col sm:flex-row items-center justify-center gap-4"
             >
               <Link href="/contact">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  animate={{ boxShadow: ["0px 0px 0px rgba(229,57,53,0)", "0px 0px 15px rgba(229,57,53,0.5)", "0px 0px 0px rgba(229,57,53,0)"] }}
-                  transition={{ boxShadow: { repeat: Infinity, duration: 2 } }}
-                  className="rounded-full w-full sm:w-auto"
-                >
-                  <Button className="w-full sm:w-auto text-lg h-14 px-8 bg-destructive hover:bg-destructive/90 text-white shadow-xl shadow-destructive/30 rounded-full group transition-all">
-                    Admissions Open
-                    <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-                  </Button>
+                <motion.div whileHover={{ scale: 1.05 }} className="rounded-full w-full sm:w-auto">
+                  <WaveWrap variant="red" rounded="rounded-full">
+                    <Button className="w-full sm:w-auto text-lg h-14 px-8 bg-destructive hover:bg-destructive/90 text-white rounded-full group transition-all">
+                      Admissions Open
+                      <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                    </Button>
+                  </WaveWrap>
                 </motion.div>
               </Link>
               <Link href="/results">
-                <Button variant="outline" className="w-full sm:w-auto text-lg h-14 px-8 border-2 border-primary/20 text-primary hover:bg-primary/5 rounded-full">
-                  View Our Results
-                </Button>
+                <motion.div whileHover={{ scale: 1.05 }} className="rounded-full w-full sm:w-auto">
+                  <WaveWrap variant="blue" rounded="rounded-full">
+                    <Button variant="outline" className="w-full sm:w-auto text-lg h-14 px-8 border-2 border-primary/20 text-primary hover:bg-primary/5 rounded-full">
+                      View Our Results
+                    </Button>
+                  </WaveWrap>
+                </motion.div>
               </Link>
             </motion.div>
           </div>
@@ -227,9 +229,11 @@ export default function Home() {
             Join the coaching center that prioritizes individual attention and guaranteed results.
           </p>
           <Link href="/contact">
-            <Button className="text-lg h-14 px-10 bg-accent hover:bg-accent/90 text-primary font-bold shadow-xl shadow-accent/20 rounded-full">
-              Contact Us Today
-            </Button>
+            <WaveWrap variant="gold" rounded="rounded-full">
+              <Button className="text-lg h-14 px-10 bg-accent hover:bg-accent/90 text-primary font-bold rounded-full">
+                Contact Us Today
+              </Button>
+            </WaveWrap>
           </Link>
         </div>
       </section>

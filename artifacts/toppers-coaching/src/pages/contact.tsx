@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { WaveWrap } from "@/components/ui/wave-button";
 import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -80,15 +81,17 @@ export default function Contact() {
               </ul>
 
               <div className="mt-8 pt-8 border-t border-slate-100">
-                <a 
-                  href="https://wa.me/923263987552" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white py-4 rounded-xl font-bold transition-colors shadow-lg shadow-[#25D366]/20"
-                >
-                  <MessageCircle size={24} />
-                  Chat on WhatsApp
-                </a>
+                <WaveWrap variant="green" rounded="rounded-xl" className="w-full">
+                  <a 
+                    href="https://wa.me/923263987552" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white py-4 rounded-xl font-bold transition-colors"
+                  >
+                    <MessageCircle size={24} />
+                    Chat on WhatsApp
+                  </a>
+                </WaveWrap>
               </div>
             </div>
           </div>
@@ -141,20 +144,17 @@ export default function Contact() {
                     placeholder="How can we help you?"
                   ></textarea>
                 </div>
-                <motion.div
-                  whileHover={!isSubmitting ? { scale: 1.02 } : {}}
-                  animate={!isSubmitting ? { boxShadow: ["0px 0px 0px rgba(229,57,53,0)", "0px 0px 15px rgba(229,57,53,0.4)", "0px 0px 0px rgba(229,57,53,0)"] } : {}}
-                  transition={{ boxShadow: { repeat: Infinity, duration: 2 } }}
-                  className="rounded-xl w-full"
-                >
-                  <Button 
-                    type="submit" 
-                    disabled={isSubmitting}
-                    className="w-full h-14 text-lg font-bold bg-destructive hover:bg-destructive/90 text-white rounded-xl shadow-lg transition-all"
-                  >
-                    {isSubmitting ? "Sending..." : "Submit Inquiry"}
-                    {!isSubmitting && <Send className="ml-2 w-5 h-5" />}
-                  </Button>
+                <motion.div whileHover={!isSubmitting ? { scale: 1.02 } : {}} className="rounded-xl w-full">
+                  <WaveWrap variant="red" rounded="rounded-xl" className={`w-full ${isSubmitting ? "pointer-events-none" : ""}`}>
+                    <Button 
+                      type="submit" 
+                      disabled={isSubmitting}
+                      className="w-full h-14 text-lg font-bold bg-destructive hover:bg-destructive/90 text-white rounded-xl transition-all"
+                    >
+                      {isSubmitting ? "Sending..." : "Submit Inquiry"}
+                      {!isSubmitting && <Send className="ml-2 w-5 h-5" />}
+                    </Button>
+                  </WaveWrap>
                 </motion.div>
               </form>
             </motion.div>
