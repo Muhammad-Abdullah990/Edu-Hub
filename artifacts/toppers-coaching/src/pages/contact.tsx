@@ -23,7 +23,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-32 pb-20">
+    <div className="min-h-screen pt-32 pb-20" style={{ background: "linear-gradient(135deg, #e8f4fd 0%, #f9fafb 40%, #fffde7 100%)" }}>
       <div className="container mx-auto px-4">
         
         <div className="max-w-3xl mx-auto text-center mb-16">
@@ -47,7 +47,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="font-semibold text-slate-900">Address</p>
-                    <p className="text-slate-600 text-sm mt-1">123 Education Street, Main Commercial Area, Baldia Town, Karachi</p>
+                    <p className="text-slate-600 text-sm mt-1">House Number 770, New Saeedabad Baldia Town, Karachi</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-4">
@@ -65,7 +65,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="font-semibold text-slate-900">Email</p>
-                    <p className="text-slate-600 text-sm mt-1">admissions@toppers.edu.pk</p>
+                    <p className="text-slate-600 text-sm mt-1">info@topperscoachingcenter.com</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-4">
@@ -141,14 +141,21 @@ export default function Contact() {
                     placeholder="How can we help you?"
                   ></textarea>
                 </div>
-                <Button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  className="w-full h-14 text-lg font-bold bg-primary hover:bg-primary/90 text-white rounded-xl shadow-lg shadow-primary/20"
+                <motion.div
+                  whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+                  animate={!isSubmitting ? { boxShadow: ["0px 0px 0px rgba(229,57,53,0)", "0px 0px 15px rgba(229,57,53,0.4)", "0px 0px 0px rgba(229,57,53,0)"] } : {}}
+                  transition={{ boxShadow: { repeat: Infinity, duration: 2 } }}
+                  className="rounded-xl w-full"
                 >
-                  {isSubmitting ? "Sending..." : "Submit Inquiry"}
-                  {!isSubmitting && <Send className="ml-2 w-5 h-5" />}
-                </Button>
+                  <Button 
+                    type="submit" 
+                    disabled={isSubmitting}
+                    className="w-full h-14 text-lg font-bold bg-destructive hover:bg-destructive/90 text-white rounded-xl shadow-lg transition-all"
+                  >
+                    {isSubmitting ? "Sending..." : "Submit Inquiry"}
+                    {!isSubmitting && <Send className="ml-2 w-5 h-5" />}
+                  </Button>
+                </motion.div>
               </form>
             </motion.div>
 

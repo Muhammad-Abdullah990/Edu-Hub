@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 import { Menu, X, BookOpen } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import logoUrl from "@assets/Transparent_1775751353427.png";
 
 const navItems = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
+  { name: "Faculty", href: "/faculty" },
   { name: "Results", href: "/results" },
   { name: "Programs", href: "/programs" },
   { name: "Testimonials", href: "/testimonials" },
@@ -42,13 +44,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/30 group-hover:scale-105 transition-transform">
-              <BookOpen size={24} />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-xl leading-none text-primary">Toppers</span>
-              <span className="text-xs font-semibold text-secondary uppercase tracking-wider">Coaching Center</span>
-            </div>
+            <img src={logoUrl} alt="Toppers Coaching Center" className="h-14 w-auto group-hover:scale-105 transition-transform" />
           </Link>
 
           {/* Desktop Nav */}
@@ -67,9 +63,16 @@ export function Navbar() {
               </Link>
             ))}
             <Link href="/contact" className="ml-4">
-              <Button className="bg-destructive hover:bg-destructive/90 text-white rounded-full px-6 shadow-lg shadow-destructive/20">
-                Admissions
-              </Button>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                animate={{ boxShadow: ["0px 0px 0px rgba(229,57,53,0)", "0px 0px 15px rgba(229,57,53,0.4)", "0px 0px 0px rgba(229,57,53,0)"] }}
+                transition={{ boxShadow: { repeat: Infinity, duration: 2 } }}
+                className="rounded-full"
+              >
+                <Button className="bg-destructive hover:bg-destructive/90 text-white rounded-full px-6 shadow-lg shadow-destructive/20 transition-all">
+                  Admissions
+                </Button>
+              </motion.div>
             </Link>
           </nav>
 
@@ -108,9 +111,16 @@ export function Navbar() {
               ))}
               <div className="pt-4 pb-2 px-4">
                 <Link href="/contact" className="block w-full">
-                  <Button className="w-full bg-destructive hover:bg-destructive/90 text-white rounded-xl py-6 text-lg">
-                    Admissions Open
-                  </Button>
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    animate={{ boxShadow: ["0px 0px 0px rgba(229,57,53,0)", "0px 0px 15px rgba(229,57,53,0.4)", "0px 0px 0px rgba(229,57,53,0)"] }}
+                    transition={{ boxShadow: { repeat: Infinity, duration: 2 } }}
+                    className="rounded-xl w-full"
+                  >
+                    <Button className="w-full bg-destructive hover:bg-destructive/90 text-white rounded-xl py-6 text-lg transition-all">
+                      Admissions Open
+                    </Button>
+                  </motion.div>
                 </Link>
               </div>
             </div>

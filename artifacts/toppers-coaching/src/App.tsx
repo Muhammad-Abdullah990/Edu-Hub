@@ -14,6 +14,9 @@ import Testimonials from "@/pages/testimonials";
 import Programs from "@/pages/programs";
 import Contact from "@/pages/contact";
 import NotFound from "@/pages/not-found";
+import FacultyAamera from "@/pages/faculty-aamera";
+import FacultyAbdullah from "@/pages/faculty-abdullah";
+import FacultyTayyaba from "@/pages/faculty-tayyaba";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +27,9 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/about" component={About} />
         <Route path="/faculty" component={Faculty} />
+        <Route path="/faculty/aamera-ishaque" component={FacultyAamera} />
+        <Route path="/faculty/muhammad-abdullah" component={FacultyAbdullah} />
+        <Route path="/faculty/tayyaba-gul" component={FacultyTayyaba} />
         <Route path="/results" component={Results} />
         <Route path="/student-success" component={StudentSuccess} />
         <Route path="/testimonials" component={Testimonials} />

@@ -1,0 +1,310 @@
+Create a **highly professional, fully responsive, multi-page educational website** using **React ONLY (frontend)**. Do NOT use Node.js or any backend.
+
+This website is for:
+**"Toppers Coaching Center"**
+
+Use a **premium, modern, highly animated UI** that feels like a top-tier educational institute.
+
+---
+
+# 🎯 BRAND CORE
+
+* Established: 2006
+* Slogan: **"We Don't Teach -- We Built TOPPERS"**
+* Vision: Educate Baldia
+* Mission: Achieve 98% results
+* 97%+ consistent yearly results
+* Fully family-run (no external teachers)
+
+Faculty:
+
+* Miss Aamera Ishaque (Montessori Directress, 20+ years)
+* Engineer Muhammad Abdullah (Software Engineer)
+* Doctor Tayyaba Gul (Pharm D)
+
+---
+
+# 📍 CONTACT INFO (USE GLOBALLY)
+
+* Address: House Number 770, New Saeedabad Baldia Town Karachi
+* Email: [info@topperscoachingcenter.com](mailto:info@topperscoachingcenter.com)
+
+---
+
+# 🎨 COLOR SYSTEM (STRICT – USE EXACTLY)
+
+## 🌈 Primary:
+
+* Yellow Gradient: #FFD54F → #FFB300
+* Deep Blue: #1E3A8A
+* Red: #E53935
+
+## 🎯 Secondary:
+
+* Sky Gradient: #6EC6FF → #2196F3
+* Green: #43A047
+* Soft White: #F9FAFB
+
+---
+
+# 🧊 GLOBAL DESIGN RULES
+
+* Use **Glassmorphism (liquid glass)** for header/navbar
+* Use **logo (transparent)** in:
+
+  * Header
+  * Footer
+  * Hero section watermark
+* Add **smooth animations everywhere**
+* NO dull/static buttons
+
+---
+
+# 🔥 BUTTON DESIGN (VERY IMPORTANT)
+
+ALL buttons must:
+
+* Have hover animations:
+
+  * Scale up slightly
+  * Glow effect
+  * Gradient shift
+* Include micro-interactions:
+
+  * Click ripple or bounce
+* Use RED (#E53935) for primary CTAs
+* Use subtle pulse animation for main CTA buttons
+
+---
+
+# 🌐 WEBSITE STRUCTURE (MULTI-PAGE ONLY)
+
+Pages:
+
+* Home
+* About
+* Faculty (overview)
+* Individual Tutor Pages (3 separate pages)
+* Results
+* Student Success
+* Testimonials
+* Programs
+* Contact
+
+⚠️ NO ONE-PAGE DESIGN
+⚠️ NO CONTENT DUPLICATION
+
+---
+
+# 🧊 HEADER (LIQUID GLASS)
+
+* Sticky navbar
+* Blur effect (glass)
+* Slight transparency
+* Glow border bottom
+* Smooth scroll behavior
+
+---
+
+# 🏠 HOME PAGE
+
+## Hero Section
+
+* Background: Sky gradient with rays/light effects
+* Add floating animated elements (books, stars, caps)
+
+### Content:
+
+Heading:
+**"Shaping Toppers Since 2006"**
+
+👉 "Since 2006" MUST be colored **#1E3A8A**
+
+Subheading:
+**"We Don't Teach -- We Built TOPPERS"**
+
+CTA:
+
+* Admissions Open (Red animated button)
+* View Results
+
+---
+
+## Trust Strip
+
+* 97%+ Results
+* Since 2006
+* Limited Students = Maximum Focus
+
+---
+
+## Achievers Section
+
+* Shazil Malik (BBA, Bahria University)
+* Afnan Adil (Pharm D, Hamdard University)
+* Use animated cards
+
+---
+
+## CTA Banner
+
+* Red ribbon style (like poster)
+* Animated entrance
+
+---
+
+# 🎨 BACKGROUND RULE (IMPORTANT)
+
+* HOME PAGE → Unique hero-based design (NO standard gradient)
+* ALL OTHER PAGES →
+  Use attractive soft gradients combining:
+
+  * Sky Blue
+  * White
+  * Light Yellow glow
+
+---
+
+# 👨‍🏫 FACULTY OVERVIEW PAGE
+
+* Show all tutors as premium cards
+* Use:
+
+  * Abstract illustrations (NO real images)
+  * Glow effects
+  * Hover animations
+
+Each card links to **separate detailed page**
+
+---
+
+# 👤 INDIVIDUAL TUTOR PAGES (VERY IMPORTANT)
+
+Create 3 separate pages:
+
+1. Miss Aamera Ishaque
+2. Engineer Muhammad Abdullah
+3. Doctor Tayyaba Gul
+
+Each page must include:
+
+* Unique storytelling layout
+* Animated sections
+* Timeline (journey)
+* Teaching philosophy
+* Achievements
+
+⚠️ Use **creative visuals instead of real images**
+⚠️ Must feel premium and emotional
+
+---
+
+# 📊 RESULTS PAGE
+
+* Animated charts
+* Growth visualization
+* Highlight:
+  97% → 98% goal
+
+---
+
+# 🌟 STUDENT SUCCESS PAGE
+
+* Story-based case studies
+* Journey + mentorship
+* Emotional storytelling
+
+---
+
+# 🎥 TESTIMONIALS PAGE (STRICT)
+
+## Students Section
+
+* Grid of 5 video testimonials
+* Hover play animation
+
+---
+
+## Parents Section (VERY IMPORTANT)
+
+### Desktop:
+
+* Show **3 videos in a row**
+* Auto-slide carousel
+
+### Mobile:
+
+* Show **1 video at a time**
+* Swipe enabled
+
+### Behavior:
+
+* Auto change videos after few seconds
+* Smooth transitions
+
+---
+
+# 📘 PROGRAMS PAGE
+
+* Mont to Matric
+* Teaching method
+* Extra holiday sessions
+* Performance tracking
+
+---
+
+# 📞 CONTACT PAGE
+
+* Contact form (frontend only)
+* WhatsApp CTA button
+* Google Maps embed
+* Show address clearly
+
+---
+
+# 🎬 ANIMATIONS (REQUIRED)
+
+Use Framer Motion:
+
+* Page transitions
+* Fade-in sections
+* Slide-up cards
+* Floating hero elements
+* Button hover animations
+* Scroll-triggered animations
+
+---
+
+# ⚡ UX REQUIREMENTS
+
+* Fully responsive
+* Mobile-first design
+* Fast loading
+* Clean spacing
+* Strong CTA placement
+
+---
+
+# 🚫 STRICT RULES
+
+* NO Node.js
+* NO real tutor images
+* NO repeated content
+* NO basic UI
+* NO one-page layout
+
+---
+
+# 🎯 FINAL EXPERIENCE
+
+Website must feel:
+
+* Premium
+* Trustworthy
+* Emotional
+* Results-driven
+
+Parents should feel:
+👉 "This is where my child will become a topper."
+
+---

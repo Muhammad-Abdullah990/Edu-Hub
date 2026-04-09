@@ -2,12 +2,18 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { BookOpen, GraduationCap, Star, Pencil, Trophy, Users, Target, ShieldCheck, ArrowRight } from "lucide-react";
+import logoUrl from "@assets/Transparent_1775751353427.png";
 
 export default function Home() {
   return (
     <div className="min-h-screen">
       {/* HERO SECTION */}
       <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-radial-light">
+        {/* Logo Watermark */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+          <img src={logoUrl} alt="Watermark" className="w-full max-w-4xl opacity-5 md:opacity-10 object-contain" />
+        </div>
+        
         {/* Floating Icons */}
         <div className="absolute inset-0 pointer-events-none">
           <motion.div
@@ -59,7 +65,7 @@ export default function Home() {
               className="text-5xl md:text-7xl font-bold text-slate-900 tracking-tight mb-6"
             >
               Shaping Toppers <br />
-              <span className="text-gradient-yellow">Since 2006</span>
+              <span className="text-[#1E3A8A]">Since 2006</span>
             </motion.h1>
 
             <motion.p
@@ -68,7 +74,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-xl md:text-2xl text-slate-600 mb-10 max-w-2xl mx-auto font-medium"
             >
-              From Montessori to Matric — We Build Futures. A premier family-run coaching institute dedicated to your child's success.
+              We Don't Teach -- We Built TOPPERS
             </motion.p>
 
             <motion.div
@@ -78,10 +84,17 @@ export default function Home() {
               className="flex flex-col sm:flex-row items-center justify-center gap-4"
             >
               <Link href="/contact">
-                <Button className="w-full sm:w-auto text-lg h-14 px-8 bg-destructive hover:bg-destructive/90 text-white shadow-xl shadow-destructive/30 rounded-full group">
-                  Admissions Open
-                  <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-                </Button>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  animate={{ boxShadow: ["0px 0px 0px rgba(229,57,53,0)", "0px 0px 15px rgba(229,57,53,0.5)", "0px 0px 0px rgba(229,57,53,0)"] }}
+                  transition={{ boxShadow: { repeat: Infinity, duration: 2 } }}
+                  className="rounded-full w-full sm:w-auto"
+                >
+                  <Button className="w-full sm:w-auto text-lg h-14 px-8 bg-destructive hover:bg-destructive/90 text-white shadow-xl shadow-destructive/30 rounded-full group transition-all">
+                    Admissions Open
+                    <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                  </Button>
+                </motion.div>
               </Link>
               <Link href="/results">
                 <Button variant="outline" className="w-full sm:w-auto text-lg h-14 px-8 border-2 border-primary/20 text-primary hover:bg-primary/5 rounded-full">

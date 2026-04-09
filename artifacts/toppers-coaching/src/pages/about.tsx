@@ -3,7 +3,7 @@ import { CheckCircle2, Heart, Target, Lightbulb } from "lucide-react";
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-slate-50 pt-20">
+    <div className="min-h-screen pt-20" style={{ background: "linear-gradient(135deg, #e8f4fd 0%, #f9fafb 40%, #fffde7 100%)" }}>
       {/* Hero Section */}
       <section className="py-20 bg-primary text-white relative overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">

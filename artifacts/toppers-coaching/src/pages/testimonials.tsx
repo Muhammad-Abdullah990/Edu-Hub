@@ -31,7 +31,7 @@ export default function Testimonials() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-32 pb-20">
+    <div className="min-h-screen pt-32 pb-20" style={{ background: "linear-gradient(135deg, #e8f4fd 0%, #f9fafb 40%, #fffde7 100%)" }}>
       
       {/* Student Voices (Video Placeholders) */}
       <section className="container mx-auto px-4 mb-24">

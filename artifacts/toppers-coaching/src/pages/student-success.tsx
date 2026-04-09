@@ -20,7 +20,7 @@ export default function StudentSuccess() {
   ];
 
   return (
-    <div className="min-h-screen bg-white pt-32 pb-20">
+    <div className="min-h-screen pt-32 pb-20" style={{ background: "linear-gradient(135deg, #e8f4fd 0%, #f9fafb 40%, #fffde7 100%)" }}>
       <div className="container mx-auto px-4">
         
         <div className="max-w-3xl mx-auto text-center mb-20">

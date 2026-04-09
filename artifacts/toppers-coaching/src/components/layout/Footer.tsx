@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { BookOpen, MapPin, Phone, Mail, Instagram, Facebook } from "lucide-react";
+import logoUrl from "@assets/Transparent_1775751353427.png";
 
 export function Footer() {
   return (
@@ -7,14 +8,8 @@ export function Footer() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2 inline-flex">
-              <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center text-primary">
-                <BookOpen size={24} />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-bold text-xl leading-none text-white">Toppers</span>
-                <span className="text-xs font-semibold text-accent uppercase tracking-wider">Coaching Center</span>
-              </div>
+            <Link href="/" className="flex items-center gap-2 inline-flex group">
+              <img src={logoUrl} alt="Toppers Coaching Center" className="h-16 w-auto group-hover:scale-105 transition-transform bg-white/10 rounded-xl p-1" />
             </Link>
             <p className="text-slate-400 text-sm mt-4 max-w-xs">
               A premier family-run coaching institute in Baldia, Pakistan. Educating futures since 2006.
@@ -56,7 +51,7 @@ export function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="text-accent shrink-0 mt-1" size={20} />
-                <span className="text-slate-400">123 Education Street, Baldia Town, Karachi, Pakistan</span>
+                <span className="text-slate-400">House Number 770, New Saeedabad Baldia Town, Karachi</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="text-accent shrink-0" size={20} />
@@ -64,7 +59,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="text-accent shrink-0" size={20} />
-                <span className="text-slate-400">info@toppers.edu.pk</span>
+                <span className="text-slate-400">info@topperscoachingcenter.com</span>
               </li>
             </ul>
           </div>
