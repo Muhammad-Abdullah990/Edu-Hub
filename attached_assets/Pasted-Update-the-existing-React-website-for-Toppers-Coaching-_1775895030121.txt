@@ -1,0 +1,118 @@
+Update the existing React website for **"Toppers Coaching Center"** with the following UI refinements.
+
+⚠️ IMPORTANT:
+
+* DO NOT modify layout, structure, colors, or existing components unless specified
+* DO NOT remove or replace existing buttons
+* ONLY apply the updates below carefully
+* Maintain responsiveness and premium design
+
+---
+
+# 📞 CONTACT PAGE UPDATE
+
+## WhatsApp Business Button (NEW ADDITION)
+
+In the **"Contact Info" section** of the Contact Us page:
+
+* ADD a new button:
+  **"Chat on WhatsApp" (WhatsApp Business style)**
+
+### Requirements:
+
+* Keep the **existing contact buttons unchanged**
+* Place this new button:
+
+  * Clearly visible
+  * Proper spacing from other buttons
+  * Same alignment style
+
+---
+
+## Button Design:
+
+* Use:
+
+  * Background: WhatsApp Green (#25D366)
+  * Icon: WhatsApp icon (left side)
+  * Text: "Chat on WhatsApp"
+
+* Make the button:
+
+  * **Wider than standard buttons**
+  * Slightly more prominent (to encourage action)
+
+---
+
+## Interaction:
+
+* On click:
+
+  * Open WhatsApp chat (use placeholder link or wa.me format)
+
+* Hover:
+
+  * Slight scale-up
+  * Soft glow effect
+
+---
+
+# 🌊 BUTTON WAVE ANIMATION FIX (GLOBAL)
+
+Currently:
+
+* Wave/ripple animation spreads too far (1–1.5 inches)
+
+---
+
+## REQUIRED FIX:
+
+For ALL buttons where wave/ripple animation exists:
+
+* Limit wave expansion to:
+  👉 **Maximum 1 centimeter from button boundary**
+
+---
+
+## Animation Behavior:
+
+* Keep ripple subtle and controlled
+* Reduce:
+
+  * Radius
+  * Opacity spread
+* Ensure:
+
+  * Clean, premium feel
+  * No exaggerated motion
+
+---
+
+## Maintain:
+
+* Existing hover animations
+* Existing glow effects
+* Existing transitions
+
+ONLY adjust the **wave distance and scale**
+
+---
+
+# 🎯 FINAL CHECK
+
+Ensure:
+
+* WhatsApp button integrates smoothly
+* No UI break
+* No layout shift
+* All animations feel refined and premium
+
+---
+
+# 🚀 GOAL
+
+* Improve CTA effectiveness
+* Keep animations elegant (not overwhelming)
+* Maintain high-end professional feel
+
+---
