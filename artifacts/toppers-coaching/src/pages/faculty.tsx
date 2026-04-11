@@ -8,7 +8,7 @@ export default function Faculty() {
     {
       name: "Miss Aamera Ishaque",
       role: "Montessori Directress, Founder",
-      experience: "20+ Years Experience",
+      experience: "35+ Years Experience",
       icon: BookOpen,
       quote: "Education begins with understanding the child. When we build a strong foundation, the rest of the academic journey becomes a path of discovery rather than a struggle.",
       color: "from-blue-500/20 to-purple-500/20",

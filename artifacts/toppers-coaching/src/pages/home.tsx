@@ -217,7 +217,7 @@ export default function Home() {
                 <Star size={32} />
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-2">Afnan Adil</h3>
-              <p className="text-secondary font-semibold mb-4">Pharm D Candidate</p>
+              <p className="text-secondary font-semibold mb-4">Pursuing Doctor of Pharmacy</p>
               <p className="text-slate-600 mb-6 italic">"Toppers didn't just teach me the syllabus; they guided my career path. Tayyaba Ma'am's mentorship was crucial for my medical field journey."</p>
               <Link href="/student-success" className="group inline-flex items-center gap-1 text-primary font-medium px-3 py-1.5 rounded-lg transition-all duration-300 hover:shadow-[0_0_14px_rgba(30,58,138,0.25)] hover:bg-primary/5">
                 Read Full Story

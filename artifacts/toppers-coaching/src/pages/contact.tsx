@@ -171,7 +171,7 @@ export default function Contact() {
             <div className="w-full h-[300px] rounded-3xl overflow-hidden border border-slate-100 shadow-sm">
               <iframe
                 title="Toppers Coaching Center Location"
-                src="https://maps.google.com/maps?q=Sector+9D+Street+4+Baldia+Town+Karachi&z=15&output=embed"
+                src="https://maps.google.com/maps?q=Sector+9D+Street+4+Baldia+Town+Karachi+Pakistan&z=16&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

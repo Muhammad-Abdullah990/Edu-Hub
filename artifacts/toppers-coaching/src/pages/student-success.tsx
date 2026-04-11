@@ -12,8 +12,8 @@ export default function StudentSuccess() {
     },
     {
       name: "Afnan Adil",
-      current: "Pharm D Candidate",
-      path: ["Struggled with Sciences", "Mastered Concepts at Toppers", "Accepted into Pharm D"],
+      current: "Pursuing Doctor of Pharmacy",
+      path: ["Struggled with Sciences", "Mastered Concepts at Toppers", "Accepted into Doctor of Pharmacy"],
       quote: "Science used to be my weakest subject until I was taught by Tayyaba Ma'am. The way concepts were broken down made biology and chemistry fascinating rather than intimidating. Their career counseling specifically helped me aim for and achieve my dream of entering the medical field.",
       color: "bg-emerald-50"
     }
