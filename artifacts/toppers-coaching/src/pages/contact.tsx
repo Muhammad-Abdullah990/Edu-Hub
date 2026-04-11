@@ -48,7 +48,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="font-semibold text-slate-900">Address</p>
-                    <p className="text-slate-600 text-sm mt-1">House Number 770, New Saeedabad Baldia Town, Karachi</p>
+                    <p className="text-slate-600 text-sm mt-1">Sector 9D, Street no 4, Baldia town</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-4">
@@ -75,7 +75,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="font-semibold text-slate-900">Timings</p>
-                    <p className="text-slate-600 text-sm mt-1">Mon - Sat: 3:00 PM - 9:00 PM</p>
+                    <p className="text-slate-600 text-sm mt-1">Mon to Sun: 5:00 PM to 11:59 PM</p>
                   </div>
                 </li>
               </ul>
@@ -159,14 +159,18 @@ export default function Contact() {
               </form>
             </motion.div>
 
-            {/* Placeholder Map */}
-            <div className="w-full h-[300px] bg-slate-200 rounded-3xl overflow-hidden relative">
-              <div className="absolute inset-0 bg-slate-300 animate-pulse"></div>
-              <div className="absolute inset-0 flex items-center justify-center flex-col text-slate-500">
-                <MapPin size={48} className="mb-2 opacity-50" />
-                <span className="font-medium">Google Maps Embed Placeholder</span>
-                <span className="text-sm">Baldia Town, Karachi</span>
-              </div>
+            {/* Google Maps Embed */}
+            <div className="w-full h-[300px] rounded-3xl overflow-hidden border border-slate-100 shadow-sm">
+              <iframe
+                title="Toppers Coaching Center Location"
+                src="https://maps.google.com/maps?q=Sector+9D+Street+4+Baldia+Town+Karachi&z=15&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </div>
 

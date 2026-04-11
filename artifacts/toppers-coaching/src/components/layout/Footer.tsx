@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { BookOpen, MapPin, Phone, Mail, Instagram, Facebook } from "lucide-react";
-import logoUrl from "@assets/Logo_1775767926640.png";
+import logoUrl from "@assets/Full_Transparent_(1)_1775893055172.webp";
 
 export function Footer() {
   return (
@@ -29,7 +29,7 @@ export function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="text-accent shrink-0 mt-1" size={20} />
-                <span className="text-slate-400">House Number 770, New Saeedabad Baldia Town, Karachi</span>
+                <span className="text-slate-400">Sector 9D, Street no 4, Baldia town</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="text-accent shrink-0" size={20} />

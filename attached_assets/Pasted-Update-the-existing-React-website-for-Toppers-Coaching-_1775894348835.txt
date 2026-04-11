@@ -1,0 +1,176 @@
+Update the existing React website for **"Toppers Coaching Center"** with the following changes.
+
+⚠️ IMPORTANT:
+
+* DO NOT modify any existing layout, structure, styling, animations, or components unless explicitly mentioned below
+* ONLY apply the exact updates listed
+* Maintain all existing design quality, responsiveness, and animations
+
+---
+
+# 🖼️ LOGO UPDATE (GLOBAL)
+
+* Replace ALL existing logos across the website with the **newly provided image**
+* Apply in:
+
+  * Header
+  * Footer
+  * Any hero/logo usage
+* Ensure proper sizing, alignment, and responsiveness
+
+---
+
+# 🦶 FOOTER UPDATE
+
+## Address Change:
+
+Replace existing address with:
+**"Sector 9D, Street no 4, Baldia town"**
+
+---
+
+# 📖 ABOUT PAGE FIX
+
+## Our Story Section:
+
+* Add proper **left-side spacing (padding/margin)**
+* Improve visual alignment
+* Do NOT change text content
+
+---
+
+# 🏠 HOME PAGE UPDATES
+
+## Proven Success Stories Section
+
+For BOTH:
+
+* Shazil Malik
+* Afnan Adil
+
+### Button: "Read full Story →"
+
+👉 Add animation to arrow:
+
+* Arrow must move **left to right continuously (subtle loop)**
+* On hover:
+
+  * Slight speed increase
+  * Button glow effect
+
+---
+
+# 👨‍🏫 FACULTY PAGE BUTTON FIX
+
+## "View Profile" Buttons (ALL 3)
+
+* Add animated arrow icon at end
+* Arrow animation:
+
+  * Smooth left-to-right motion
+  * Hover interaction enhances animation
+* Ensure all 3 buttons are:
+
+  * Perfectly aligned
+  * Same size and spacing
+
+---
+
+# 🎥 TESTIMONIALS PAGE UPDATES
+
+## Title Change:
+
+Replace:
+**"Hear from our students"**
+
+With:
+**"Successful Stories"**
+
+---
+
+## Reel Content Update
+
+Replace names with:
+
+* "Student: Kiswa Matric Student"
+* "Student Arfa Matric Student"
+* "Parent: Arfa"
+* "Parent: Abdul Hadi"
+* "Parent: Zawar"
+
+---
+
+## Video Availability
+
+Where videos are not available:
+👉 Display text:
+**"Coming Soon"**
+
+* Style it:
+
+  * Centered
+  * Slight animation (fade/pulse)
+  * Professional placeholder design
+
+---
+
+## Parents Videos Behavior (KEEP / ENSURE)
+
+Desktop:
+
+* 3 videos in a row
+* Auto-slide carousel
+
+Mobile:
+
+* 1 video at a time
+
+* Swipe enabled
+
+* Smooth transitions required
+
+---
+
+# 📞 CONTACT PAGE UPDATES
+
+## Timings:
+
+Set:
+**Mon to Sun: 5:00 PM to 11:59 PM**
+
+---
+
+## Google Maps Embed:
+
+Replace with this link:
+https://maps.app.goo.gl/pFZNSLHstiegFQc17
+
+* Ensure proper embed display
+* Responsive behavior
+
+---
+
+# 🎯 FINAL CHECK (MANDATORY)
+
+Ensure:
+
+* No layout break
+* No design downgrade
+* No removed animations
+* No unintended changes
+
+ONLY apply the updates listed above.
+
+---
+
+# 🚀 GOAL
+
+Enhance:
+
+* Visual engagement
+* CTA effectiveness
+* Content accuracy
+
+WITHOUT altering existing premium design.
+
+---

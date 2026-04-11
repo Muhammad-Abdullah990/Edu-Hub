@@ -4,7 +4,7 @@ import { Menu, X, BookOpen } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { WaveWrap } from "@/components/ui/wave-button";
-import logoUrl from "@assets/Transparent_1775751353427.png";
+import logoUrl from "@assets/Full_Transparent_(1)_1775893055172.webp";
 
 const navItems = [
   { name: "Home", href: "/" },

@@ -7,7 +7,7 @@ export default function About() {
       {/* Hero Section */}
       <section className="py-20 bg-primary text-white relative overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl">
+          <div className="max-w-3xl pl-4 sm:pl-8 md:pl-12">
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

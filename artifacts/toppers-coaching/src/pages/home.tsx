@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { WaveWrap } from "@/components/ui/wave-button";
 import { BookOpen, GraduationCap, Star, Pencil, Trophy, Users, Target, ShieldCheck, ArrowRight } from "lucide-react";
-import logoUrl from "@assets/Logo_1775767926640.png";
+import logoUrl from "@assets/Full_Transparent_(1)_1775893055172.webp";
 
 export default function Home() {
   return (
@@ -193,8 +193,15 @@ export default function Home() {
               <h3 className="text-2xl font-bold text-slate-900 mb-2">Shazil Malik</h3>
               <p className="text-secondary font-semibold mb-4">Pursuing BBA</p>
               <p className="text-slate-600 mb-6 italic">"The foundational concepts I learned at Toppers gave me the confidence to excel in my higher studies. The personalized attention is unmatched."</p>
-              <Link href="/student-success" className="text-primary font-medium flex items-center group">
-                Read Full Story <ArrowRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <Link href="/student-success" className="group inline-flex items-center gap-1 text-primary font-medium px-3 py-1.5 rounded-lg transition-all duration-300 hover:shadow-[0_0_14px_rgba(30,58,138,0.25)] hover:bg-primary/5">
+                Read Full Story
+                <motion.span
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
+                  className="group-hover:[animation-duration:0.9s] flex"
+                >
+                  <ArrowRight className="w-4 h-4" />
+                </motion.span>
               </Link>
             </motion.div>
 
@@ -212,8 +219,15 @@ export default function Home() {
               <h3 className="text-2xl font-bold text-slate-900 mb-2">Afnan Adil</h3>
               <p className="text-secondary font-semibold mb-4">Pharm D Candidate</p>
               <p className="text-slate-600 mb-6 italic">"Toppers didn't just teach me the syllabus; they guided my career path. Tayyaba Ma'am's mentorship was crucial for my medical field journey."</p>
-              <Link href="/student-success" className="text-primary font-medium flex items-center group">
-                Read Full Story <ArrowRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <Link href="/student-success" className="group inline-flex items-center gap-1 text-primary font-medium px-3 py-1.5 rounded-lg transition-all duration-300 hover:shadow-[0_0_14px_rgba(30,58,138,0.25)] hover:bg-primary/5">
+                Read Full Story
+                <motion.span
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
+                  className="group-hover:[animation-duration:0.9s] flex"
+                >
+                  <ArrowRight className="w-4 h-4" />
+                </motion.span>
               </Link>
             </motion.div>
           </div>

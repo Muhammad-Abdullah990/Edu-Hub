@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { BookOpen, Code, Pill, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
+import { Button } from "@/components/ui/button";
 
 export default function Faculty() {
   const teachers = [
@@ -106,8 +107,20 @@ export default function Faculty() {
                 </div>
 
                 <div className="text-center mt-auto pt-4">
-                  <Link href={teacher.slug} className="inline-flex items-center text-primary font-bold group-hover:text-secondary transition-colors">
-                    View Profile <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <Link href={teacher.slug}>
+                    <Button
+                      variant="outline"
+                      className="w-full border-2 border-primary/20 text-primary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 rounded-xl group/btn"
+                    >
+                      View Profile
+                      <motion.span
+                        animate={{ x: [0, 5, 0] }}
+                        transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
+                        className="ml-2 flex group-hover/btn:[animation-duration:0.8s]"
+                      >
+                        <ArrowRight className="w-4 h-4" />
+                      </motion.span>
+                    </Button>
                   </Link>
                 </div>
               </div>
