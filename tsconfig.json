@@ -4,13 +4,22 @@
   "files": [],
   "references": [
     {
-      "path": "./lib/db"
+      "path": "./packages/configs"
     },
     {
-      "path": "./lib/api-client-react"
+      "path": "./packages/auth"
     },
     {
-      "path": "./lib/api-zod"
+      "path": "./packages/db"
+    },
+    {
+      "path": "./packages/validations"
+    },
+    {
+      "path": "./packages/api-client"
+    },
+    {
+      "path": "./packages/ui"
     }
   ]
 }

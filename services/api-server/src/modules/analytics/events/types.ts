@@ -1,0 +1,7 @@
+export type AnalyticsEventType =
+  | "ATTENDANCE_MARKED"
+  | "FEE_PAID"
+  | "REPORT_GENERATED"
+  | "PERFORMANCE_NOTE_ADDED"
+  | "PARENT_NOTIFICATION_SENT";
+

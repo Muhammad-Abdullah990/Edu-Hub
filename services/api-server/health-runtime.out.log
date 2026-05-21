@@ -1,0 +1,43 @@
+[16:58:34.908] [32mINFO[39m (3800): [36mServer listening[39m
+    [35mport[39m: 4321
+[16:58:37.127] [31mERROR[39m (3800): [36mUnhandled error[39m
+    err: {
+      "type": "TypeError",
+      "message": "Cannot set property query of #<IncomingMessage> which has only a getter",
+      "stack":
+          TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+              at sanitizeRequest (C:\Users\abdul\Downloads\ReplitExport-topperscoaching (1)\Edu-Hub\services\api-server\src\middlewares\sanitize-request.ts:10:11)
+              at Layer.handleRequest (C:\Users\abdul\Downloads\ReplitExport-topperscoaching (1)\Edu-Hub\node_modules\.pnpm\router@2.2.0\node_modules\router\lib\layer.js:152:17)
+              at trimPrefix (C:\Users\abdul\Downloads\ReplitExport-topperscoaching (1)\Edu-Hub\node_modules\.pnpm\router@2.2.0\node_modules\router\index.js:342:13)
+              at <anonymous> (C:\Users\abdul\Downloads\ReplitExport-topperscoaching (1)\Edu-Hub\node_modules\.pnpm\router@2.2.0\node_modules\router\index.js:297:9)
+              at processParams (C:\Users\abdul\Downloads\ReplitExport-topperscoaching (1)\Edu-Hub\node_modules\.pnpm\router@2.2.0\node_modules\router\index.js:582:12)
+              at next (C:\Users\abdul\Downloads\ReplitExport-topperscoaching (1)\Edu-Hub\node_modules\.pnpm\router@2.2.0\node_modules\router\index.js:291:5)
+              at read (C:\Users\abdul\Downloads\ReplitExport-topperscoaching (1)\Edu-Hub\node_modules\.pnpm\body-parser@2.2.2\node_modules\body-parser\lib\read.js:53:5)
+              at urlencodedParser (C:\Users\abdul\Downloads\ReplitExport-topperscoaching (1)\Edu-Hub\node_modules\.pnpm\body-parser@2.2.2\node_modules\body-parser\lib\types\urlencoded.js:57:5)
+              at Layer.handleRequest (C:\Users\abdul\Downloads\ReplitExport-topperscoaching (1)\Edu-Hub\node_modules\.pnpm\router@2.2.0\node_modules\router\lib\layer.js:152:17)
+              at trimPrefix (C:\Users\abdul\Downloads\ReplitExport-topperscoaching (1)\Edu-Hub\node_modules\.pnpm\router@2.2.0\node_modules\router\index.js:342:13)
+    }
+[16:58:37.149] [32mINFO[39m (3800): [36mrequest errored[39m
+    [35mreq[39m: {
+      "id": 1,
+      "method": "GET",
+      "url": "/api/healthz"
+    }
+    [35mres[39m: {
+      "statusCode": 500
+    }
+    [35mresponseTime[39m: 26
+    err: {
+      "type": "Error",
+      "message": "failed with status code 500",
+      "stack":
+          Error: failed with status code 500
+              at onResFinished (C:\Users\abdul\Downloads\ReplitExport-topperscoaching (1)\Edu-Hub\node_modules\.pnpm\pino-http@10.5.0\node_modules\pino-http\logger.js:115:39)
+              at ServerResponse.onResponseComplete (C:\Users\abdul\Downloads\ReplitExport-topperscoaching (1)\Edu-Hub\node_modules\.pnpm\pino-http@10.5.0\node_modules\pino-http\logger.js:178:14)
+              at ServerResponse.emit (node:events:520:35)
+              at onFinish (node:_http_outgoing:1026:10)
+              at callback (node:internal/streams/writable:764:21)
+              at afterWrite (node:internal/streams/writable:708:5)
+              at afterWriteTick (node:internal/streams/writable:694:10)
+              at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+    }

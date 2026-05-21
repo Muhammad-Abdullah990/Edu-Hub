@@ -2,7 +2,7 @@
 
 ## Overview
 
-pnpm workspace monorepo using TypeScript. Each package manages its own dependencies.
+pnpm workspace monorepo using TypeScript. The repo is now organized around `apps`, `services`, and `packages` so each surface can scale independently.
 
 ## Stack
 
@@ -12,26 +12,26 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - **TypeScript version**: 5.9
 - **API framework**: Express 5
 - **Database**: PostgreSQL + Drizzle ORM
-- **Validation**: Zod (`zod/v4`), `drizzle-zod`
-- **API codegen**: Orval (from OpenAPI spec)
-- **Build**: esbuild (CJS bundle)
+- **Validation**: Zod, drizzle-zod
+- **API codegen**: Orval from the API service OpenAPI contract
+- **Build**: Vite for frontend apps, esbuild for the API service
 
-## Artifacts
+## Apps
 
-### Toppers Coaching Center (`artifacts/toppers-coaching`)
-- **Type**: React + Vite (frontend-only, no backend)
+### Marketing Web (`apps/marketing-web`)
+- **Type**: React + Vite
 - **Preview Path**: `/`
-- **Tech**: React, Tailwind CSS v4, Framer Motion, Recharts, Wouter (routing)
-- **Pages**: Home, About, Faculty, Results, Student Success, Testimonials, Programs, Contact
-- **Brand Colors**: Blue #1E3A8A, Red #E53935, Yellow #FFD54F→#FFB300, Sky Blue #2196F3, Green #43A047
-- **Design**: Glassmorphism header, animated hero with floating icons, animated counters, results charts
+- **Tech**: React, Tailwind CSS v4, Framer Motion, Recharts, Wouter
+
+### API Service (`services/api-server`)
+- **Type**: Express service
+- **Base Path**: `/api`
+- **Contract**: `services/api-server/openapi/openapi.yaml`
 
 ## Key Commands
 
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- `pnpm --filter @workspace/api-server run dev` — run API server locally
-
-See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details.
+- `pnpm run typecheck` - full workspace typecheck
+- `pnpm run build` - typecheck and build every workspace that exposes a build script
+- `pnpm run codegen` - regenerate the API client and validation schemas from the service OpenAPI contract
+- `pnpm --filter @toppers/db run push` - push database schema changes in development
+- `pnpm --filter @toppers/api-server run dev` - build and start the API service

@@ -1,0 +1,1510 @@
+﻿openapi: 3.1.0
+info:
+  title: Edu-OS API
+  version: 0.2.0
+  description: Toppers Coaching Center - Student Management System API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: auth
+    description: Authentication and session operations
+  - name: users
+    description: User management
+  - name: students
+    description: Student management
+  - name: parents
+    description: Parent management
+  - name: rbac
+    description: Roles and permissions
+  - name: fees
+    description: Fee records, reminders and payment status
+  - name: communications
+    description: Human-reviewed communication queue and notification history
+
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  # Auth endpoints
+  /auth/login:
+    post:
+      operationId: authLogin
+      tags: [auth]
+      summary: Login with email and password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthLoginRequest"
+      responses:
+        "200":
+          description: Authenticated successfully
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthSessionResponse"
+        "401":
+          description: Invalid credentials
+
+  /auth/logout:
+    post:
+      operationId: authLogout
+      tags: [auth]
+      summary: Logout current session
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/CsrfHeader"
+      responses:
+        "200":
+          description: Logged out
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OperationStatus"
+
+  /auth/logout-all:
+    post:
+      operationId: authLogoutAll
+      tags: [auth]
+      summary: Logout all sessions
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Logged out all sessions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OperationStatus"
+
+  /auth/refresh:
+    post:
+      operationId: authRefresh
+      tags: [auth]
+      summary: Refresh access token
+      parameters:
+        - $ref: "#/components/parameters/CsrfHeader"
+      responses:
+        "200":
+          description: Refreshed successfully
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthSessionResponse"
+        "401":
+          description: Invalid refresh token
+
+  /auth/me:
+    get:
+      operationId: authMe
+      tags: [auth]
+      summary: Get current authenticated user
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Current user session
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthenticatedUser"
+
+  # Users endpoints
+  /users:
+    post:
+      operationId: createUser
+      tags: [users]
+      summary: Create a new user
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreateRequest"
+      responses:
+        "201":
+          description: Created user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  /users/{id}:
+    get:
+      operationId: getUserById
+      tags: [users]
+      summary: Get a user by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/UserIdPath"
+      responses:
+        "200":
+          description: User details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+    patch:
+      operationId: updateUserById
+      tags: [users]
+      summary: Update a user by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/UserIdPath"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserUpdateRequest"
+      responses:
+        "200":
+          description: Updated user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+    delete:
+      operationId: deleteUserById
+      tags: [users]
+      summary: Deactivate a user by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/UserIdPath"
+      responses:
+        "200":
+          description: Deactivated user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OperationStatus"
+
+  # Students endpoints
+  /students:
+    get:
+      operationId: listStudents
+      tags: [students]
+      summary: List students with filtering and pagination
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: q
+          in: query
+          description: Search by name or student code
+          schema:
+            type: string
+        - name: class
+          in: query
+          description: Filter by class
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter by status (active/archived)
+          schema:
+            type: string
+            enum: [active, archived]
+        - name: page
+          in: query
+          description: Page number
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          description: Items per page
+          schema:
+            type: integer
+            default: 25
+        - name: sortBy
+          in: query
+          description: Sort field
+          schema:
+            type: string
+            enum: [fullName, admissionDate, class, studentCode]
+            default: fullName
+        - name: sortOrder
+          in: query
+          description: Sort direction
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+      responses:
+        "200":
+          description: List of students
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/ApiResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/StudentCard"
+                      meta:
+                        $ref: "#/components/schemas/PaginationMeta"
+
+    post:
+      operationId: createStudent
+      tags: [students]
+      summary: Create a new student
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StudentCreateRequest"
+      responses:
+        "201":
+          description: Student created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "409":
+          description: Student code already exists
+
+  /students/{id}:
+    get:
+      operationId: getStudentById
+      tags: [students]
+      summary: Get detailed student profile
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/StudentIdPath"
+      responses:
+        "200":
+          description: Student profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "404":
+          description: Student not found
+
+    put:
+      operationId: updateStudent
+      tags: [students]
+      summary: Update a student
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/StudentIdPath"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StudentUpdateRequest"
+      responses:
+        "200":
+          description: Student updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+
+    delete:
+      operationId: deleteStudent
+      tags: [students]
+      summary: Permanently delete a student (SUPER_ADMIN only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/StudentIdPath"
+      responses:
+        "200":
+          description: Student deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+
+  /students/{id}/archive:
+    post:
+      operationId: archiveStudent
+      tags: [students]
+      summary: Archive a student (soft delete)
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/StudentIdPath"
+      responses:
+        "200":
+          description: Student archived
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+
+  /students/{id}/restore:
+    post:
+      operationId: restoreStudent
+      tags: [students]
+      summary: Restore an archived student
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/StudentIdPath"
+      responses:
+        "200":
+          description: Student restored
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+
+  /students/{id}/parents:
+    get:
+      operationId: listStudentParents
+      tags: [parents]
+      summary: Get parents linked to a student
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/StudentIdPath"
+      responses:
+        "200":
+          description: List of parents
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+
+    post:
+      operationId: createStudentParent
+      tags: [parents]
+      summary: Create and link a parent to a student
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/StudentIdPath"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ParentCreateRequest"
+      responses:
+        "201":
+          description: Parent created and linked
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+
+  /fees/records:
+    get:
+      operationId: listFeeRecords
+      tags: [fees]
+      summary: List fee records with optional student filter
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: studentId
+          in: query
+          description: Filter fee records by student
+          schema:
+            type: string
+            format: uuid
+        - name: status
+          in: query
+          description: Filter by fee record status
+          schema:
+            type: string
+            enum: [pending, overdue, paid, partial]
+      responses:
+        "200":
+          description: Fee records list
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/ApiResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/FeeRecord"
+
+    post:
+      operationId: createFeeRecord
+      tags: [fees]
+      summary: Create a new fee record for a student
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FeeRecordCreateRequest"
+      responses:
+        "201":
+          description: Fee record created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+
+  /fees/records/{id}:
+    get:
+      operationId: getFeeRecordById
+      tags: [fees]
+      summary: Get a fee record by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/FeeRecordIdPath"
+      responses:
+        "200":
+          description: Fee record details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "404":
+          description: Fee record not found
+
+    patch:
+      operationId: updateFeeRecordById
+      tags: [fees]
+      summary: Update a fee record
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/FeeRecordIdPath"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FeeRecordUpdateRequest"
+      responses:
+        "200":
+          description: Fee record updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+
+  /fees/records/{id}/reminders:
+    post:
+      operationId: createFeeReminder
+      tags: [fees]
+      summary: Queue a fee reminder for a fee record
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/FeeRecordIdPath"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FeeReminderCreateRequest"
+      responses:
+        "201":
+          description: Fee reminder queued
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+
+  /communications/queue:
+    get:
+      operationId: listCommunicationQueue
+      tags: [communications]
+      summary: List communication queue items
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: studentId
+          in: query
+          description: Filter queue items by student
+          schema:
+            type: string
+            format: uuid
+        - name: status
+          in: query
+          description: Queue item status
+          schema:
+            type: string
+            enum: [pending, approved, rejected, sent, failed]
+        - name: reviewStatus
+          in: query
+          description: Review status filter
+          schema:
+            type: string
+            enum: [pending, approved, rejected]
+      responses:
+        "200":
+          description: Communication queue items
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/ApiResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/CommunicationQueueItem"
+
+    post:
+      operationId: createCommunicationQueueItem
+      tags: [communications]
+      summary: Queue a communication item for review
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CommunicationQueueCreateRequest"
+      responses:
+        "201":
+          description: Communication item queued
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+
+  /communications/queue/{id}:
+    get:
+      operationId: getCommunicationQueueItemById
+      tags: [communications]
+      summary: Get a communication queue item by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/QueueItemIdPath"
+      responses:
+        "200":
+          description: Communication queue item details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "404":
+          description: Communication queue item not found
+
+  /communications/queue/{id}/review:
+    post:
+      operationId: reviewCommunicationQueueItem
+      tags: [communications]
+      summary: Review a queued communication item
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/QueueItemIdPath"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CommunicationQueueReviewRequest"
+      responses:
+        "200":
+          description: Communication queue item reviewed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+
+  /communications/history:
+    get:
+      operationId: listNotificationHistory
+      tags: [communications]
+      summary: List notification history
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: studentId
+          in: query
+          description: Filter notifications by student
+          schema:
+            type: string
+            format: uuid
+        - name: queueItemId
+          in: query
+          description: Filter notifications by queue item
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Notification history log
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/ApiResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/NotificationHistoryItem"
+
+  # RBAC endpoints
+  /roles:
+    get:
+      operationId: listRoles
+      tags: [rbac]
+      summary: List roles
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Available roles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Role"
+
+  /permissions:
+    get:
+      operationId: listPermissions
+      tags: [rbac]
+      summary: List permissions
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Available permissions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Permission"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    UserIdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+    StudentIdPath:
+      name: id
+      in: path
+      required: true
+      description: Student UUID
+      schema:
+        type: string
+        format: uuid
+
+    FeeRecordIdPath:
+      name: id
+      in: path
+      required: true
+      description: Fee record UUID
+      schema:
+        type: string
+        format: uuid
+
+    QueueItemIdPath:
+      name: id
+      in: path
+      required: true
+      description: Communication queue item UUID
+      schema:
+        type: string
+        format: uuid
+
+    CsrfHeader:
+      name: x-csrf-token
+      in: header
+      required: true
+      schema:
+        type: string
+
+  schemas:
+    # Base schemas
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required: [status]
+
+    OperationStatus:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+      required: [status, message]
+
+    PaginationMeta:
+      type: object
+      properties:
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+      required: [total, page, limit]
+
+    ApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: object
+        message:
+          type: string
+        meta:
+          type: object
+      required: [success, message]
+
+    # Auth schemas
+    AuthLoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+      required: [email, password]
+
+    Permission:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+      required: [id, name, description]
+
+    Role:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Permission"
+      required: [id, name, description, permissions]
+
+    SessionInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        expiresAt:
+          type: string
+          format: date-time
+      required: [id, expiresAt]
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        status:
+          type: string
+        primaryRole:
+          $ref: "#/components/schemas/Role"
+        roles:
+          type: array
+          items:
+            $ref: "#/components/schemas/Role"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - email
+        - status
+        - primaryRole
+        - roles
+        - createdAt
+        - updatedAt
+
+    AuthenticatedUser:
+      allOf:
+        - $ref: "#/components/schemas/User"
+        - type: object
+          properties:
+            permissions:
+              type: array
+              items:
+                type: string
+            session:
+              $ref: "#/components/schemas/SessionInfo"
+          required: [permissions, session]
+
+    AuthSessionResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        csrfToken:
+          type: string
+        user:
+          $ref: "#/components/schemas/AuthenticatedUser"
+      required: [accessToken, csrfToken, user]
+
+    UserCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 2
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+        roleName:
+          type: string
+      required: [name, email, password, roleName]
+
+    UserUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 2
+        status:
+          type: string
+        password:
+          type: string
+          minLength: 8
+        roleName:
+          type: string
+
+    # Student schemas
+    StudentStatus:
+      type: string
+      enum: [active, archived]
+
+    PerformanceNoteSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        note:
+          type: string
+        authorName:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+      required: [id, note, createdAt]
+
+    StudentCard:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        studentCode:
+          type: string
+        fullName:
+          type: string
+        class:
+          type: string
+        section:
+          type: string
+        photoUrl:
+          type: string
+        status:
+          $ref: "#/components/schemas/StudentStatus"
+        attendancePercentage:
+          type: integer
+          nullable: true
+        feeStatus:
+          type: string
+          nullable: true
+        latestPerformanceNote:
+          $ref: "#/components/schemas/PerformanceNoteSummary"
+          nullable: true
+      required:
+        - id
+        - studentCode
+        - fullName
+        - class
+        - section
+        - photoUrl
+        - status
+
+    AttendanceSummary:
+      type: object
+      properties:
+        attendancePercentage:
+          type: integer
+          nullable: true
+        presentDays:
+          type: integer
+          nullable: true
+        absentDays:
+          type: integer
+          nullable: true
+        totalDays:
+          type: integer
+          nullable: true
+        lastRecordedAt:
+          type: string
+          format: date-time
+          nullable: true
+
+    FeeStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          nullable: true
+        outstandingAmount:
+          type: integer
+          nullable: true
+        dueDate:
+          type: string
+          format: date
+          nullable: true
+        updatedAt:
+          type: string
+          format: date-time
+          nullable: true
+
+    FeeRecord:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        studentId:
+          type: string
+          format: uuid
+        description:
+          type: string
+        amountDue:
+          type: integer
+        amountPaid:
+          type: integer
+        currency:
+          type: string
+        dueDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum: [pending, overdue, paid, partial]
+        notes:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - studentId
+        - description
+        - amountDue
+        - amountPaid
+        - currency
+        - dueDate
+        - status
+        - createdAt
+        - updatedAt
+
+    FeeRecordCreateRequest:
+      type: object
+      properties:
+        studentId:
+          type: string
+          format: uuid
+        description:
+          type: string
+        amountDue:
+          type: integer
+        amountPaid:
+          type: integer
+          default: 0
+        currency:
+          type: string
+          default: INR
+        dueDate:
+          type: string
+          format: date
+        notes:
+          type: string
+      required: [studentId, description, amountDue, dueDate]
+
+    FeeRecordUpdateRequest:
+      type: object
+      properties:
+        description:
+          type: string
+        amountDue:
+          type: integer
+        amountPaid:
+          type: integer
+        currency:
+          type: string
+        dueDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum: [pending, overdue, paid, partial]
+        notes:
+          type: string
+
+    FeeReminderCreateRequest:
+      type: object
+      properties:
+        reminderDate:
+          type: string
+          format: date-time
+        channel:
+          type: string
+          enum: [email, sms, whatsapp, in_app]
+          default: email
+        message:
+          type: string
+      required: [message]
+
+    CommunicationQueueItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        studentId:
+          type: string
+          format: uuid
+        subject:
+          type: string
+        message:
+          type: string
+        channel:
+          type: string
+          enum: [email, sms, whatsapp, in_app]
+        status:
+          type: string
+          enum: [pending, approved, rejected, sent, failed]
+        reviewStatus:
+          type: string
+          enum: [pending, approved, rejected]
+        reviewedBy:
+          type: string
+          format: uuid
+          nullable: true
+        reviewedAt:
+          type: string
+          format: date-time
+          nullable: true
+        createdBy:
+          type: string
+          format: uuid
+          nullable: true
+        scheduledAt:
+          type: string
+          format: date-time
+          nullable: true
+        metadata:
+          type: object
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - studentId
+        - subject
+        - message
+        - channel
+        - status
+        - reviewStatus
+        - createdAt
+        - updatedAt
+
+    CommunicationQueueCreateRequest:
+      type: object
+      properties:
+        studentId:
+          type: string
+          format: uuid
+        subject:
+          type: string
+        message:
+          type: string
+        channel:
+          type: string
+          enum: [email, sms, whatsapp, in_app]
+          default: email
+        scheduledAt:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+      required: [studentId, subject, message]
+
+    CommunicationQueueReviewRequest:
+      type: object
+      properties:
+        reviewStatus:
+          type: string
+          enum: [approved, rejected]
+        reviewedBy:
+          type: string
+          format: uuid
+          nullable: true
+        notes:
+          type: string
+      required: [reviewStatus]
+
+    NotificationHistoryItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        queueItemId:
+          type: string
+          format: uuid
+        studentId:
+          type: string
+          format: uuid
+        channel:
+          type: string
+          enum: [email, sms, whatsapp, in_app]
+        recipient:
+          type: string
+        status:
+          type: string
+          enum: [pending, sent, failed]
+        sentAt:
+          type: string
+          format: date-time
+          nullable: true
+        response:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - queueItemId
+        - studentId
+        - channel
+        - recipient
+        - status
+        - createdAt
+
+    AcademicProgress:
+      type: object
+      properties:
+        currentStanding:
+          type: string
+        latestObservation:
+          type: string
+          nullable: true
+        remarks:
+          type: array
+          items:
+            type: string
+
+    ParentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+          nullable: true
+        name:
+          type: string
+        phone:
+          type: string
+          nullable: true
+        email:
+          type: string
+          format: email
+          nullable: true
+        relationship:
+          type: string
+          enum: [father, mother, guardian]
+        address:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - relationship
+        - address
+        - createdAt
+        - updatedAt
+
+    StudentProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        studentCode:
+          type: string
+        fullName:
+          type: string
+        class:
+          type: string
+        section:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        admissionDate:
+          type: string
+          format: date
+        status:
+          $ref: "#/components/schemas/StudentStatus"
+        photoUrl:
+          type: string
+        personalInfo:
+          type: object
+          properties:
+            studentCode:
+              type: string
+            fullName:
+              type: string
+            class:
+              type: string
+            section:
+              type: string
+            dateOfBirth:
+              type: string
+              format: date
+            admissionDate:
+              type: string
+              format: date
+            status:
+              $ref: "#/components/schemas/StudentStatus"
+        attendanceSummary:
+          $ref: "#/components/schemas/AttendanceSummary"
+        performanceNotes:
+          type: array
+          items:
+            $ref: "#/components/schemas/PerformanceNoteSummary"
+        academicProgress:
+          $ref: "#/components/schemas/AcademicProgress"
+        feeStatus:
+          $ref: "#/components/schemas/FeeStatus"
+        reportsHistory:
+          type: object
+          properties:
+            placeholder:
+              type: boolean
+            items:
+              type: array
+              items: {}
+        parents:
+          type: array
+          items:
+            $ref: "#/components/schemas/ParentResponse"
+      required:
+        - id
+        - studentCode
+        - fullName
+        - class
+        - section
+        - dateOfBirth
+        - admissionDate
+        - status
+        - photoUrl
+
+    StudentCreateRequest:
+      type: object
+      properties:
+        studentCode:
+          type: string
+          minLength: 1
+          maxLength: 64
+        fullName:
+          type: string
+          minLength: 1
+          maxLength: 256
+        class:
+          type: string
+          minLength: 1
+          maxLength: 32
+        section:
+          type: string
+          minLength: 1
+          maxLength: 32
+        dateOfBirth:
+          type: string
+          format: date
+        admissionDate:
+          type: string
+          format: date
+        photoUrl:
+          type: string
+          format: uri
+          maxLength: 1024
+        status:
+          type: string
+          enum: [active, archived]
+      required:
+        - studentCode
+        - fullName
+        - class
+        - section
+        - dateOfBirth
+        - admissionDate
+        - photoUrl
+
+    StudentUpdateRequest:
+      type: object
+      properties:
+        studentCode:
+          type: string
+          minLength: 1
+          maxLength: 64
+        fullName:
+          type: string
+          minLength: 1
+          maxLength: 256
+        class:
+          type: string
+          minLength: 1
+          maxLength: 32
+        section:
+          type: string
+          minLength: 1
+          maxLength: 32
+        dateOfBirth:
+          type: string
+          format: date
+        admissionDate:
+          type: string
+          format: date
+        photoUrl:
+          type: string
+          format: uri
+          maxLength: 1024
+        status:
+          type: string
+          enum: [active, archived]
+
+    ParentCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 128
+        phone:
+          type: string
+          minLength: 7
+          maxLength: 32
+        email:
+          type: string
+          format: email
+          maxLength: 320
+        relationship:
+          type: string
+          enum: [father, mother, guardian]
+        address:
+          type: string
+          minLength: 1
+          maxLength: 256
+        userId:
+          type: string
+          format: uuid
+      required:
+        - name
+        - phone
+        - relationship
+        - address
