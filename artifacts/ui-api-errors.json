@@ -1,0 +1,92 @@
+[
+  {
+    "type": "requestfailed",
+    "url": "http://127.0.0.1:4173/api/auth/refresh",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://127.0.0.1:4173/"
+  },
+  {
+    "type": "requestfailed",
+    "url": "http://127.0.0.1:4173/api/auth/refresh",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://127.0.0.1:4173/faculty"
+  },
+  {
+    "type": "requestfailed",
+    "url": "http://127.0.0.1:4173/api/auth/refresh",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://127.0.0.1:4173/faculty/aamera-ishaque"
+  },
+  {
+    "type": "requestfailed",
+    "url": "http://127.0.0.1:4173/api/auth/refresh",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://127.0.0.1:4173/faculty/muhammad-abdullah"
+  },
+  {
+    "type": "requestfailed",
+    "url": "http://127.0.0.1:4173/api/auth/refresh",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://127.0.0.1:4173/faculty/tayyaba-gul"
+  },
+  {
+    "type": "requestfailed",
+    "url": "http://127.0.0.1:4173/api/auth/refresh",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://127.0.0.1:4173/results"
+  },
+  {
+    "type": "requestfailed",
+    "url": "http://127.0.0.1:4173/api/auth/refresh",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://127.0.0.1:4173/programs"
+  },
+  {
+    "type": "requestfailed",
+    "url": "http://127.0.0.1:4173/api/auth/refresh",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://127.0.0.1:4173/contact"
+  },
+  {
+    "type": "requestfailed",
+    "url": "http://127.0.0.1:4173/api/public/students",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://127.0.0.1:4173/current-students"
+  },
+  {
+    "type": "requestfailed",
+    "url": "http://127.0.0.1:4173/api/auth/refresh",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://127.0.0.1:4173/current-students"
+  },
+  {
+    "type": "requestfailed",
+    "url": "http://127.0.0.1:4173/api/auth/refresh",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://127.0.0.1:4173/login"
+  },
+  {
+    "type": "requestfailed",
+    "url": "http://127.0.0.1:4173/api/auth/refresh",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://127.0.0.1:4173/student-success"
+  },
+  {
+    "type": "requestfailed",
+    "url": "http://127.0.0.1:4173/api/auth/refresh",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://127.0.0.1:4173/testimonials"
+  },
+  {
+    "type": "requestfailed",
+    "url": "http://127.0.0.1:4173/api/auth/refresh",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://127.0.0.1:4173/privacy-policy"
+  },
+  {
+    "type": "requestfailed",
+    "url": "http://127.0.0.1:4173/api/auth/refresh",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://127.0.0.1:4173/terms-of-service"
+  }
+]

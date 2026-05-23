@@ -8,7 +8,7 @@ import { ScrollToTop } from "@toppers/ui";
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-[100dvh] flex flex-col bg-slate-50 overflow-hidden font-sans">
+    <div className="min-h-[100dvh] flex flex-col bg-slate-50 font-sans">
       <ScrollToTop />
       <Navbar />
       <motion.main 

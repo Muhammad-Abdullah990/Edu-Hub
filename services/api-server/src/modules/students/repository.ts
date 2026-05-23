@@ -1,4 +1,4 @@
-﻿import {
+import {
   and,
   asc,
   desc,
@@ -27,6 +27,13 @@ export type StudentListFilter = {
 };
 
 export const studentsRepository = {
+  async countStudents(): Promise<number> {
+    const result = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(studentsTable);
+    return Number(result[0]?.count ?? 0);
+  },
+
   async findStudentByCode(studentCode: string) {
     return db.query.studentsTable.findFirst({
       where: eq(studentsTable.studentCode, studentCode),
@@ -42,6 +49,10 @@ export const studentsRepository = {
     admissionDate: string;
     photoUrl: string;
     status: "active" | "archived";
+    monthlyFeeAmount?: number;
+    feeCycleStartDate?: string | null;
+    nextFeeDueDate?: string | null;
+    portalUserId?: string | null;
   }) {
     const [student] = await db
       .insert(studentsTable)
@@ -54,6 +65,10 @@ export const studentsRepository = {
         admissionDate: input.admissionDate,
         photoUrl: input.photoUrl,
         status: input.status,
+        monthlyFeeAmount: input.monthlyFeeAmount ?? 0,
+        feeCycleStartDate: input.feeCycleStartDate ?? null,
+        nextFeeDueDate: input.nextFeeDueDate ?? null,
+        portalUserId: input.portalUserId ?? null,
       })
       .returning({ id: studentsTable.id });
 
@@ -71,6 +86,9 @@ export const studentsRepository = {
       admissionDate: string;
       photoUrl: string;
       status: "active" | "archived";
+      monthlyFeeAmount: number;
+      feeCycleStartDate: string | null;
+      nextFeeDueDate: string | null;
     }>,
   ) {
     await db
@@ -84,6 +102,9 @@ export const studentsRepository = {
         ...(updates.admissionDate ? { admissionDate: updates.admissionDate } : {}),
         ...(updates.photoUrl ? { photoUrl: updates.photoUrl } : {}),
         ...(updates.status ? { status: updates.status } : {}),
+        ...(updates.monthlyFeeAmount !== undefined ? { monthlyFeeAmount: updates.monthlyFeeAmount } : {}),
+        ...(updates.feeCycleStartDate !== undefined ? { feeCycleStartDate: updates.feeCycleStartDate } : {}),
+        ...(updates.nextFeeDueDate !== undefined ? { nextFeeDueDate: updates.nextFeeDueDate } : {}),
         ...(updates.status === "archived"
           ? { isArchived: true, archivedAt: new Date() }
           : {}),
@@ -118,6 +139,28 @@ export const studentsRepository = {
 
   async deleteStudent(studentId: string) {
     await db.delete(studentsTable).where(eq(studentsTable.id, studentId));
+  },
+
+  async findStudentByPortalUserId(portalUserId: string) {
+    return db.query.studentsTable.findFirst({
+      where: eq(studentsTable.portalUserId, portalUserId),
+      with: {
+        attendanceSummary: true,
+        feeStatus: true,
+        studentParents: {
+          with: {
+            parent: true,
+          },
+        },
+      },
+    });
+  },
+
+  async linkPortalUser(studentId: string, portalUserId: string | null) {
+    await db
+      .update(studentsTable)
+      .set({ portalUserId, updatedAt: new Date() })
+      .where(eq(studentsTable.id, studentId));
   },
 
   async findStudentById(studentId: string) {
@@ -177,6 +220,8 @@ export const studentsRepository = {
         section: studentsTable.section,
         status: studentsTable.status,
         photoUrl: studentsTable.photoUrl,
+        portalUserId: studentsTable.portalUserId,
+        admissionDate: studentsTable.admissionDate,
         attendancePercentage: attendanceSummaryTable.attendancePercentage,
         feeStatus: feeStatusTable.status,
       })

@@ -62,6 +62,7 @@ export const analyticsSnapshotsTable = pgTable(
   {
     id: uuid("id").defaultRandom().primaryKey(),
     domain: text("domain").notNull(),
+    tenantId: uuid("tenant_id").notNull(),
     studentId: uuid("student_id").references(() => studentsTable.id, {
       onDelete: "cascade",
     }),
@@ -88,6 +89,7 @@ export const analyticsSnapshotsTable = pgTable(
   (table) => ({
     domainIdx: index("analytics_snapshots_domain_idx").on(table.domain),
     studentIdx: index("analytics_snapshots_student_idx").on(table.studentId),
+    tenantIdx: index("analytics_snapshots_tenant_idx").on(table.tenantId),
     periodIdx: index("analytics_snapshots_period_idx").on(
       table.snapshotPeriod,
     ),

@@ -2,6 +2,7 @@ import { HttpError } from "../../lib/http-error";
 import { hashSecret } from "../../lib/security";
 import { auditService } from "../audit/service";
 import { sessionsService } from "../sessions/service";
+import { studentsRepository } from "../students/repository";
 import { usersRepository } from "./repository";
 import type { UserResponse } from "./types";
 
@@ -41,6 +42,11 @@ export function createUsersService(repository = usersRepository) {
         email: string;
         password: string;
         roleName: Parameters<typeof repository.findRoleByName>[0];
+        studentCode?: string;
+        class?: string;
+        section?: string;
+        monthlyFeeAmount?: number;
+        feeCycleStartDate?: string;
       },
     ) {
       const existingUser = await repository.findAccessProfileByEmail(input.email);
@@ -62,6 +68,45 @@ export function createUsersService(repository = usersRepository) {
         status: "active",
       });
 
+      // If creating a STUDENT user, also create a record in the students table
+      if (input.roleName === "STUDENT") {
+        // Auto-generate student code if not provided
+        let studentCode = input.studentCode?.trim() ?? "";
+        if (!studentCode) {
+          const count = await studentsRepository.countStudents();
+          const nextNum = (count ?? 0) + 1;
+          studentCode = `STU-${String(nextNum).padStart(3, "0")}`;
+        }
+
+        // Handle collision
+        const existing = await studentsRepository.findStudentByCode(studentCode);
+        if (existing) {
+          let attempt = 1;
+          while (existing) {
+            const count = await studentsRepository.countStudents();
+            const nextNum = (count ?? 0) + attempt + 1;
+            studentCode = `STU-${String(nextNum).padStart(3, "0")}`;
+            const retry = await studentsRepository.findStudentByCode(studentCode);
+            if (!retry) break;
+            attempt++;
+          }
+        }
+
+        await studentsRepository.createStudent({
+          studentCode,
+          fullName: input.name,
+          class: input.class ?? "General",
+          section: input.section ?? "A",
+          dateOfBirth: new Date().toISOString().split("T")[0],
+          admissionDate: new Date().toISOString().split("T")[0],
+          photoUrl: "",
+          status: "active",
+          monthlyFeeAmount: input.monthlyFeeAmount ?? 0,
+          feeCycleStartDate: input.feeCycleStartDate ?? null,
+          portalUserId: created.id,
+        });
+      }
+
       const createdUser = await repository.findAccessProfileById(created.id);
       await auditService.log({
         userId: actorUserId,
@@ -72,6 +117,10 @@ export function createUsersService(repository = usersRepository) {
       });
 
       return mapUser(createdUser);
+    },
+
+    async listUsers(limit = 100) {
+      return repository.listAccessProfiles(limit);
     },
 
     async getUserById(requestedUserId: string) {

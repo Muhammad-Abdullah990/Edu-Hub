@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { automationCore } from "./core";
 import { eventService } from "./events";
 import logger from "./logging";
@@ -58,7 +60,11 @@ export { storageService } from "./storage";
 export { automationDb } from "./db";
 export { logger } from "./logging";
 
-// Run main if this is the entry point
-if (require.main === module) {
+// Run main only when this module is the direct process entrypoint.
+const isEntrypoint =
+  typeof process.argv[1] === "string" &&
+  path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+
+if (isEntrypoint) {
   main();
 }

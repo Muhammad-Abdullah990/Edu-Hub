@@ -74,6 +74,7 @@ export interface AuthenticatedPrincipal {
   roles: PlatformRole[];
   permissions: PermissionName[];
   status: UserStatus;
+  tenantId?: string;
 }
 
 export function hasPermission(

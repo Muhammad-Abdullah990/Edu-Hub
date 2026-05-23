@@ -13,12 +13,14 @@ export default defineConfig(async ({ command }) => {
   }
 
   return {
-    base: command === "build" ? "./" : "/",
+    base: "/",
+
     plugins: [
       react(),
       tailwindcss(),
-      runtimeErrorOverlay(),
-      ...(process.env.NODE_ENV !== "production" &&
+      ...(command === "serve" ? [runtimeErrorOverlay()] : []),
+
+      ...(command === "serve" &&
       process.env.REPL_ID !== undefined
         ? [
             await import("@replit/vite-plugin-cartographer").then((m) =>
@@ -32,31 +34,74 @@ export default defineConfig(async ({ command }) => {
           ]
         : []),
     ],
+
     resolve: {
       alias: {
         "@": path.resolve(import.meta.dirname, "src"),
-        "@assets": path.resolve(import.meta.dirname, "..", "..", "attached_assets"),
+        "@assets": path.resolve(
+          import.meta.dirname,
+          "..",
+          "..",
+          "attached_assets",
+        ),
       },
       dedupe: ["react", "react-dom"],
     },
+
     root: path.resolve(import.meta.dirname),
-    build: {
-      outDir: path.resolve(import.meta.dirname, "dist"),
-      emptyOutDir: true,
-    },
+
     server: {
       port,
       host: "0.0.0.0",
       allowedHosts: true,
+
       fs: {
         strict: true,
         deny: ["**/.*"],
       },
+
+      // ✅ FIXED PROXY (CRITICAL)
+      proxy: {
+        "/api": {
+          target:
+            process.env.VITE_API_PROXY_TARGET ??
+            process.env.API_BASE_URL ??
+            "http://127.0.0.1:3001",
+          changeOrigin: true,
+          secure: false,
+
+          // 🔥 IMPORTANT: ensures cookies + auth headers behave correctly
+          cookieDomainRewrite: "localhost",
+
+          // keep path clean
+          rewrite: (path) => path,
+        },
+      },
     },
+
+    build: {
+      outDir: path.resolve(import.meta.dirname, "dist"),
+      emptyOutDir: true,
+      modulePreload: {
+        polyfill: false,
+      },
+    },
+
     preview: {
       port,
       host: "0.0.0.0",
       allowedHosts: true,
+      proxy: {
+        "/api": {
+          target:
+            process.env.VITE_API_PROXY_TARGET ??
+            process.env.API_BASE_URL ??
+            "http://127.0.0.1:3001",
+          changeOrigin: true,
+          secure: false,
+          cookieDomainRewrite: "localhost",
+        },
+      },
     },
   };
 });

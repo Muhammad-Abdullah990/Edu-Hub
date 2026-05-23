@@ -5,6 +5,7 @@ import type { ReportGenerateRequest } from "@toppers/validations";
 import { auditService } from "../audit/service";
 import { attendanceRepository } from "../attendance/repository";
 import { parentsRepository } from "../parents/repository";
+import { logger } from "../../lib/logger";
 import { studentsRepository } from "../students/repository";
 import { reportsRepository } from "./repository";
 import { renderProgressReportTemplate } from "./templates";
@@ -18,18 +19,24 @@ function buildReportFilePath(studentId: string, month: string) {
   return path.join(REPORT_STORAGE_BASE, studentId, `${month}.pdf`);
 }
 
-function verifyStudentAccess(auth: AuthenticatedPrincipal, studentId: string) {
+async function verifyStudentAccess(
+  auth: AuthenticatedPrincipal,
+  studentId: string,
+): Promise<boolean> {
+  if (auth.roles.includes(ROLE_NAMES.STUDENT)) {
+    const linked = await studentsRepository.findStudentByPortalUserId(auth.userId);
+    return linked?.id === studentId;
+  }
+
   if (auth.roles.includes(ROLE_NAMES.PARENT)) {
     return parentsRepository.isParentLinkedToStudent(auth.userId, studentId);
   }
 
-  return Promise.resolve(
-    auth.roles.some(
-      (role) =>
-        role === ROLE_NAMES.SUPER_ADMIN ||
-        role === ROLE_NAMES.ADMIN ||
-        role === ROLE_NAMES.TEACHER,
-    ),
+  return auth.roles.some(
+    (role) =>
+      role === ROLE_NAMES.SUPER_ADMIN ||
+      role === ROLE_NAMES.ADMIN ||
+      role === ROLE_NAMES.TEACHER,
   );
 }
 
@@ -53,7 +60,7 @@ async function processQueue() {
     try {
       await executeReportGeneration(job.reportId, job.auth, job.input);
     } catch (error) {
-      console.error("Failed to generate report", error);
+      logger.error({ error }, "Failed to generate report");
     }
   }
 
@@ -139,7 +146,7 @@ async function executeReportGeneration(
   );
 
   const monthlyAttendance = attendanceRows.filter((item) =>
-    item.date.startsWith(reportRecord.month),
+    item.attendanceDate?.startsWith(reportRecord.month),
   );
 
   const presentDays = monthlyAttendance.filter(

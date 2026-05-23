@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import { useDeferredValue, useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { Button } from "@toppers/ui";
 import { EnhancedCTAButton } from "@toppers/ui";
 import { Search, Users, TrendingUp, ShieldCheck, ArrowRight, Sparkles } from "lucide-react";
-import { studentsData, uniqueStudentClasses } from "@/data/studentsData";
+import { getPublicStudents, PublicStudentCard } from "@/lib/backend";
 import { Helmet } from "react-helmet-async";
 
 const yearsFilterOptions = [
@@ -14,14 +15,18 @@ const yearsFilterOptions = [
   { label: "5+ Years", value: "5+" },
 ];
 
-function getBadgeStyles(badge: string) {
-  if (badge.includes("Top") || badge.includes("Excellence")) {
+function getBadgeStyles(status: string) {
+  if (status === "active") {
     return "bg-accent/15 text-amber-700 border-accent/25";
   }
-  if (badge.includes("Trust") || badge.includes("Foundation")) {
-    return "bg-primary/10 text-primary border-primary/15";
-  }
-  return "bg-success/10 text-emerald-700 border-emerald-200";
+  return "bg-secondary/10 text-secondary border-secondary/20";
+}
+
+function getYearsWithInstitute(admissionDate: string) {
+  const admission = new Date(admissionDate);
+  const now = new Date();
+  const years = Math.floor((now.valueOf() - admission.valueOf()) / (1000 * 60 * 60 * 24 * 365));
+  return Math.max(1, years || 1);
 }
 
 export default function CurrentStudents() {
@@ -30,31 +35,50 @@ export default function CurrentStudents() {
   const [yearsFilter, setYearsFilter] = useState("all");
   const deferredSearch = useDeferredValue(search);
 
+  const studentsQuery = useQuery<PublicStudentCard[]>({
+    queryKey: ["publicStudents"],
+    queryFn: getPublicStudents,
+    staleTime: 1000 * 60 * 2,
+  });
+
+  const students = studentsQuery.data ?? [];
+
+  const classOptions = useMemo(
+    () => Array.from(new Set(students.map((student) => student.class))).sort(),
+    [students],
+  );
+
   const filteredStudents = useMemo(() => {
     const normalizedSearch = deferredSearch.trim().toLowerCase();
 
-    return studentsData.filter((student) => {
+    return students.filter((student) => {
+      const yearsWithInstitute = getYearsWithInstitute(student.admissionDate);
       const matchesSearch =
         normalizedSearch.length === 0 ||
-        student.name.toLowerCase().includes(normalizedSearch) ||
-        student.shortHighlight.toLowerCase().includes(normalizedSearch);
+        student.fullName.toLowerCase().includes(normalizedSearch) ||
+        student.section.toLowerCase().includes(normalizedSearch) ||
+        student.studentCode.toLowerCase().includes(normalizedSearch);
 
-      const matchesClass = classFilter === "all" || student.classLevel === classFilter;
+      const matchesClass = classFilter === "all" || student.class === classFilter;
 
       const matchesYears =
         yearsFilter === "all" ||
-        (yearsFilter === "1-2" && student.yearsWithInstitute <= 2) ||
-        (yearsFilter === "3-4" && student.yearsWithInstitute >= 3 && student.yearsWithInstitute <= 4) ||
-        (yearsFilter === "5+" && student.yearsWithInstitute >= 5);
+        (yearsFilter === "1-2" && yearsWithInstitute <= 2) ||
+        (yearsFilter === "3-4" && yearsWithInstitute >= 3 && yearsWithInstitute <= 4) ||
+        (yearsFilter === "5+" && yearsWithInstitute >= 5);
 
       return matchesSearch && matchesClass && matchesYears;
     });
-  }, [classFilter, deferredSearch, yearsFilter]);
+  }, [classFilter, deferredSearch, students, yearsFilter]);
 
   const averageYears = useMemo(() => {
-    const totalYears = studentsData.reduce((sum, student) => sum + student.yearsWithInstitute, 0);
-    return (totalYears / studentsData.length).toFixed(1);
-  }, []);
+    if (students.length === 0) {
+      return "0";
+    }
+
+    const totalYears = students.reduce((sum, student) => sum + getYearsWithInstitute(student.admissionDate), 0);
+    return (totalYears / students.length).toFixed(1);
+  }, [students]);
 
   return (
     <>
@@ -139,7 +163,7 @@ export default function CurrentStudents() {
               className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-700 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10"
             >
               <option value="all">All Classes</option>
-              {uniqueStudentClasses.map((classLevel) => (
+              {classOptions.map((classLevel) => (
                 <option key={classLevel} value={classLevel}>
                   {classLevel}
                 </option>
@@ -161,63 +185,73 @@ export default function CurrentStudents() {
         </div>
 
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 xl:grid-cols-4 gap-5 md:gap-6">
-            {filteredStudents.map((student, index) => (
-              <motion.div
-                key={student.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.02, y: -6 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.04 }}
-                className="group"
-              >
-                <Link href={`/student/${student.slug}`}>
-                  <div className="h-full bg-white rounded-[28px] border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-slate-200/60 transition-all duration-300 p-5 md:p-6 flex flex-col">
-                    <div className="flex items-start justify-between gap-3 mb-5">
-                      <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-primary via-secondary to-accent text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-primary/20 shrink-0">
-                        {student.name.split(" ").slice(0, 2).map((part) => part[0]).join("")}
-                      </div>
-                      <span className={`text-[11px] md:text-xs font-semibold px-3 py-1.5 rounded-full border ${getBadgeStyles(student.badge)}`}>
-                        {student.badge}
-                      </span>
-                    </div>
-
-                    <h2 className="text-lg md:text-xl font-bold text-slate-900 mb-1">{student.name}</h2>
-                    <p className="text-primary font-semibold mb-3">{student.classLevel}</p>
-                    <p className="text-sm text-slate-500 mb-4">
-                      With us for {student.yearsWithInstitute} {student.yearsWithInstitute === 1 ? "year" : "years"}
-                    </p>
-
-                    <div className="mt-auto">
-                      <div className="inline-flex items-center gap-2 px-3 py-2 rounded-2xl bg-slate-50 text-slate-700 text-sm font-medium mb-5">
-                        <TrendingUp className="w-4 h-4 text-secondary" />
-                        {student.shortHighlight}
-                      </div>
-
-                      <div className="inline-flex items-center gap-2 text-destructive font-bold group/link">
-                        <span>View Profile</span>
-                        <motion.span
-                          className="inline-flex"
-                          initial={{ x: -4, opacity: 0.65 }}
-                          whileHover={{ x: 4, opacity: 1 }}
-                          transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                        >
-                          <ArrowRight className="w-4 h-4" />
-                        </motion.span>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-
-          {filteredStudents.length === 0 && (
+          {studentsQuery.isLoading ? (
             <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-12 text-center mt-6">
-              <h3 className="text-2xl font-bold text-slate-900 mb-3">No students match your filters</h3>
-              <p className="text-slate-600">Try adjusting the search or selecting a different class/year range.</p>
+              <p className="text-slate-600">Loading current student profiles…</p>
             </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-2 xl:grid-cols-4 gap-5 md:gap-6">
+                {filteredStudents.map((student, index) => {
+                  return (
+                    <motion.div
+                      key={student.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      whileHover={{ scale: 1.02, y: -6 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.04 }}
+                      className="group"
+                    >
+                      <Link href={`/student/${student.slug}`}>
+                        <div className="h-full bg-white rounded-[28px] border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-slate-200/60 transition-all duration-300 p-5 md:p-6 flex flex-col">
+                          <div className="flex items-start justify-between gap-3 mb-5">
+                            <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-primary via-secondary to-accent text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-primary/20 shrink-0">
+                              {student.fullName.split(" ").slice(0, 2).map((part) => part[0]).join("")}
+                            </div>
+                            <span className={`text-[11px] md:text-xs font-semibold px-3 py-1.5 rounded-full border ${getBadgeStyles(student.status)}`}>
+                              {student.status === "active" ? "Active Learner" : "Archived"}
+                            </span>
+                          </div>
+
+                          <h2 className="text-lg md:text-xl font-bold text-slate-900 mb-1">{student.fullName}</h2>
+                          <p className="text-primary font-semibold mb-3">{student.class}</p>
+                          <p className="text-sm text-slate-500 mb-4">
+                            Section {student.section} • Code {student.studentCode}
+                          </p>
+
+                          <div className="mt-auto">
+                            <div className="inline-flex items-center gap-2 px-3 py-2 rounded-2xl bg-slate-50 text-slate-700 text-sm font-medium mb-5">
+                              <TrendingUp className="w-4 h-4 text-secondary" />
+                              Section {student.section}
+                            </div>
+
+                            <div className="inline-flex items-center gap-2 text-destructive font-bold group/link">
+                              <span>View Profile</span>
+                              <motion.span
+                                className="inline-flex"
+                                initial={{ x: -4, opacity: 0.65 }}
+                                whileHover={{ x: 4, opacity: 1 }}
+                                transition={{ type: "spring", stiffness: 280, damping: 22 }}
+                              >
+                                <ArrowRight className="w-4 h-4" />
+                              </motion.span>
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </div>
+
+              {filteredStudents.length === 0 && (
+                <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-12 text-center mt-6">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3">No students match your filters</h3>
+                  <p className="text-slate-600">Try adjusting the search or selecting a different class/year range.</p>
+                </div>
+              )}
+            </>
           )}
         </div>
 

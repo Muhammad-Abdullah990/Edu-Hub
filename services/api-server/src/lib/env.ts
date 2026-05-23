@@ -3,12 +3,24 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { z } from "zod";
 
-const serviceRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../");
+const serviceRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+const workspaceRoot = path.resolve(serviceRoot, "../..");
 
-// Load .env files in local development for the service and workspace root.
-// Existing process.env values remain authoritative, so explicit env overrides still work.
-dotenv.config({ path: path.resolve(process.cwd(), ".env") });
-dotenv.config({ path: path.resolve(serviceRoot, ".env") });
+// In non-production, let repo .env files override stale machine-level vars (e.g. wrong DATABASE_URL).
+const overrideEnvFiles = process.env.NODE_ENV !== "production";
+
+dotenv.config({
+  path: path.resolve(workspaceRoot, ".env"),
+  override: overrideEnvFiles,
+});
+dotenv.config({
+  path: path.resolve(serviceRoot, ".env"),
+  override: overrideEnvFiles,
+});
+dotenv.config({
+  path: path.resolve(process.cwd(), ".env"),
+  override: overrideEnvFiles,
+});
 
 /**
  * Environment Schema (DEV SAFE + PRODUCTION READY)

@@ -22,6 +22,7 @@ import {
   type ReactNode,
 } from "react";
 import { readCookie } from "@/lib/cookie-utils";
+import { setBackendAuthGetters } from "@/lib/backend";
 
 type AuthStatus = "loading" | "authenticated" | "anonymous";
 
@@ -29,7 +30,7 @@ interface AuthContextValue {
   status: AuthStatus;
   user: AuthenticatedUser | null;
   accessToken: string | null;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<AuthenticatedUser>;
   logout: () => Promise<void>;
   logoutAll: () => Promise<void>;
   hasRole: (...roles: PlatformRole[]) => boolean;
@@ -55,12 +56,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [csrfToken]);
 
   useEffect(() => {
-    setAuthTokenGetter(() => accessTokenRef.current);
-    setCsrfTokenGetter(() => csrfTokenRef.current ?? readCookie(AUTH_COOKIE_NAMES.CSRF_TOKEN));
+    const tokenGetter = () => accessTokenRef.current;
+    const csrfGetter = () =>
+      csrfTokenRef.current ?? readCookie(AUTH_COOKIE_NAMES.CSRF_TOKEN);
+
+    setAuthTokenGetter(tokenGetter);
+    setCsrfTokenGetter(csrfGetter);
+    setBackendAuthGetters({ accessToken: tokenGetter, csrfToken: csrfGetter });
 
     return () => {
       setAuthTokenGetter(null);
       setCsrfTokenGetter(null);
+      setBackendAuthGetters({ accessToken: null, csrfToken: null });
     };
   }, []);
 
@@ -74,6 +81,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           return;
         }
 
+        accessTokenRef.current = result.accessToken;
+        csrfTokenRef.current = result.csrfToken;
         setAccessToken(result.accessToken);
         setCsrfToken(result.csrfToken);
         setUser(result.user);
@@ -83,6 +92,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           return;
         }
 
+        accessTokenRef.current = null;
+        csrfTokenRef.current = readCookie(AUTH_COOKIE_NAMES.CSRF_TOKEN);
         setAccessToken(null);
         setCsrfToken(readCookie(AUTH_COOKIE_NAMES.CSRF_TOKEN));
         setUser(null);
@@ -99,16 +110,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function login(email: string, password: string) {
     const result = await authLogin({ email, password });
+    accessTokenRef.current = result.accessToken;
+    csrfTokenRef.current = result.csrfToken;
     setAccessToken(result.accessToken);
     setCsrfToken(result.csrfToken);
     setUser(result.user);
     setStatus("authenticated");
+    return result.user;
   }
 
   async function logout() {
     try {
       await authLogout();
     } finally {
+      accessTokenRef.current = null;
+      csrfTokenRef.current = null;
       setAccessToken(null);
       setCsrfToken(null);
       setUser(null);
@@ -120,6 +136,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       await authLogoutAll();
     } finally {
+      accessTokenRef.current = null;
+      csrfTokenRef.current = null;
       setAccessToken(null);
       setCsrfToken(null);
       setUser(null);
@@ -154,7 +172,7 @@ export function useAuth() {
 }
 
 export const AUTH_PORTAL_ROLES = {
-  admin: [ROLE_NAMES.SUPER_ADMIN],
-  teacher: [ROLE_NAMES.TEACHER, ROLE_NAMES.SUPER_ADMIN],
+  admin: [ROLE_NAMES.SUPER_ADMIN, ROLE_NAMES.ADMIN],
+  teacher: [ROLE_NAMES.TEACHER, ROLE_NAMES.SUPER_ADMIN, ROLE_NAMES.ADMIN],
   student: [ROLE_NAMES.STUDENT],
 } as const;

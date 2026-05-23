@@ -14,7 +14,7 @@ import {
   usersTable,
 } from "../schema";
 
-const DEFAULT_ADMIN_EMAIL = "admin@toppers.com";
+const DEFAULT_ADMIN_EMAIL = "info@topperscoachingcenter.com";
 const DEFAULT_ADMIN_PASSWORD = "ChangeMe123!";
 
 const roleSeed = [
@@ -130,7 +130,7 @@ async function seedAdminUser() {
   await db
     .insert(usersTable)
     .values({
-      name: "System Administrator",
+      name: "Toppers Coaching Center Admin",
       email: DEFAULT_ADMIN_EMAIL,
       passwordHash,
       roleId: superAdminRole.id,
@@ -170,9 +170,12 @@ async function main() {
   );
 }
 
+import pino from "pino";
+const logger = pino();
+
 main()
   .catch((error) => {
-    console.error(error);
+    logger.error({ error }, "Failed to seed auth data");
     process.exit(1);
   })
   .finally(async () => {

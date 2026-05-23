@@ -1,11 +1,14 @@
-﻿import { HttpError } from "../../lib/http-error";
+import { HttpError } from "../../lib/http-error";
 import { auditService } from "../audit/service";
 import { parentsRepository } from "../parents/repository";
+import { reportsRepository } from "../reports/repository";
 import { studentsRepository } from "./repository";
 import type {
+  PublicStudentCardResponse,
   StudentCardResponse,
   StudentListResponse,
   StudentProfileResponse,
+  StudentPublicProfileResponse,
   StudentPerformanceNoteSummary,
   StudentStatus,
 } from "./types";
@@ -32,6 +35,7 @@ function mapCardItem(
     section: student.section,
     photoUrl: student.photoUrl,
     status: student.status as StudentStatus,
+    portalUserId: "portalUserId" in student ? (student.portalUserId as string | null) : null,
     attendancePercentage:
       student.attendancePercentage === null
         ? null
@@ -50,6 +54,13 @@ function mapPerformanceNoteRow(
     authorName: row.author?.name ?? null,
     createdAt: row.createdAt.toISOString(),
   };
+}
+
+function slugifyStudentName(fullName: string) {
+  return fullName
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 function mapParentResponse(
@@ -75,15 +86,43 @@ export function createStudentsService(repository = studentsRepository) {
         admissionDate: string;
         photoUrl: string;
         status?: StudentStatus;
+        monthlyFeeAmount?: number;
+        feeCycleStartDate?: string;
       },
     ) {
-      const existing = await repository.findStudentByCode(input.studentCode);
+      // Auto-generate student code if not provided or coming from UI (empty placeholder)
+      let studentCode = input.studentCode.trim();
+      if (!studentCode || studentCode.startsWith("STU-")) {
+        const count = await repository.countStudents();
+        const nextNum = (count ?? 0) + 1;
+        studentCode = `STU-${String(nextNum).padStart(3, "0")}`;
+      }
+
+      const existing = await repository.findStudentByCode(studentCode);
       if (existing) {
-        throw new HttpError(409, "STUDENT_EXISTS", "Student code already exists");
+        // If auto-generated code collides, increment until unique
+        let attempt = 1;
+        while (existing) {
+          const count = await repository.countStudents();
+          const nextNum = (count ?? 0) + attempt + 1;
+          studentCode = `STU-${String(nextNum).padStart(3, "0")}`;
+          const retry = await repository.findStudentByCode(studentCode);
+          if (!retry) break;
+          attempt++;
+        }
+      }
+
+      // Calculate next fee due date if fee cycle start date is provided
+      let nextFeeDueDate: string | null = null;
+      if (input.feeCycleStartDate) {
+        const cycleStart = new Date(input.feeCycleStartDate);
+        const nextDue = new Date(cycleStart);
+        nextDue.setDate(nextDue.getDate() + 30); // 30-day fee cycle
+        nextFeeDueDate = nextDue.toISOString().split('T')[0];
       }
 
       const student = await repository.createStudent({
-        studentCode: input.studentCode,
+        studentCode,
         fullName: input.fullName,
         class: input.class,
         section: input.section,
@@ -91,6 +130,9 @@ export function createStudentsService(repository = studentsRepository) {
         admissionDate: input.admissionDate,
         photoUrl: input.photoUrl,
         status: input.status ?? "active",
+        monthlyFeeAmount: input.monthlyFeeAmount ?? 0,
+        feeCycleStartDate: input.feeCycleStartDate ?? null,
+        nextFeeDueDate,
       });
 
       await auditService.log({
@@ -101,6 +143,7 @@ export function createStudentsService(repository = studentsRepository) {
         metadata: {
           studentCode: input.studentCode,
           fullName: input.fullName,
+          monthlyFeeAmount: input.monthlyFeeAmount,
         },
       });
 
@@ -127,7 +170,15 @@ export function createStudentsService(repository = studentsRepository) {
         );
       }
 
-      if (
+      if (auth.roles.includes("STUDENT")) {
+        if (student.portalUserId !== auth.userId) {
+          throw new HttpError(
+            403,
+            "STUDENT_FORBIDDEN",
+            "Student account is not linked to this profile",
+          );
+        }
+      } else if (
         auth.roles.includes("PARENT") === false &&
         auth.roles.some((role) => ["SUPER_ADMIN", "ADMIN", "TEACHER"].includes(role)) === false
       ) {
@@ -201,11 +252,69 @@ export function createStudentsService(repository = studentsRepository) {
           updatedAt: formatTimestamp(student.feeStatus?.updatedAt ?? null),
         },
         reportsHistory: {
-          placeholder: true,
-          items: [],
+          placeholder: false,
+          items: await Promise.all(
+            (await reportsRepository.findReportsByStudentId(studentId)).map(
+              (report) => ({
+                id: report.id,
+                month: report.month,
+                status: report.status,
+                createdAt: report.createdAt.toISOString(),
+              }),
+            ),
+          ),
         },
         parents,
       };
+    },
+
+    async linkPortalUser(
+      actorUserId: string,
+      studentId: string,
+      portalUserId: string | null,
+    ) {
+      const student = await repository.findStudentById(studentId);
+      if (!student) {
+        throw new HttpError(404, "STUDENT_NOT_FOUND", "Student not found");
+      }
+
+      if (portalUserId) {
+        const existing = await repository.findStudentByPortalUserId(portalUserId);
+        if (existing && existing.id !== studentId) {
+          throw new HttpError(
+            409,
+            "PORTAL_USER_ALREADY_LINKED",
+            "Portal user is already linked to another student",
+          );
+        }
+      }
+
+      await repository.linkPortalUser(studentId, portalUserId);
+
+      await auditService.log({
+        userId: actorUserId,
+        action: "student.link_portal_user",
+        entityType: "student",
+        entityId: studentId,
+        metadata: { portalUserId },
+      });
+
+      return { studentId, portalUserId };
+    },
+
+    async getMyStudentProfile(
+      auth: AuthenticatedPrincipal,
+    ): Promise<StudentProfileResponse> {
+      const linked = await repository.findStudentByPortalUserId(auth.userId);
+      if (!linked) {
+        throw new HttpError(
+          404,
+          "STUDENT_NOT_LINKED",
+          "No student profile is linked to this account",
+        );
+      }
+
+      return this.getStudentById(auth, linked.id);
     },
 
     async getStudents(
@@ -238,6 +347,96 @@ export function createStudentsService(repository = studentsRepository) {
           page: filters.page,
           limit: filters.limit,
         },
+      };
+    },
+
+    async getPublicStudents(): Promise<{ students: PublicStudentCardResponse[] }> {
+      const result = await repository.findStudents({
+        page: 1,
+        limit: 100,
+        sortBy: "fullName",
+        sortOrder: "asc",
+      });
+      const studentIds = result.students.map((student) => student.id);
+      const latestNotes = await repository.findLatestPerformanceNotesForStudentIds(
+        studentIds,
+      );
+
+      const noteMap = new Map<string, StudentPerformanceNoteSummary>();
+      for (const note of latestNotes) {
+        if (!noteMap.has(note.studentId)) {
+          noteMap.set(note.studentId, {
+            id: note.id,
+            note: note.note,
+            authorName: null,
+            createdAt: note.createdAt.toISOString(),
+          });
+        }
+      }
+
+      return {
+        students: result.students.map((student) => ({
+          ...mapCardItem(student, noteMap.get(student.id) ?? null),
+          slug: slugifyStudentName(student.fullName),
+          studentCode: student.studentCode,
+          status: student.status as StudentStatus,
+          admissionDate: student.admissionDate,
+        })),
+      };
+    },
+
+    async getPublicStudentBySlug(
+      slug: string,
+    ): Promise<StudentPublicProfileResponse> {
+      const result = await repository.findStudents({
+        page: 1,
+        limit: 100,
+        sortBy: "fullName",
+        sortOrder: "asc",
+      });
+      const publicStudent = result.students.find(
+        (student) => slugifyStudentName(student.fullName) === slug,
+      );
+
+      if (!publicStudent) {
+        throw new HttpError(404, "STUDENT_NOT_FOUND", "Student not found");
+      }
+
+      const student = await repository.findStudentById(publicStudent.id);
+      if (!student) {
+        throw new HttpError(404, "STUDENT_NOT_FOUND", "Student not found");
+      }
+
+      const performanceNotes = (
+        await repository.findPerformanceNotesForStudent(student.id)
+      ).map(mapPerformanceNoteRow);
+
+      return {
+        id: student.id,
+        studentCode: student.studentCode,
+        fullName: student.fullName,
+        class: student.class,
+        section: student.section,
+        dateOfBirth: student.dateOfBirth,
+        admissionDate: student.admissionDate,
+        status: student.status as StudentStatus,
+        photoUrl: student.photoUrl,
+        attendanceSummary: {
+          attendancePercentage:
+            student.attendanceSummary?.attendancePercentage ?? null,
+          presentDays: student.attendanceSummary?.presentDays ?? null,
+          absentDays: student.attendanceSummary?.absentDays ?? null,
+          totalDays: student.attendanceSummary?.totalDays ?? null,
+          lastRecordedAt: formatTimestamp(student.attendanceSummary?.lastRecordedAt ?? null),
+        },
+        feeStatus: {
+          status: student.feeStatus?.status ?? null,
+          outstandingAmount:
+            student.feeStatus?.outstandingAmount ?? null,
+          dueDate: student.feeStatus?.dueDate ?? null,
+          updatedAt: formatTimestamp(student.feeStatus?.updatedAt ?? null),
+        },
+        performanceNotes,
       };
     },
 

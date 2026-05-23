@@ -1,0 +1,323 @@
+[
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355759197&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEA&ae=a&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=5&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115616985~115938465~115938468&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2F&dt=Toppers%20Coaching%20Karachi&en=scroll&_fv=1&_nsi=1&_ss=1&epn.percent_scrolled=90&tfd=1304",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355759197&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=5&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=0~115616985~115938465~115938468&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2F&dt=Best%20Coaching%20Center%20in%20Karachi%20%7C%20Toppers%20Coaching%20Center&en=user_engagement&_et=6548&tfd=7857",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/about"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355766661&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=4&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=0~115938466~115938469&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fabout&dt=About%20Toppers%20Coaching%20Center%20%7C%2019%20Years%20of%20Educational%20Excellence%20in%20Karachi&en=user_engagement&_et=2644&tfd=2773",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/about"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355766661&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=4&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115938466~115938469&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fabout&dt=Toppers%20Coaching%20Karachi&en=scroll&epn.percent_scrolled=90&_et=8&tfd=2772",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/about"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/faculty"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355769398&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=7&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115616985~115938465~115938468&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Ffaculty&dt=Toppers%20Coaching%20Karachi&en=scroll&epn.percent_scrolled=90&_et=9&tfd=2492",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/faculty"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355769398&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=7&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=0~115616985~115938465~115938468&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Ffaculty&dt=Experienced%20Teachers%20at%20Toppers%20Coaching%20Center%20Karachi&en=user_engagement&_et=2382&tfd=2492",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/faculty"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/faculty/aamera"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355771860&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=14&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=0~115938466~115938469&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Ffaculty%2Faamera&dt=Toppers%20Coaching%20Karachi&en=user_engagement&_et=1665&tfd=1782",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/faculty/aamera"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355771860&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=14&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115938466~115938469&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Ffaculty%2Faamera&dt=Toppers%20Coaching%20Karachi&en=scroll&epn.percent_scrolled=90&_et=12&tfd=1781",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/faculty/aamera"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/faculty/abdullah"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355773623&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=9&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115938465~115938469&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Ffaculty%2Fabdullah&dt=Toppers%20Coaching%20Karachi&en=scroll&epn.percent_scrolled=90&_et=14&tfd=1766",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/faculty/abdullah"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355773623&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=9&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=0~115938465~115938469&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Ffaculty%2Fabdullah&dt=Toppers%20Coaching%20Karachi&en=user_engagement&_et=1633&tfd=1766",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/faculty/abdullah"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/faculty/tayyaba"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355775360&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=5&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=0~115616986~115938465~115938468&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Ffaculty%2Ftayyaba&dt=Toppers%20Coaching%20Karachi&en=user_engagement&_et=1538&tfd=1657",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/faculty/tayyaba"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355775360&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=5&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115616986~115938465~115938468&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Ffaculty%2Ftayyaba&dt=Toppers%20Coaching%20Karachi&en=scroll&epn.percent_scrolled=90&_et=12&tfd=1656",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/faculty/tayyaba"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/results"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355776998&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=4&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115616985~115938465~115938469~119169248&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fresults&dt=Toppers%20Coaching%20Karachi&en=scroll&epn.percent_scrolled=90&_et=10&tfd=2321",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/results"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355776998&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=4&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=0~115616985~115938465~115938469~119169248&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fresults&dt=Student%20Results%20%26%20Achievements%20%7C%20Toppers%20Coaching%20Center%20Karachi&en=user_engagement&_et=2221&tfd=2321",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/results"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/programs"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355779305&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=15&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115938465~115938468&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fprograms&dt=Toppers%20Coaching%20Karachi&en=scroll&epn.percent_scrolled=90&_et=12&tfd=2229",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/programs"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355779305&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=15&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=0~115938465~115938468&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fprograms&dt=Coaching%20Classes%20for%20School%20Students%20in%20Karachi%20%7C%20Toppers%20Coaching%20Center&en=user_engagement&_et=2118&tfd=2229",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/programs"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/contact"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355781516&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=6&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115616985~115938466~115938469&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fcontact&dt=Toppers%20Coaching%20Karachi&en=scroll&epn.percent_scrolled=90&_et=15&tfd=3311",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/contact"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355781516&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=6&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=0~115616985~115938466~115938469&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fcontact&dt=Contact%20Toppers%20Coaching%20Center%20Karachi%20%7C%20Admissions%20%26%20Inquiries&en=user_engagement&_et=3106&tfd=3312",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/contact"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/student-success"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355784818&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=9&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115938465~115938468&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fstudent-success&dt=Toppers%20Coaching%20Karachi&en=scroll&epn.percent_scrolled=90&_et=13&tfd=2300",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/student-success"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355784818&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=9&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=0~115938465~115938468&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fstudent-success&dt=Toppers%20Coaching%20Karachi&en=user_engagement&_et=2121&tfd=2300",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/student-success"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/testimonials"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355787041&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=11&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115616986~115938465~115938469&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Ftestimonials&dt=Toppers%20Coaching%20Karachi&en=scroll&epn.percent_scrolled=90&_et=14&tfd=2092",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/testimonials"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355787041&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=11&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=0~115616986~115938465~115938469&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Ftestimonials&dt=Toppers%20Coaching%20Karachi&en=user_engagement&_et=1978&tfd=2092",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/testimonials"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/privacy-policy"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355789107&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=6&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115938465~115938469~118012007&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fprivacy-policy&dt=Toppers%20Coaching%20Karachi&en=scroll&epn.percent_scrolled=90&_et=10&tfd=1744",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/privacy-policy"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355789107&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=6&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=0~115938465~115938469~118012007&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fprivacy-policy&dt=Privacy%20Policy%20%7C%20Toppers%20Coaching%20Center&en=user_engagement&_et=1647&tfd=1744",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/privacy-policy"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/terms-of-service"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355790835&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=2&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115938466~115938468&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fterms-of-service&dt=Toppers%20Coaching%20Karachi&en=scroll&epn.percent_scrolled=90&_et=12&tfd=1813",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/terms-of-service"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355790835&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=2&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=0~115938466~115938468&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fterms-of-service&dt=Terms%20of%20Service%20%7C%20Toppers%20Coaching%20Center&en=user_engagement&_et=1699&tfd=1814",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/terms-of-service"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/current-students"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/current-students"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/current-students"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355792631&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=8&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115938466~115938469&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fcurrent-students&dt=Toppers%20Coaching%20Karachi&en=scroll&epn.percent_scrolled=90&_et=11&tfd=2049",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/current-students"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355792631&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=8&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=0~115938466~115938469&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fcurrent-students&dt=Current%20Students%20%7C%20Toppers%20Coaching%20Center%20Karachi&en=user_engagement&_et=1944&tfd=2049",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/current-students"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/login"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355794666&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=17&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=0~115938466~115938468~119169248&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Flogin&dt=Toppers%20Coaching%20Karachi&en=user_engagement&_et=1593&tfd=1716",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/login"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355794666&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=17&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115938466~115938468~119169248&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Flogin&dt=Toppers%20Coaching%20Karachi&en=scroll&epn.percent_scrolled=90&_et=14&tfd=1715",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/login"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/admin-portal"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355796362&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=13&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=0~115938466~115938469&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fadmin-portal&dt=Toppers%20Coaching%20Karachi&en=user_engagement&_et=1580&tfd=1681",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/admin-portal"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355796362&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=13&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115938466~115938469&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fadmin-portal&dt=Toppers%20Coaching%20Karachi&en=scroll&epn.percent_scrolled=90&_et=11&tfd=1680",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/admin-portal"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/teacher-portal"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355798030&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=11&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115938465~115938468&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fteacher-portal&dt=Toppers%20Coaching%20Karachi&en=scroll&epn.percent_scrolled=90&_et=11&tfd=1644",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/teacher-portal"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355798030&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=11&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=0~115938465~115938468&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fteacher-portal&dt=Toppers%20Coaching%20Karachi&en=user_engagement&_et=1541&tfd=1644",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/teacher-portal"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/student-portal"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355799656&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=1&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115938465~115938469~118128922&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fstudent-portal&dt=Toppers%20Coaching%20Karachi&en=scroll&epn.percent_scrolled=90&_et=10&tfd=1688",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/student-portal"
+  },
+  {
+    "type": "requestfailed",
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-V4EMSTYP4R&gtm=45je65j1v9249083938za200zd9249083938&_p=1779355799656&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=2025449313.1779355760&frm=0&pscdl=noapi&rcb=1&sr=1440x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=0~115938465~115938469~118128922&sid=1779355760&sct=1&seg=0&dl=http%3A%2F%2Flocalhost%2Fstudent-portal&dt=Toppers%20Coaching%20Karachi&en=user_engagement&_et=1592&tfd=1689",
+    "failure": "net::ERR_ABORTED",
+    "page": "http://localhost:4174/student-portal"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+    "url": "http://localhost:4174/non-existent"
+  }
+]

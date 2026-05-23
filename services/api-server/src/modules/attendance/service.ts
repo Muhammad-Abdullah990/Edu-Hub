@@ -12,7 +12,7 @@ export const attendanceService = {
       class: string;
       section?: string;
       date: string;
-      items: Array<{ studentId: string; status: "present" | "absent" }>;
+      items: Array<{ studentId: string; status: "present" | "absent" | "leave" }>;
     },
   ): Promise<AttendanceBulkResult> {
     if (
@@ -58,5 +58,41 @@ export const attendanceService = {
     }
 
     return attendanceRepository.findAttendanceByClassDate(classId, date, section);
+  },
+
+  async getAllAttendance(
+    auth: AuthenticatedPrincipal,
+    date: string,
+  ): Promise<AttendanceRecord[]> {
+    if (
+      auth.roles.includes(ROLE_NAMES.STUDENT) ||
+      auth.roles.includes(ROLE_NAMES.PARENT)
+    ) {
+      throw new HttpError(
+        403,
+        "ATTENDANCE_FORBIDDEN",
+        "Only teachers and administrators may view all attendance",
+      );
+    }
+
+    return attendanceRepository.findAllAttendance(date);
+  },
+
+  async getStudentAttendanceHistory(
+    auth: AuthenticatedPrincipal,
+    studentId: string,
+  ): Promise<AttendanceRecord[]> {
+    if (
+      auth.roles.includes(ROLE_NAMES.STUDENT) ||
+      auth.roles.includes(ROLE_NAMES.PARENT)
+    ) {
+      throw new HttpError(
+        403,
+        "ATTENDANCE_FORBIDDEN",
+        "Only teachers and administrators may view attendance history",
+      );
+    }
+
+    return attendanceRepository.findAttendanceForStudent(studentId);
   },
 };

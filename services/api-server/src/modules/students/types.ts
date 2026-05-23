@@ -9,6 +9,13 @@ export type StudentPerformanceNoteSummary = {
   createdAt: string;
 };
 
+export type StudentReportHistoryItem = {
+  id: string;
+  month: string;
+  status: string;
+  createdAt: string;
+};
+
 export type StudentCardResponse = {
   id: string;
   studentCode: string;
@@ -17,9 +24,43 @@ export type StudentCardResponse = {
   section: string;
   photoUrl: string;
   status: StudentStatus;
+  portalUserId?: string | null;
   attendancePercentage: number | null;
   feeStatus: string | null;
   latestPerformanceNote: StudentPerformanceNoteSummary | null;
+};
+
+export type PublicStudentCardResponse = StudentCardResponse & {
+  slug: string;
+  studentCode: string;
+  status: StudentStatus;
+  admissionDate: string;
+};
+
+export type StudentPublicProfileResponse = {
+  id: string;
+  studentCode: string;
+  fullName: string;
+  class: string;
+  section: string;
+  dateOfBirth: string;
+  admissionDate: string;
+  status: StudentStatus;
+  photoUrl: string;
+  attendanceSummary: {
+    attendancePercentage: number | null;
+    presentDays: number | null;
+    absentDays: number | null;
+    totalDays: number | null;
+    lastRecordedAt: string | null;
+  };
+  feeStatus: {
+    status: string | null;
+    outstandingAmount: number | null;
+    dueDate: string | null;
+    updatedAt: string | null;
+  };
+  performanceNotes: StudentPerformanceNoteSummary[];
 };
 
 export type StudentProfileResponse = {
@@ -62,7 +103,7 @@ export type StudentProfileResponse = {
   };
   reportsHistory: {
     placeholder: boolean;
-    items: unknown[];
+    items: StudentReportHistoryItem[];
   };
   parents: ParentResponse[];
 };

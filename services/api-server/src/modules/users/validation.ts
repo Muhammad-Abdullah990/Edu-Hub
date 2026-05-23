@@ -11,11 +11,26 @@ export const createUserSchema = z.object({
   password: z.string().min(8).max(128),
   roleName: z.enum([
     ROLE_NAMES.SUPER_ADMIN,
+    ROLE_NAMES.ADMIN,
     ROLE_NAMES.TEACHER,
     ROLE_NAMES.STUDENT,
     ROLE_NAMES.PARENT,
   ]),
-});
+  // Student-specific fields (only used when roleName === "STUDENT")
+  studentCode: z.string().optional(),
+  class: z.string().optional(),
+  section: z.string().optional(),
+  monthlyFeeAmount: z.number().optional(),
+  feeCycleStartDate: z.string().optional(),
+}).refine(
+  (data) => {
+    if (data.roleName === ROLE_NAMES.STUDENT) {
+      return !!data.class;
+    }
+    return true;
+  },
+  { message: "Class is required when creating a student user", path: ["class"] },
+);
 
 export const updateUserSchema = z
   .object({
@@ -25,6 +40,7 @@ export const updateUserSchema = z
     roleName: z
       .enum([
         ROLE_NAMES.SUPER_ADMIN,
+        ROLE_NAMES.ADMIN,
         ROLE_NAMES.TEACHER,
         ROLE_NAMES.STUDENT,
         ROLE_NAMES.PARENT,

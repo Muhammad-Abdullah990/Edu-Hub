@@ -4,6 +4,8 @@ import {
   USER_STATUS,
 } from "@toppers/auth";
 import { HttpError } from "../../lib/http-error";
+import { logger } from "../../lib/logger";
+import { ServiceUnavailableError } from "../../lib/errors";
 import { signAccessToken, verifySecret, createOpaqueToken } from "../../lib/security";
 import { auditService } from "../audit/service";
 import { sessionsService } from "../sessions/service";
@@ -69,66 +71,137 @@ export function createAuthService(dependencies?: {
       userAgent?: string | null;
       deviceInfo?: string | null;
     }) {
-      const user = await repository.findUserByEmail(input.email);
       const failedAuditBase = {
         action: "auth.login_failed",
         entityType: "auth",
         metadata: { email: input.email, ipAddress: input.ipAddress ?? null },
       } as const;
 
+      let user: Awaited<ReturnType<typeof repository.findUserByEmail>>;
+      try {
+        user = await repository.findUserByEmail(input.email);
+      } catch (error) {
+        logger.error({ error, email: input.email }, "Authentication user lookup failed");
+        throw new ServiceUnavailableError(
+          "auth",
+          "Unable to authenticate at this time",
+        );
+      }
+
       if (!user) {
-        await audit.log(failedAuditBase);
+        try {
+          await audit.log(failedAuditBase);
+        } catch {
+          // Non-sensitive: auditing must not mask the authentication failure.
+        }
         throw new HttpError(401, "INVALID_CREDENTIALS", "Invalid credentials");
       }
 
       if (user.status !== USER_STATUS.ACTIVE) {
-        await audit.log({
-          ...failedAuditBase,
-          userId: user.id,
-        });
+        try {
+          await audit.log({
+            ...failedAuditBase,
+            userId: user.id,
+          });
+        } catch {
+          // Non-sensitive: auditing must not mask the authentication failure.
+        }
         throw new HttpError(403, "USER_INACTIVE", "User is inactive");
       }
 
-      const passwordValid = await verifySecret(user.passwordHash, input.password);
+      let passwordValid: boolean;
+      try {
+        passwordValid = await verifySecret(user.passwordHash, input.password);
+      } catch (error) {
+        logger.error({ error }, "Password verification failed");
+        throw new ServiceUnavailableError(
+          "auth",
+          "Unable to validate credentials at this time",
+        );
+      }
       if (!passwordValid) {
-        await audit.log({
-          ...failedAuditBase,
-          userId: user.id,
-        });
+        try {
+          await audit.log({
+            ...failedAuditBase,
+            userId: user.id,
+          });
+        } catch {
+          // Non-sensitive: auditing must not mask the authentication failure.
+        }
         throw new HttpError(401, "INVALID_CREDENTIALS", "Invalid credentials");
       }
 
-      const session = await sessions.createSession({
-        userId: user.id,
-        ipAddress: input.ipAddress,
-        userAgent: input.userAgent,
-        deviceInfo: input.deviceInfo,
-      });
+      let session: Awaited<ReturnType<typeof sessions.createSession>>;
+      try {
+        session = await sessions.createSession({
+          userId: user.id,
+          ipAddress: input.ipAddress,
+          userAgent: input.userAgent,
+          deviceInfo: input.deviceInfo,
+        });
+      } catch (error) {
+        logger.error({ error }, "Session creation failed");
+        throw new ServiceUnavailableError(
+          "auth",
+          "Unable to create authentication session",
+        );
+      }
 
-      await repository.touchLastLogin(user.id);
+      try {
+        await repository.touchLastLogin(user.id);
+      } catch (error) {
+        logger.warn({ error, userId: user.id }, "Could not update last login");
+      }
 
-      await audit.log({
-        userId: user.id,
-        action: "auth.login_success",
-        entityType: "session",
-        entityId: session.sessionId,
-        metadata: { ipAddress: input.ipAddress ?? null },
-      });
+      try {
+        await audit.log({
+          userId: user.id,
+          action: "auth.login_success",
+          entityType: "session",
+          entityId: session.sessionId,
+          metadata: { ipAddress: input.ipAddress ?? null },
+        });
+      } catch {
+        throw new HttpError(
+          500,
+          "AUTH_LOGIN_FAILED",
+          "Login failed",
+          { step: "audit.log" },
+        );
+      }
 
-      const freshUser = await repository.findUserById(user.id);
+      let freshUser: Awaited<ReturnType<typeof repository.findUserById>>;
+      try {
+        freshUser = await repository.findUserById(user.id);
+      } catch (error) {
+        logger.error({ error, userId: user.id }, "Failed to reload authenticated user");
+        throw new ServiceUnavailableError(
+          "auth",
+          "Unable to complete authentication at this time",
+        );
+      }
+
       if (!freshUser) {
         throw new HttpError(404, "USER_NOT_FOUND", "User not found");
       }
 
-      return {
-        accessToken: createAccessTokenForUser(freshUser, session.sessionId),
-        refreshToken: session.refreshToken,
-        csrfToken: createOpaqueToken(AUTH_POLICY.CSRF_TOKEN_BYTES),
-        user: mapUser(freshUser, {
-          id: session.sessionId,
-          expiresAt: session.expiresAt,
-        }),
-      };
+      try {
+        return {
+          accessToken: createAccessTokenForUser(freshUser, session.sessionId),
+          refreshToken: session.refreshToken,
+          csrfToken: createOpaqueToken(AUTH_POLICY.CSRF_TOKEN_BYTES),
+          user: mapUser(freshUser, {
+            id: session.sessionId,
+            expiresAt: session.expiresAt,
+          }),
+        };
+      } catch (error) {
+        logger.error({ error, userId: freshUser.id }, "Failed to generate auth tokens");
+        throw new ServiceUnavailableError(
+          "auth",
+          "Unable to complete authentication at this time",
+        );
+      }
     },
 
     async refresh(refreshToken?: string) {

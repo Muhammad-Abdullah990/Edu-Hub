@@ -18,6 +18,9 @@ export const createStudentSchema = z.object({
   admissionDate: dateString,
   photoUrl: z.string().trim().url().max(1024),
   status: studentStatusSchema.optional(),
+  // Fee fields
+  monthlyFeeAmount: z.number().int().nonnegative().default(0),
+  feeCycleStartDate: dateString.optional(),
 });
 
 export const updateStudentSchema = z.object({
@@ -29,10 +32,21 @@ export const updateStudentSchema = z.object({
   admissionDate: dateString.optional(),
   photoUrl: z.string().trim().url().max(1024).optional(),
   status: studentStatusSchema.optional(),
+  // Fee fields
+  monthlyFeeAmount: z.number().int().nonnegative().optional(),
+  feeCycleStartDate: dateString.optional(),
 });
 
 export const studentIdParamSchema = z.object({
   id: z.string().uuid(),
+});
+
+export const studentSlugParamSchema = z.object({
+  slug: z.string().trim().min(1),
+});
+
+export const linkPortalUserSchema = z.object({
+  portalUserId: z.string().uuid().nullable(),
 });
 
 export const studentListQuerySchema = z.object({
@@ -40,7 +54,7 @@ export const studentListQuerySchema = z.object({
   class: z.string().trim().max(32).optional(),
   status: studentStatusSchema.optional(),
   page: z.coerce.number().int().positive().default(1),
-  limit: z.coerce.number().int().positive().max(100).default(25),
+  limit: z.coerce.number().int().positive().max(500).default(25),
   sortBy: z
     .enum(["fullName", "admissionDate", "class", "studentCode"])
     .default("fullName"),

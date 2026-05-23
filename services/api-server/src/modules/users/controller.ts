@@ -3,10 +3,24 @@ import { createUserSchema, updateUserSchema, userIdParamSchema } from "./validat
 import { usersService } from "./service";
 
 export const usersController = {
+  async listUsers(request: Request, response: Response) {
+    const limit = Math.min(Number(request.query.limit ?? 100), 200);
+    const users = await usersService.listUsers(limit);
+    response.json({
+      success: true,
+      data: users,
+      message: "Users retrieved successfully",
+    });
+  },
+
   async createUser(request: Request, response: Response) {
     const input = createUserSchema.parse(request.body);
     const user = await usersService.createUser(request.auth!.userId, input);
-    response.status(201).json(user);
+    response.status(201).json({
+      success: true,
+      data: user,
+      message: "User created successfully",
+    });
   },
 
   async getUserById(request: Request, response: Response) {

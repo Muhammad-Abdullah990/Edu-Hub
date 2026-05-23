@@ -74,6 +74,7 @@ onlyBuiltDependencies:
   - unrs-resolver
 
 overrides:
+  rollup: "4.59.0"
   # replit uses linux-x64 only, we can exclude all other platforms
   "esbuild>@esbuild/darwin-arm64": "-"
   "esbuild>@esbuild/darwin-x64": "-"
@@ -137,7 +138,7 @@ overrides:
   "rollup>@rollup/rollup-linux-riscv64-gnu": "-"
   "rollup>@rollup/rollup-linux-riscv64-musl": "-"
   "rollup>@rollup/rollup-linux-s390x-gnu": "-"
-  "rollup>@rollup/rollup-linux-x64-musl": "-"
+  "rollup>@rollup/rollup-linux-x64-musl": "4.59.0"
   "rollup>@rollup/rollup-openbsd-x64": "-"
   "rollup>@rollup/rollup-openharmony-arm64": "-"
   "rollup>@rollup/rollup-win32-arm64-msvc": "-"
@@ -161,3 +162,9 @@ overrides:
   path-to-regexp: "^8.4.0"
   "picomatch@2": "^2.3.2"
   "picomatch@4": "^4.0.4"
+
+allowBuilds:
+  argon2: true
+  esbuild: true
+  msgpackr-extract: true
+  puppeteer: true

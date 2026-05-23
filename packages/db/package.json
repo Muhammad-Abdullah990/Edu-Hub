@@ -10,14 +10,18 @@
   "scripts": {
     "push": "drizzle-kit push --config ./drizzle.config.ts",
     "push-force": "drizzle-kit push --force --config ./drizzle.config.ts",
-    "seed:auth": "node --import tsx ./src/seeds/auth.ts"
+    "seed:auth": "node --import tsx ./src/seeds/auth.ts",
+    "seed:portal": "node --import tsx ./src/seeds/portal-users.ts",
+    "seed:all": "node --import tsx ./src/seeds/auth.ts && node --import tsx ./src/seeds/students.ts && node --import tsx ./src/seeds/portal-users.ts"
   },
   "dependencies": {
     "@toppers/auth": "workspace:*",
+    "dotenv": "^16.6.1",
     "argon2": "^0.41.1",
     "drizzle-orm": "catalog:",
     "drizzle-zod": "^0.8.3",
     "pg": "^8.20.0",
+    "pino": "^9",
     "zod": "catalog:"
   },
   "devDependencies": {

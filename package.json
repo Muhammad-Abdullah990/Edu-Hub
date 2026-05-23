@@ -7,7 +7,9 @@
     "build": "pnpm run typecheck && pnpm -r --workspace-concurrency=1 --filter \"@toppers/*\" --if-present run build",
     "typecheck:packages": "tsc --build",
     "typecheck": "pnpm run typecheck:packages && pnpm -r --workspace-concurrency=1 --filter \"@toppers/*\" --if-present run typecheck",
-    "codegen": "pnpm --filter @toppers/configs run codegen"
+    "codegen": "pnpm --filter @toppers/configs run codegen",
+    "lint": "pnpm -r --workspace-concurrency=1 --filter \"@toppers/*\" --if-present run lint",
+    "test": "pnpm -r --workspace-concurrency=1 --filter \"@toppers/*\" --if-present run test"
   },
   "private": true,
   "devDependencies": {

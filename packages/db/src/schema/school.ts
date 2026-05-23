@@ -27,6 +27,14 @@ export const studentsTable = pgTable(
     admissionDate: date("admission_date").notNull(),
     status: varchar("status", { length: 32 }).notNull().default("active"),
     photoUrl: text("photo_url").notNull(),
+    portalUserId: uuid("portal_user_id").references(() => usersTable.id, {
+      onDelete: "set null",
+    }),
+    // Fee-related fields
+    monthlyFeeAmount: integer("monthly_fee_amount").notNull().default(0),
+    feeCycleStartDate: date("fee_cycle_start_date"),
+    nextFeeDueDate: date("next_fee_due_date"),
+    // End fee-related fields
     isArchived: boolean("is_archived").notNull().default(false),
     archivedAt: timestamp("archived_at", { withTimezone: true }),
     createdAt: timestamp("created_at", { withTimezone: true })
@@ -43,6 +51,9 @@ export const studentsTable = pgTable(
     studentNameIndex: index("students_full_name_idx").on(table.fullName),
     classIndex: index("students_class_idx").on(table.class),
     statusIndex: index("students_status_idx").on(table.status),
+    portalUserUniqueIndex: uniqueIndex("students_portal_user_id_unique_idx").on(
+      table.portalUserId,
+    ),
   }),
 );
 
@@ -363,6 +374,10 @@ export const notificationHistoryTable = pgTable(
 );
 
 export const studentsRelations = relations(studentsTable, ({ many, one }) => ({
+  portalUser: one(usersTable, {
+    fields: [studentsTable.portalUserId],
+    references: [usersTable.id],
+  }),
   attendanceSummary: one(attendanceSummaryTable, {
     fields: [studentsTable.id],
     references: [attendanceSummaryTable.studentId],

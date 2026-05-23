@@ -6,6 +6,12 @@ import { usersController } from "./controller";
 
 export const usersRoutes = Router();
 
+usersRoutes.get(
+  "/users",
+  requirePermissions(PERMISSION_NAMES.USERS_READ),
+  asyncHandler(usersController.listUsers),
+);
+
 usersRoutes.post(
   "/users",
   requirePermissions(PERMISSION_NAMES.USERS_WRITE),

@@ -1,10 +1,12 @@
 import { Link, useLocation } from "wouter";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@toppers/ui";
 import { WaveWrap } from "@toppers/ui";
 import { PrimaryCTAButton } from "@toppers/ui";
+import { useAuth } from "@/auth/AuthContext";
+import { ROLE_NAMES } from "@toppers/auth";
 import logoUrl from "@assets/Full_Transparent_(1)_1775893055172.webp";
 
 // Simplified navigation for non-technical users
@@ -18,9 +20,30 @@ const navItems = [
 ];
 
 export function Navbar() {
+  const auth = useAuth();
   const [location] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const portalNavItem = useMemo(() => {
+    if (auth.status !== "authenticated") {
+      return null;
+    }
+
+    if (auth.hasRole(ROLE_NAMES.SUPER_ADMIN)) {
+      return { name: "Admin Portal", href: "/admin" };
+    }
+
+    if (auth.hasRole(ROLE_NAMES.TEACHER)) {
+      return { name: "Teacher Portal", href: "/teacher" };
+    }
+
+    if (auth.hasRole(ROLE_NAMES.STUDENT)) {
+      return { name: "Student Portal", href: "/student" };
+    }
+
+    return null;
+  }, [auth]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -72,8 +95,32 @@ export function Navbar() {
                 {item.name}
               </Link>
             ))}
+            {portalNavItem ? (
+              <Link
+                href={portalNavItem.href}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  location === portalNavItem.href
+                    ? "bg-primary/5 text-primary"
+                    : "text-slate-600 hover:bg-primary/5 hover:text-primary"
+                }`}
+              >
+                {portalNavItem.name}
+              </Link>
+            ) : null}
+            {auth.status === "authenticated" ? (
+              <Button variant="outline" onClick={() => void auth.logout()}>
+                Logout
+              </Button>
+            ) : (
+              <Link
+                href="/login"
+                className="px-4 py-2 rounded-full text-sm font-medium bg-primary text-white hover:bg-primary/90 transition-colors"
+              >
+                Login
+              </Link>
+            )}
             <div className="ml-4">
-              <PrimaryCTAButton 
+              <PrimaryCTAButton
                 label="Admissions"
                 href="/contact"
                 ariaLabel="Go to Admissions page"
@@ -119,6 +166,14 @@ export function Navbar() {
                   {item.name}
                 </Link>
               ))}
+              {portalNavItem ? (
+                <Link
+                  href={portalNavItem.href}
+                  className="px-4 py-3 rounded-xl text-base font-medium text-slate-600 hover:bg-slate-50"
+                >
+                  {portalNavItem.name}
+                </Link>
+              ) : null}
               <div className="pt-4 pb-2 px-4">
                 <Link href="/contact" className="block w-full">
                   <motion.div whileHover={{ scale: 1.02 }} className="rounded-xl w-full">

@@ -37,31 +37,52 @@ export function requireAuth(
   }
 }
 
+function ensureAuthenticated(request: Request, next: NextFunction): boolean {
+  if (request.auth) {
+    return true;
+  }
+
+  const token = resolveBearerToken(request);
+  if (!token) {
+    next(
+      new HttpError(401, "AUTHENTICATION_REQUIRED", "Authentication required"),
+    );
+    return false;
+  }
+
+  try {
+    request.auth = verifyAccessToken(token);
+    return true;
+  } catch {
+    next(new HttpError(401, "INVALID_ACCESS_TOKEN", "Invalid access token"));
+    return false;
+  }
+}
+
 export function requireRoles(...roles: PlatformRole[]) {
   return async function guard(
     request: Request,
     _response: Response,
     next: NextFunction,
   ) {
-    if (!request.auth) {
-      return next(
-        new HttpError(401, "AUTHENTICATION_REQUIRED", "Authentication required"),
-      );
+    if (!ensureAuthenticated(request, next)) {
+      return;
     }
 
-    const allowed = request.auth.roles.some((role) => roles.includes(role));
+    const auth = request.auth!;
+    const allowed = auth.roles.some((role) => roles.includes(role));
     if (allowed) {
       return next();
     }
 
     await auditService.log({
-      userId: request.auth.userId,
+      userId: auth.userId,
       action: "auth.role_violation",
       entityType: "route",
       metadata: {
         path: request.path,
         requiredRoles: roles,
-        actualRoles: request.auth.roles,
+        actualRoles: auth.roles,
       },
     });
 
@@ -75,27 +96,26 @@ export function requirePermissions(...permissions: PermissionName[]) {
     _response: Response,
     next: NextFunction,
   ) {
-    if (!request.auth) {
-      return next(
-        new HttpError(401, "AUTHENTICATION_REQUIRED", "Authentication required"),
-      );
+    if (!ensureAuthenticated(request, next)) {
+      return;
     }
 
+    const auth = request.auth!;
     const allowed = permissions.every((permission) =>
-      hasPermission(request.auth!.permissions, permission),
+      hasPermission(auth.permissions, permission),
     );
     if (allowed) {
       return next();
     }
 
     await auditService.log({
-      userId: request.auth.userId,
+      userId: auth.userId,
       action: "auth.permission_violation",
       entityType: "route",
       metadata: {
         path: request.path,
         requiredPermissions: permissions,
-        actualPermissions: request.auth.permissions,
+        actualPermissions: auth.permissions,
       },
     });
 
@@ -111,13 +131,12 @@ export function requireSelfOrPermissions(...permissions: PermissionName[]) {
     _response: Response,
     next: NextFunction,
   ) {
-    if (!request.auth) {
-      return next(
-        new HttpError(401, "AUTHENTICATION_REQUIRED", "Authentication required"),
-      );
+    if (!ensureAuthenticated(request, next)) {
+      return;
     }
 
-    if (request.auth.userId === request.params.id) {
+    const auth = request.auth!;
+    if (auth.userId === request.params.id) {
       return next();
     }
 

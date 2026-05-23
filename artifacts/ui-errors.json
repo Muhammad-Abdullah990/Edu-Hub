@@ -1,0 +1,72 @@
+[
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+    "url": "http://127.0.0.1:4173/"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+    "url": "http://127.0.0.1:4173/about"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+    "url": "http://127.0.0.1:4173/faculty"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+    "url": "http://127.0.0.1:4173/results"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+    "url": "http://127.0.0.1:4173/programs"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+    "url": "http://127.0.0.1:4173/contact"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+    "url": "http://127.0.0.1:4173/current-students"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+    "url": "http://127.0.0.1:4173/login"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    "url": "http://127.0.0.1:4173/student-success"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    "url": "http://127.0.0.1:4173/testimonials"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    "url": "http://127.0.0.1:4173/login"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    "url": "http://127.0.0.1:4173/login"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    "url": "http://127.0.0.1:4173/login"
+  },
+  {
+    "type": "console",
+    "text": "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    "url": "http://127.0.0.1:4173/login"
+  }
+]

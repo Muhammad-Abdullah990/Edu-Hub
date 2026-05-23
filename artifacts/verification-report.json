@@ -1,0 +1,344 @@
+[
+  {
+    "category": "api",
+    "name": "GET /api/health",
+    "status": "pass",
+    "detail": "status=200 body=healthy"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/public/students",
+    "status": "pass",
+    "detail": "count=8"
+  },
+  {
+    "category": "api",
+    "name": "POST /api/auth/login (admin)",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "category": "api",
+    "name": "GET /api/students",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/users",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/admin/dashboard",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/admin/workflows/pending",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/fees/records",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/communications/queue",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/audit/logs",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/roles",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/permissions",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/sessions/me",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/analytics/class/Class%2010/summary",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/metrics",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "jobs",
+    "name": "admin dashboard queue metrics",
+    "status": "pass",
+    "detail": "0 queue(s) reported"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/attendance/class/:classId",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/performance-notes/student/:id",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/students/:id/parents",
+    "status": "pass",
+    "detail": "HTTP 200 count=2"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/reports/student/:id",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "api",
+    "name": "POST /api/reports/generate",
+    "status": "partial",
+    "detail": "HTTP 409"
+  },
+  {
+    "category": "api",
+    "name": "POST /api/auth/login (teacher demo)",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "category": "api",
+    "name": "GET /api/students (teacher role)",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/students/me (student role)",
+    "status": "pass",
+    "detail": "Ahmed Hassan"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/users (no auth)",
+    "status": "pass",
+    "detail": "expected 401 got 401"
+  },
+  {
+    "category": "api",
+    "name": "GET /api/debug/db (dev only)",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "ui",
+    "name": "page load /",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "ui",
+    "name": "page load /about",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "ui",
+    "name": "page load /faculty",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "ui",
+    "name": "page load /faculty/aamera-ishaque",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "ui",
+    "name": "page load /faculty/muhammad-abdullah",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "ui",
+    "name": "page load /faculty/tayyaba-gul",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "ui",
+    "name": "page load /results",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "ui",
+    "name": "page load /programs",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "ui",
+    "name": "page load /contact",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "ui",
+    "name": "page load /current-students",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "ui",
+    "name": "page load /login",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "ui",
+    "name": "page load /student-success",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "ui",
+    "name": "page load /testimonials",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "ui",
+    "name": "page load /privacy-policy",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "ui",
+    "name": "page load /terms-of-service",
+    "status": "pass",
+    "detail": "HTTP 200"
+  },
+  {
+    "category": "ui",
+    "name": "admin login → /admin",
+    "status": "pass",
+    "detail": "http://127.0.0.1:4173/admin (login HTTP 200)"
+  },
+  {
+    "category": "ui",
+    "name": "admin tab: Attendance",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "category": "ui",
+    "name": "admin tab: Fees",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "category": "ui",
+    "name": "admin tab: Comms",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "category": "ui",
+    "name": "admin tab: Users",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "category": "ui",
+    "name": "admin tab: Students",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "category": "ui",
+    "name": "admin tab: Reports",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "category": "ui",
+    "name": "admin tab: Parents",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "category": "ui",
+    "name": "admin tab: Audit",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "category": "ui",
+    "name": "admin tab: Roles",
+    "status": "partial",
+    "detail": ""
+  },
+  {
+    "category": "ui",
+    "name": "admin tab: Analytics",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "category": "ui",
+    "name": "student login → /student",
+    "status": "pass",
+    "detail": "http://127.0.0.1:4173/student (login HTTP 200)"
+  },
+  {
+    "category": "ui",
+    "name": "student profile (/students/me)",
+    "status": "pass",
+    "detail": "Ahmed Hassan"
+  },
+  {
+    "category": "ui",
+    "name": "teacher login → /teacher",
+    "status": "pass",
+    "detail": "http://127.0.0.1:4173/teacher"
+  },
+  {
+    "category": "ui",
+    "name": "teacher roster load",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "category": "ui",
+    "name": "API errors during browser pass",
+    "status": "partial",
+    "detail": "15 issue(s)"
+  }
+]

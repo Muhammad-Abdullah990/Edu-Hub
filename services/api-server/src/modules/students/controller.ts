@@ -1,8 +1,11 @@
-﻿import type { Request, Response } from "express";
+import type { Request, Response } from "express";
+import { HttpError } from "../../lib/http-error";
 import {
   createStudentSchema,
+  linkPortalUserSchema,
   studentIdParamSchema,
   studentListQuerySchema,
+  studentSlugParamSchema,
   updateStudentSchema,
 } from "./validation";
 import { studentsService } from "./service";
@@ -29,6 +32,34 @@ export const studentsController = {
     });
   },
 
+  async getPublicStudents(request: Request, response: Response) {
+    const result = await studentsService.getPublicStudents();
+    response.json({
+      success: true,
+      data: result.students,
+      message: "Public students retrieved successfully",
+    });
+  },
+
+  async getPublicStudentBySlug(request: Request, response: Response) {
+    const { slug } = studentSlugParamSchema.parse(request.params);
+    const student = await studentsService.getPublicStudentBySlug(slug);
+    response.json({
+      success: true,
+      data: student,
+      message: "Public student profile retrieved successfully",
+    });
+  },
+
+  async getMyStudentProfile(request: Request, response: Response) {
+    const student = await studentsService.getMyStudentProfile(request.auth!);
+    response.json({
+      success: true,
+      data: student,
+      message: "Linked student profile retrieved successfully",
+    });
+  },
+
   async getStudentById(request: Request, response: Response) {
     const { id } = studentIdParamSchema.parse(request.params);
     const student = await studentsService.getStudentById(request.auth!, id);
@@ -36,6 +67,21 @@ export const studentsController = {
       success: true,
       data: student,
       message: "Student profile retrieved successfully",
+    });
+  },
+
+  async linkPortalUser(request: Request, response: Response) {
+    const { id } = studentIdParamSchema.parse(request.params);
+    const { portalUserId } = linkPortalUserSchema.parse(request.body);
+    const result = await studentsService.linkPortalUser(
+      request.auth!.userId,
+      id,
+      portalUserId,
+    );
+    response.json({
+      success: true,
+      data: result,
+      message: "Portal user link updated successfully",
     });
   },
 

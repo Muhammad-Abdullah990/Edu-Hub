@@ -15,6 +15,5 @@ performanceRoutes.post(
 performanceRoutes.get(
   "/performance-notes/student/:studentId",
   requireRoles(ROLE_NAMES.SUPER_ADMIN, ROLE_NAMES.ADMIN, ROLE_NAMES.TEACHER),
-  requireAuth,
   asyncHandler(performanceController.getPerformanceNotes),
 );

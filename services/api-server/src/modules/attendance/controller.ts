@@ -40,4 +40,34 @@ export const attendanceController = {
       message: "Class attendance loaded successfully",
     });
   },
+
+  async getAllAttendance(request: Request, response: Response) {
+    const date = (request.query.date as string) ?? new Date().toISOString().slice(0, 10);
+    const records = await attendanceService.getAllAttendance(
+      request.auth!,
+      date,
+    );
+
+    response.json({
+      success: true,
+      data: records,
+      message: "All attendance records loaded successfully",
+    });
+  },
+
+  async getStudentAttendanceHistory(request: Request, response: Response) {
+    const studentId = String(request.params.studentId);
+    const records = await attendanceService.getStudentAttendanceHistory(
+      request.auth!,
+      studentId,
+    );
+
+    response.json({
+      success: true,
+      data: records,
+      message: "Student attendance history loaded successfully",
+    });
+  },
 };
+
+

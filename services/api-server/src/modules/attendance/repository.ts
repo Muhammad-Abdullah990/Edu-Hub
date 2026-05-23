@@ -49,7 +49,7 @@ export const attendanceRepository = {
     class: string;
     section?: string;
     date: string;
-    items: Array<{ studentId: string; status: "present" | "absent" }>;
+    items: Array<{ studentId: string; status: "present" | "absent" | "leave" }>;
   }): Promise<AttendanceBulkResult> {
     const studentIds = input.items.map((item) => item.studentId);
     if (studentIds.length === 0) {
@@ -93,11 +93,11 @@ export const attendanceRepository = {
           return;
         }
         summary.total += 1;
-        if (row.status === "present") {
-          summary.present += 1;
-        } else if (row.status === "absent") {
-          summary.absent += 1;
-        }
+    if (row.status === "present") {
+      summary.present += 1;
+    } else if (row.status === "absent" || row.status === "leave") {
+      summary.absent += 1;
+    }
       });
 
       await Promise.all(
@@ -137,10 +137,48 @@ export const attendanceRepository = {
     });
   },
 
+  async findAllAttendance(date: string) {
+    return db
+      .select({
+        studentId: studentsTable.id,
+        studentCode: studentsTable.studentCode,
+        fullName: studentsTable.fullName,
+        class: studentsTable.class,
+        section: studentsTable.section,
+        status: attendanceTable.status,
+        attendanceDate: attendanceTable.date,
+        markedBy: attendanceTable.markedBy,
+      })
+      .from(studentsTable)
+      .leftJoin(
+        attendanceTable,
+        and(
+          eq(attendanceTable.studentId, studentsTable.id),
+          eq(attendanceTable.date, date),
+        ),
+      )
+      .where(eq(studentsTable.isArchived, false))
+      .orderBy(asc(studentsTable.fullName));
+  },
+
   async findAttendanceForStudent(studentId: string) {
-    return db.query.attendanceTable.findMany({
-      where: eq(attendanceTable.studentId, studentId),
-      orderBy: asc(attendanceTable.date),
-    });
+    return db
+      .select({
+        studentId: studentsTable.id,
+        studentCode: studentsTable.studentCode,
+        fullName: studentsTable.fullName,
+        class: studentsTable.class,
+        section: studentsTable.section,
+        status: attendanceTable.status,
+        attendanceDate: attendanceTable.date,
+        markedBy: attendanceTable.markedBy,
+      })
+      .from(attendanceTable)
+      .innerJoin(
+        studentsTable,
+        eq(attendanceTable.studentId, studentsTable.id),
+      )
+      .where(eq(attendanceTable.studentId, studentId))
+      .orderBy(asc(attendanceTable.date));
   },
 };

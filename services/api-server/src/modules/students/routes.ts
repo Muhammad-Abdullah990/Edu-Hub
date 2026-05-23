@@ -1,4 +1,4 @@
-﻿import { Router } from "express";
+import { Router } from "express";
 import { ROLE_NAMES } from "@toppers/auth";
 import { asyncHandler } from "../../lib/async-handler";
 import { requireAuth, requireRoles } from "../../middlewares/require-auth";
@@ -14,15 +14,37 @@ studentsRoutes.post(
 );
 
 studentsRoutes.get(
+  "/public/students",
+  asyncHandler(studentsController.getPublicStudents),
+);
+
+studentsRoutes.get(
+  "/public/students/slug/:slug",
+  asyncHandler(studentsController.getPublicStudentBySlug),
+);
+
+studentsRoutes.get(
   "/students",
   requireRoles(ROLE_NAMES.ADMIN, ROLE_NAMES.SUPER_ADMIN, ROLE_NAMES.TEACHER),
   asyncHandler(studentsController.getStudents),
 );
 
 studentsRoutes.get(
+  "/students/me",
+  requireAuth,
+  asyncHandler(studentsController.getMyStudentProfile),
+);
+
+studentsRoutes.get(
   "/students/:id",
   requireAuth,
   asyncHandler(studentsController.getStudentById),
+);
+
+studentsRoutes.patch(
+  "/students/:id/portal-user",
+  requireRoles(ROLE_NAMES.ADMIN, ROLE_NAMES.SUPER_ADMIN),
+  asyncHandler(studentsController.linkPortalUser),
 );
 
 studentsRoutes.put(

@@ -4,7 +4,7 @@ import {
   userRolesTable,
   usersTable,
 } from "@toppers/db";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import type { PermissionName, PlatformRole, UserStatus } from "@toppers/auth";
 
 async function findUserWithRelationsById(userId: string) {
@@ -124,6 +124,30 @@ export const usersRepository = {
     const user = await findUserWithRelationsByEmail(email);
 
     return user ? mapAccessProfile(user) : null;
+  },
+
+  async listAccessProfiles(limit = 100) {
+    const users = await db.query.usersTable.findMany({
+      orderBy: desc(usersTable.createdAt),
+      limit,
+      with: {
+        primaryRole: true,
+      },
+    });
+
+    return users.map((user) => ({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      status: user.status as UserStatus,
+      createdAt: user.createdAt.toISOString(),
+      updatedAt: user.updatedAt.toISOString(),
+      primaryRole: {
+        id: user.primaryRole.id,
+        name: user.primaryRole.name as PlatformRole,
+        description: user.primaryRole.description,
+      },
+    }));
   },
 
   async findRoleByName(roleName: PlatformRole) {

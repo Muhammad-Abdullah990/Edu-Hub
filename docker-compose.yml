@@ -1,0 +1,125 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: toppers-postgres
+    environment:
+      POSTGRES_USER: ${DB_USER:-toppers}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-changeme}
+      POSTGRES_DB: ${DB_NAME:-toppers_db}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USER:-toppers}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - toppers-network
+
+  # Redis for Queues
+  redis:
+    image: redis:7-alpine
+    container_name: toppers-redis
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - toppers-network
+
+  # API Server
+  api:
+    build:
+      context: .
+      dockerfile: services/api-server/Dockerfile
+    container_name: toppers-api
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 3000
+      DATABASE_URL: postgres://${DB_USER:-toppers}:${DB_PASSWORD:-changeme}@postgres:5432/${DB_NAME:-toppers_db}
+      REDIS_URL: redis://redis:6379
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:-your-secret-key-min-32-chars-long-here}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-your-refresh-secret-min-32-chars-long}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./services/api-server/src:/app/src
+    networks:
+      - toppers-network
+    restart: unless-stopped
+
+  # Automation Agent
+  automation:
+    build:
+      context: .
+      dockerfile: apps/automation-agent/Dockerfile
+    container_name: toppers-automation
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      DATABASE_URL: postgres://${DB_USER:-toppers}:${DB_PASSWORD:-changeme}@postgres:5432/${DB_NAME:-toppers_db}
+      REDIS_URL: redis://redis:6379
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./apps/automation-agent/src:/app/src
+      - automation_storage:/app/storage
+    networks:
+      - toppers-network
+    restart: unless-stopped
+
+  # Admin Dashboard
+  admin-dashboard:
+    build:
+      context: .
+      dockerfile: apps/admin-dashboard/Dockerfile
+    container_name: toppers-admin
+    ports:
+      - "3001:3001"
+    environment:
+      VITE_API_URL: http://api:3000
+    depends_on:
+      - api
+    networks:
+      - toppers-network
+    restart: unless-stopped
+
+  # Marketing Web
+  marketing-web:
+    build:
+      context: .
+      dockerfile: apps/marketing-web/Dockerfile
+    container_name: toppers-marketing
+    ports:
+      - "3002:3002"
+    networks:
+      - toppers-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  automation_storage:
+
+networks:
+  toppers-network:
+    driver: bridge

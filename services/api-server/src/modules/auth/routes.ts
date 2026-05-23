@@ -1,23 +1,27 @@
 import { Router } from "express";
 import rateLimit from "express-rate-limit";
 import { asyncHandler } from "../../lib/async-handler";
+import { env } from "../../lib/env";
 import { requireAuth } from "../../middlewares/require-auth";
 import { requireCsrfToken } from "../../middlewares/require-csrf";
 import { authController } from "./controller";
 
-const authLimiter = rateLimit({
+const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  limit: 10,
+  limit: env.NODE_ENV === "development" ? 200 : 10,
   standardHeaders: true,
   legacyHeaders: false,
+  message: {
+    error: "RATE_LIMIT",
+    message: "Too many login attempts. Try again later.",
+  },
 });
 
 export const authRoutes = Router();
 
-authRoutes.post("/auth/login", authLimiter, asyncHandler(authController.login));
+authRoutes.post("/auth/login", loginLimiter, asyncHandler(authController.login));
 authRoutes.post(
   "/auth/refresh",
-  authLimiter,
   requireCsrfToken,
   asyncHandler(authController.refresh),
 );

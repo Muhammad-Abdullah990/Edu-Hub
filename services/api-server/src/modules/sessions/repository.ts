@@ -1,5 +1,5 @@
 import { db, sessionsTable } from "@toppers/db";
-import { and, eq, gt, isNull } from "drizzle-orm";
+import { and, desc, eq, gt, isNull } from "drizzle-orm";
 
 export const sessionsRepository = {
   async create(input: {
@@ -56,4 +56,17 @@ export const sessionsRepository = {
       ),
     });
   },
+
+  async listActiveForUser(userId: string, limit = 20) {
+    return db.query.sessionsTable.findMany({
+      where: and(
+        eq(sessionsTable.userId, userId),
+        isNull(sessionsTable.revokedAt),
+        gt(sessionsTable.expiresAt, new Date()),
+      ),
+      orderBy: desc(sessionsTable.lastUsedAt),
+      limit,
+    });
+  },
 };
+

@@ -34,6 +34,7 @@ export * from "./components/ui/menubar";
 export * from "./components/ui/mobile-cta-bar";
 export * from "./components/ui/navigation-menu";
 export * from "./components/ui/pagination";
+export * from "./components/ui/password-input";
 export * from "./components/ui/popover";
 export * from "./components/ui/primary-cta-button";
 export * from "./components/ui/progress";

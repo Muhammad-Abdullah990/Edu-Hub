@@ -1,12 +1,31 @@
 import { useState, type FormEvent } from "react";
 import { useLocation } from "wouter";
-import { Button, Input } from "@toppers/ui";
+import { ROLE_NAMES } from "@toppers/auth";
+import type { AuthenticatedUser } from "@toppers/api-client";
+import { Button, Input, PasswordInput } from "@toppers/ui";
 import { useAuth } from "@/auth/AuthContext";
+
+function defaultPortalPath(user: AuthenticatedUser): string {
+  const roleNames = user.roles.map((role) => role.name);
+  if (
+    roleNames.includes(ROLE_NAMES.SUPER_ADMIN) ||
+    roleNames.includes(ROLE_NAMES.ADMIN)
+  ) {
+    return "/admin";
+  }
+  if (roleNames.includes(ROLE_NAMES.TEACHER)) {
+    return "/teacher";
+  }
+  if (roleNames.includes(ROLE_NAMES.STUDENT)) {
+    return "/student";
+  }
+  return "/";
+}
 
 export default function LoginPage() {
   const auth = useAuth();
   const [location, navigate] = useLocation();
-  const [email, setEmail] = useState("admin@toppers.com");
+  const [email, setEmail] = useState("info@topperscoachingcenter.com");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -19,8 +38,12 @@ export default function LoginPage() {
     setError(null);
 
     try {
-      await auth.login(email, password);
-      navigate(nextPath);
+      const user = await auth.login(email, password);
+      const destination =
+        nextPath !== "/" && !nextPath.startsWith("/login")
+          ? nextPath
+          : defaultPortalPath(user);
+      navigate(destination);
     } catch (loginError) {
       setError(
         loginError instanceof Error
@@ -35,7 +58,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-slate-100 px-4 py-20">
       <div className="mx-auto max-w-md rounded-[2rem] bg-white p-8 shadow-xl shadow-slate-200/60">
-        <h1 className="text-3xl font-bold text-slate-900">Edu-OS Sign In</h1>
+        <h1 className="text-3xl font-bold text-slate-900">Toppers Sign In</h1>
         <p className="mt-2 text-slate-600">
           Use your secure role-based account to continue.
         </p>
@@ -56,9 +79,8 @@ export default function LoginPage() {
             <label className="mb-2 block text-sm font-semibold text-slate-700">
               Password
             </label>
-            <Input
+            <PasswordInput
               autoComplete="current-password"
-              type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />

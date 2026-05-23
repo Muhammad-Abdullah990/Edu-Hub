@@ -244,20 +244,26 @@ async function seedParents(createdStudents: Array<{ id: string; studentCode: str
     const [created] = await db
       .insert(parentsTable)
       .values(parent)
-      .onConflictDoUpdate({
-        target: parentsTable.phone,
-        set: {
-          name: parent.name,
-          email: parent.email ?? undefined,
-          address: parent.address,
-        },
-      })
+      .onConflictDoNothing()
       .returning({ id: parentsTable.id });
+    if (created) {
+      createdParents.push({
+        id: created.id,
+        index: i,
+      });
+      continue;
+    }
 
-    createdParents.push({
-      id: created.id,
-      index: i,
+    const existing = await db.query.parentsTable.findFirst({
+      where: (table, { eq }) => eq(table.phone, parent.phone),
     });
+
+    if (existing) {
+      createdParents.push({
+        id: existing.id,
+        index: i,
+      });
+    }
   }
 
   // Link parents to students
@@ -313,9 +319,12 @@ async function main() {
   process.stdout.write("Student seed completed!\n");
 }
 
+import pino from "pino";
+const logger = pino();
+
 main()
   .catch((error) => {
-    console.error(error);
+    logger.error({ error }, "Failed to seed student data");
     process.exit(1);
   })
   .finally(async () => {
