@@ -24,7 +24,7 @@ export function WhatsAppButton({
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={`fixed bottom-24 right-6 z-50 md:bottom-6 ${className}`}
+      className={`fixed bottom-6 right-6 z-50 ${className}`}
       whileHover={{ scale: 1.15 }}
       whileTap={{ scale: 0.92 }}
       initial={{ scale: 0, opacity: 0 }}
