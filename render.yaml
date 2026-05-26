@@ -1,0 +1,79 @@
+# Render Blueprint Configuration
+# Deploys: API Server (Web Service) + Automation Agent (Background Worker)
+#
+# Required Environment Variables (set in Render Dashboard):
+#   SUPABASE_DATABASE_URL  - PostgreSQL connection string from Supabase
+#   UPSTASH_REDIS_URL      - Redis connection string from Upstash
+#   JWT_ACCESS_SECRET      - Random 32+ character string
+#   JWT_REFRESH_SECRET     - Random 32+ character string (different from above)
+
+services:
+  # ──────────────────────────────────────────────
+  # API Server (Express)
+  # ──────────────────────────────────────────────
+  - type: web
+    name: toppers-api
+    env: node
+    region: singapore
+    plan: free
+    buildCommand: pnpm install --frozen-lockfile && cd services/api-server && pnpm run build
+    startCommand: cd services/api-server && pnpm run start
+    healthCheckPath: /api/health
+    domains:
+      - api.topperscoachingcenter.com
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "3000"
+      - key: LOG_LEVEL
+        value: info
+      - key: DATABASE_URL
+        sync: false
+        # Set this in Render Dashboard -> Environment -> Secret File
+      - key: REDIS_URL
+        sync: false
+      - key: JWT_ACCESS_SECRET
+        sync: false
+      - key: JWT_REFRESH_SECRET
+        sync: false
+      - key: JWT_ACCESS_EXPIRY
+        value: 24h
+      - key: JWT_REFRESH_EXPIRY
+        value: 30d
+      - key: CORS_ORIGIN
+        value: "https://topperscoachingcenter.com,https://www.topperscoachingcenter.com,https://toppers-api.onrender.com"
+      - key: ENABLE_ANALYTICS
+        value: "true"
+      - key: ENABLE_AUTOMATION
+        value: "true"
+      - key: ENABLE_AI_FEATURES
+        value: "false"
+      - key: ENABLE_EMAIL_NOTIFICATIONS
+        value: "false"
+
+  # ──────────────────────────────────────────────
+  # Automation Agent (Background Worker)
+  # ──────────────────────────────────────────────
+  - type: worker
+    name: toppers-automation
+    env: node
+    region: singapore
+    plan: free
+    buildCommand: pnpm install --frozen-lockfile
+    startCommand: cd apps/automation-agent && pnpm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: info
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: JWT_ACCESS_SECRET
+        sync: false
+      - key: JWT_REFRESH_SECRET
+        sync: false
+      - key: ENABLE_AUTOMATION
+        value: "true"

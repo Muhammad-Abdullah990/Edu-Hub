@@ -47,3 +47,12 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# Environment files (keep .env.example only)
+.env
+.env.development
+.env.staging
+services/api-server/.env
+apps/marketing-web/.env
+apps/automation-agent/.env
+

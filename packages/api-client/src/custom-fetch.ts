@@ -164,10 +164,21 @@ function buildErrorMessage(response: Response, data: unknown): string {
 
   const title = getStringField(data, "title");
   const detail = getStringField(data, "detail");
-  const message =
-    getStringField(data, "message") ??
-    getStringField(data, "error_description") ??
-    getStringField(data, "error");
+  let message = getStringField(data, "message") ?? getStringField(data, "error_description");
+
+  // data.error may be an object with a .message field (e.g. { error: { code, message, correlationId } })
+  // from the server's globalErrorHandler, so we need to extract the nested message.
+  if (!message) {
+    const errField = getStringField(data, "error");
+    if (errField) {
+      message = errField;
+    } else {
+      const nestedError = data && typeof data === "object" ? (data as Record<string, unknown>)["error"] : undefined;
+      if (nestedError && typeof nestedError === "object") {
+        message = getStringField(nestedError, "message");
+      }
+    }
+  }
 
   if (title && detail) return `${prefix}: ${title} — ${detail}`;
   if (detail) return `${prefix}: ${detail}`;

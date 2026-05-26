@@ -1,0 +1,77 @@
+# ============================================================================
+# TOOPERS COACHING CENTER — Hostinger Configuration
+# ============================================================================
+# Place this file in Hostinger's public_html/ directory
+# ============================================================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # ============================================================================
+    # 1. SPA Routing — Rewrite all routes to index.html
+    #    This enables React Router to handle URLs like /dashboard, /login, etc.
+    # ============================================================================
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(?!api/)(.*)$ index.html [L]
+
+    # ============================================================================
+    # 2. API Proxy — Forward /api/* requests to Render
+    #    The Express API runs on Render at toppers-api.onrender.com
+    # ============================================================================
+    RewriteCond %{REQUEST_URI} ^/api/ [NC]
+    RewriteRule ^api/(.*)$ https://toppers-api.onrender.com/api/$1 [P,L]
+
+    # ============================================================================
+    # 3. CORS Headers — Allow API to set cookies for authentication
+    # ============================================================================
+    Header always set Access-Control-Allow-Origin "https://topperscoachingcenter.com"
+    Header always set Access-Control-Allow-Credentials "true"
+    Header always set Access-Control-Allow-Methods "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-CSRF-Token"
+
+    # Handle preflight OPTIONS requests
+    RewriteCond %{REQUEST_METHOD} OPTIONS
+    RewriteRule ^(.*)$ $1 [R=200,L]
+</IfModule>
+
+# ============================================================================
+# 4. Security Headers
+# ============================================================================
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ============================================================================
+# 5. Performance — Cache static assets
+# ============================================================================
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType text/javascript "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresDefault "access plus 1 month"
+</IfModule>
+
+# ============================================================================
+# 6. Gzip Compression
+# ============================================================================
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+# ============================================================================
+# 7. Deny access to sensitive files
+# ============================================================================
+<FilesMatch "\.(env|git|md|lock|json)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

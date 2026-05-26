@@ -63,10 +63,7 @@ export default defineConfig(async ({ command }) => {
       // ✅ FIXED PROXY (CRITICAL)
       proxy: {
         "/api": {
-          target:
-            process.env.VITE_API_PROXY_TARGET ??
-            process.env.API_BASE_URL ??
-            "http://127.0.0.1:3001",
+          target: "http://127.0.0.1:3000",
           changeOrigin: true,
           secure: false,
 
