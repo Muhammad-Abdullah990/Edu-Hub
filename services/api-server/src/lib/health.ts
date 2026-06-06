@@ -55,8 +55,11 @@ export async function checkRedis(): Promise<HealthCheckResult> {
   let redis: ReturnType<typeof createClient> | null = null;
   try {
     redis = createClient({ url: process.env.REDIS_URL || "redis://localhost:6379" });
-    // Catch socket errors to prevent unhandled exceptions from crashing the process
-    redis.on("error", () => {});
+    // CRITICAL: Attach error handlers BEFORE connecting to prevent crashes
+    // The redis package emits SocketClosedUnexpectedlyError as an unhandled error
+    redis.on("error", (err) => {
+      // Swallow all Redis errors during health check to prevent process crash
+    });
     redis.on("reconnecting", () => {});
     await redis.connect();
     const pong = await redis.ping();

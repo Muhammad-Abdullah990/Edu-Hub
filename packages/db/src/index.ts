@@ -26,7 +26,10 @@ if (!process.env.DATABASE_URL) {
   );
 }
 
-export const pool = new Pool({ connectionString: process.env.DATABASE_URL, family: 4 } as any);
+// Trim any trailing newlines/whitespace from env vars (common issue with Render env vars)
+const databaseUrl = process.env.DATABASE_URL.trim();
+
+export const pool = new Pool({ connectionString: databaseUrl, family: 4 } as any);
 export const db = drizzle(pool, { schema });
 
 export * from "./schema";
