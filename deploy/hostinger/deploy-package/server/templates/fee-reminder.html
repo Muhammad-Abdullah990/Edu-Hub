@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fee Payment Reminder - {{institutionName}}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .institution-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+        .reminder-title {
+            font-size: 18px;
+            color: #c0392b;
+            margin-bottom: 20px;
+        }
+        .student-info {
+            background-color: #fdf2f2;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #e74c3c;
+        }
+        .fee-details {
+            background-color: #fff5f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #fab1a0;
+        }
+        .fee-amount {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e74c3c;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 5px 0;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .urgent-notice {
+            background-color: #ffeaa7;
+            border: 1px solid #d63031;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .urgent-text {
+            color: #d63031;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .payment-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #bdc3c7;
+            text-align: center;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+        .contact-info {
+            background-color: #ecf0f1;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="institution-name">{{institutionName}}</div>
+        <div class="reminder-title">Fee Payment Reminder</div>
+        <div>Generated on: {{generatedAt}}</div>
+    </div>
+
+    <div class="student-info">
+        <div class="info-row">
+            <span class="info-label">Student Name:</span>
+            <span>{{studentName}}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Parent/Guardian:</span>
+            <span>{{parentName}}</span>
+        </div>
+    </div>
+
+    <div class="fee-details">
+        <h3 style="text-align: center; color: #2c3e50;">Outstanding Fee Details</h3>
+
+        <div class="fee-amount">
+            ${{feeAmount}}
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Due Date:</span>
+            <span>{{dueDate}}</span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Outstanding Amount:</span>
+            <span>${{outstandingAmount}}</span>
+        </div>
+    </div>
+
+    <div class="urgent-notice">
+        <div class="urgent-text">
+            ⚠️ IMPORTANT: Please ensure timely payment to avoid service interruption
+        </div>
+    </div>
+
+    <div class="payment-info">
+        <h4>Payment Information</h4>
+        <p>Please make the payment through one of the following methods:</p>
+        <ul>
+            <li>Online Portal: [School Website]</li>
+            <li>Bank Transfer: [Account Details]</li>
+            <li>Cash Payment: Visit school administration</li>
+        </ul>
+
+        <div class="contact-info">
+            <strong>Contact for Payment Queries:</strong><br>
+            Phone: [School Phone Number]<br>
+            Email: [School Email]
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>This is an automated reminder from the Edu-Hub system.</p>
+        <p>Please ignore if payment has already been made.</p>
+        <p>For any discrepancies, contact school administration immediately.</p>
+    </div>
+</body>
+</html>

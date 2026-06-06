@@ -3,6 +3,8 @@ import { hashSecret } from "../../lib/security";
 import { auditService } from "../audit/service";
 import { sessionsService } from "../sessions/service";
 import { studentsRepository } from "../students/repository";
+import { parentsRepository } from "../parents/repository";
+import { db, parentsTable, studentParentsTable } from "@toppers/db";
 import { usersRepository } from "./repository";
 import type { UserResponse } from "./types";
 
@@ -47,6 +49,7 @@ export function createUsersService(repository = usersRepository) {
         section?: string;
         monthlyFeeAmount?: number;
         feeCycleStartDate?: string;
+        parentWhatsappNumbers?: string[];
       },
     ) {
       const existingUser = await repository.findAccessProfileByEmail(input.email);
@@ -105,6 +108,50 @@ export function createUsersService(repository = usersRepository) {
           feeCycleStartDate: input.feeCycleStartDate ?? null,
           portalUserId: created.id,
         });
+
+        // Create parent records with WhatsApp numbers if provided
+        const student = await studentsRepository.findStudentByPortalUserId(created.id);
+        if (student && input.parentWhatsappNumbers && input.parentWhatsappNumbers.length > 0) {
+          // Create parent 1 (primary)
+          const parent1 = await parentsRepository.createParent({
+            name: `Parent of ${input.name}`,
+            phone: input.parentWhatsappNumbers[0],
+            relationship: "father",
+            address: "",
+            userId: null,
+            whatsappNumbers: [input.parentWhatsappNumbers[0]],
+          });
+
+          await parentsRepository.linkParentToStudent(student.id, parent1.id);
+
+          // Create parent 2 (secondary) if provided
+          if (input.parentWhatsappNumbers.length > 1) {
+            const parent2 = await parentsRepository.createParent({
+              name: `Parent2 of ${input.name}`,
+              phone: input.parentWhatsappNumbers[1],
+              relationship: "mother",
+              address: "",
+              userId: null,
+              whatsappNumbers: [input.parentWhatsappNumbers[1]],
+            });
+
+            await parentsRepository.linkParentToStudent(student.id, parent2.id);
+          }
+
+          // Create guardian if provided (3rd number)
+          if (input.parentWhatsappNumbers.length > 2) {
+            const guardian = await parentsRepository.createParent({
+              name: `Guardian of ${input.name}`,
+              phone: input.parentWhatsappNumbers[2],
+              relationship: "guardian",
+              address: "",
+              userId: null,
+              whatsappNumbers: [input.parentWhatsappNumbers[2]],
+            });
+
+            await parentsRepository.linkParentToStudent(student.id, guardian.id);
+          }
+        }
       }
 
       const createdUser = await repository.findAccessProfileById(created.id);

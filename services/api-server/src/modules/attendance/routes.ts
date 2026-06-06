@@ -13,17 +13,17 @@ attendanceRoutes.post(
 );
 
 attendanceRoutes.get(
-  "/attendance/class/:classId",
-  requireAuth,
-  requireRoles(ROLE_NAMES.SUPER_ADMIN, ROLE_NAMES.ADMIN, ROLE_NAMES.TEACHER),
-  asyncHandler(attendanceController.getClassAttendance),
-);
-
-attendanceRoutes.get(
   "/attendance/all",
   requireAuth,
   requireRoles(ROLE_NAMES.SUPER_ADMIN, ROLE_NAMES.ADMIN, ROLE_NAMES.TEACHER),
   asyncHandler(attendanceController.getAllAttendance),
+);
+
+attendanceRoutes.get(
+  "/attendance/class/:classId",
+  requireAuth,
+  requireRoles(ROLE_NAMES.SUPER_ADMIN, ROLE_NAMES.ADMIN, ROLE_NAMES.TEACHER),
+  asyncHandler(attendanceController.getClassAttendance),
 );
 
 attendanceRoutes.get(

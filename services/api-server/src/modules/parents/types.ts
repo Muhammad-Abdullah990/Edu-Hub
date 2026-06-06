@@ -18,5 +18,6 @@ export type ParentCreateInput = {
   email?: string;
   relationship: ParentRelationship;
   address: string;
-  userId?: string;
+  userId?: string | null;
+  whatsappNumbers?: string[];
 };

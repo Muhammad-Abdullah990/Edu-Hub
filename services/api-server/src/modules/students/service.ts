@@ -453,6 +453,9 @@ export function createStudentsService(repository = studentsRepository) {
         admissionDate: string;
         photoUrl: string;
         status: StudentStatus;
+        monthlyFeeAmount: number;
+        feeCycleStartDate: string;
+        nextFeeDueDate: string;
       }>,
     ) {
       const student = await repository.findStudentById(studentId);
@@ -480,6 +483,9 @@ export function createStudentsService(repository = studentsRepository) {
         admissionDate: input.admissionDate,
         photoUrl: input.photoUrl,
         status: input.status,
+        monthlyFeeAmount: input.monthlyFeeAmount,
+        feeCycleStartDate: input.feeCycleStartDate,
+        nextFeeDueDate: input.nextFeeDueDate,
       });
 
       await auditService.log({

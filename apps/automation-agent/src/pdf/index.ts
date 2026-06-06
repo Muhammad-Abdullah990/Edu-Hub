@@ -78,6 +78,9 @@ export class PDFGenerator {
       studentName: string;
       parentName: string;
       attendancePercentage: number;
+      totalDays?: number;
+      presentDays?: number;
+      absentDays?: number;
       teacherNotes: string;
       strengths: string[];
       weaknesses: string[];
@@ -93,6 +96,9 @@ export class PDFGenerator {
     // Transform data for template
     const templateData = {
       ...data,
+      totalDays: data.totalDays ?? 0,
+      presentDays: data.presentDays ?? 0,
+      absentDays: data.absentDays ?? 0,
       strengthsList: data.strengths.join(", "),
       weaknessesList: data.weaknesses.join(", "),
       recommendationsList: data.recommendations.join(", "),

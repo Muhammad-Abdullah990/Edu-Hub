@@ -22,6 +22,7 @@ export const createUserSchema = z.object({
   section: z.string().optional(),
   monthlyFeeAmount: z.number().optional(),
   feeCycleStartDate: z.string().optional(),
+  parentWhatsappNumbers: z.array(z.string()).optional().default([]),
 }).refine(
   (data) => {
     if (data.roleName === ROLE_NAMES.STUDENT) {

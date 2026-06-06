@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import { createFeesService } from "./service";
+import { getUpcomingFees } from "./upcoming-service";
 import type {
   FeeRecordCreateRequest,
   FeeRecordUpdateRequest,
@@ -9,6 +10,15 @@ import type {
 const feesService = createFeesService();
 
 export const feesController = {
+  async listUpcomingFees(_request: Request, response: Response) {
+    const fees = await getUpcomingFees();
+    response.json({
+      success: true,
+      message: "Upcoming fees retrieved successfully",
+      data: fees,
+    });
+  },
+
   async listFeeRecords(request: Request, response: Response) {
     const studentId = request.query.studentId as string | undefined;
     const status = request.query.status as string | undefined;

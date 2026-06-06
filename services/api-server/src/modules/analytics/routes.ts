@@ -7,6 +7,13 @@ import { analyticsController } from "./controller";
 export const analyticsRoutes = Router();
 
 analyticsRoutes.get(
+  "/analytics/summary",
+  requireRoles(ROLE_NAMES.SUPER_ADMIN, ROLE_NAMES.ADMIN, ROLE_NAMES.TEACHER),
+  requireAuth,
+  asyncHandler(analyticsController.getSummary),
+);
+
+analyticsRoutes.get(
   "/analytics/student/:studentId/attendance",
   requireRoles(ROLE_NAMES.SUPER_ADMIN, ROLE_NAMES.ADMIN, ROLE_NAMES.TEACHER),
   requireAuth,

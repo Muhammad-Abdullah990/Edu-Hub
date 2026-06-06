@@ -69,6 +69,10 @@ export const parentsTable = pgTable(
     email: varchar("email", { length: 320 }),
     relationship: varchar("relationship", { length: 32 }).notNull(),
     address: text("address").notNull(),
+    whatsappNumbers: jsonb("whatsapp_numbers")
+      .$type<string[]>()
+      .notNull()
+      .default([]),
     createdAt: timestamp("created_at", { withTimezone: true })
       .defaultNow()
       .notNull(),

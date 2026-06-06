@@ -18,6 +18,7 @@ export const parentsRepository = {
         relationship: parent.relationship,
         address: parent.address,
         userId: parent.userId,
+        whatsappNumbers: parent.whatsappNumbers ?? [],
       })
       .returning({
         id: parentsTable.id,
@@ -27,6 +28,7 @@ export const parentsRepository = {
         email: parentsTable.email,
         relationship: parentsTable.relationship,
         address: parentsTable.address,
+        whatsappNumbers: parentsTable.whatsappNumbers,
         createdAt: parentsTable.createdAt,
         updatedAt: parentsTable.updatedAt,
       });

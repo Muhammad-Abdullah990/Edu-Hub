@@ -7,6 +7,12 @@ import { feesController } from "./controller";
 export const feesRoutes = Router();
 
 feesRoutes.get(
+  "/fees/upcoming",
+  requireAuth,
+  asyncHandler(feesController.listUpcomingFees),
+);
+
+feesRoutes.get(
   "/fees/records",
   requireAuth,
   asyncHandler(feesController.listFeeRecords),

@@ -10,10 +10,21 @@ import {
 } from "drizzle-orm";
 import {
   attendanceSummaryTable,
+  attendanceTable,
+  communicationQueueTable,
   db,
+  feeRecordsTable,
+  feeRemindersTable,
   feeStatusTable,
+  notificationHistoryTable,
+  parentsTable,
   performanceNotesTable,
+  progressReportsTable,
+  sessionsTable,
+  studentParentsTable,
   studentsTable,
+  userRolesTable,
+  usersTable,
 } from "@toppers/db";
 
 export type StudentListFilter = {
@@ -137,7 +148,66 @@ export const studentsRepository = {
       .where(eq(studentsTable.id, studentId));
   },
 
+  /**
+   * ❌ FULLY DELETES a student and ALL related data across the system:
+   * - Student portal user (sessions, user_roles, user itself)
+   * - Attendance records & attendance summary
+   * - Fee records, fee reminders, fee status
+   * - Performance notes, progress reports
+   * - Communication queue & notification history
+   * - Student-parent links
+   * - The student record itself
+   */
   async deleteStudent(studentId: string) {
+    // 1. Get the student first to find linked portal user
+    const student = await db.query.studentsTable.findFirst({
+      where: eq(studentsTable.id, studentId),
+    });
+    if (!student) return;
+
+    // 2. Delete the portal user account if linked — this cascades to sessions & user_roles automatically
+    if (student.portalUserId) {
+      await db.delete(sessionsTable).where(eq(sessionsTable.userId, student.portalUserId));
+      await db.delete(userRolesTable).where(eq(userRolesTable.userId, student.portalUserId));
+      await db.delete(usersTable).where(eq(usersTable.id, student.portalUserId));
+    }
+
+    // 3. Delete attendance records (manual cascade — some fkeys may not cascade)
+    await db.delete(attendanceTable).where(eq(attendanceTable.studentId, studentId));
+    await db.delete(attendanceSummaryTable).where(eq(attendanceSummaryTable.studentId, studentId));
+
+    // 4. Delete fee-related data
+    await db.delete(feeStatusTable).where(eq(feeStatusTable.studentId, studentId));
+    // Delete fee reminders before fee records (fk constraint)
+    await db.delete(feeRemindersTable).where(eq(feeRemindersTable.studentId, studentId));
+    await db.delete(feeRecordsTable).where(eq(feeRecordsTable.studentId, studentId));
+
+    // 5. Delete performance notes & progress reports
+    await db.delete(performanceNotesTable).where(eq(performanceNotesTable.studentId, studentId));
+    await db.delete(progressReportsTable).where(eq(progressReportsTable.studentId, studentId));
+
+    // 6. Delete communication queue & notification history
+    // Get all queue items first to find linked notification history
+    const queueItems = await db
+      .select({ id: communicationQueueTable.id })
+      .from(communicationQueueTable)
+      .where(eq(communicationQueueTable.studentId, studentId));
+    const queueItemIds = queueItems.map((q) => q.id);
+    if (queueItemIds.length > 0) {
+      await db.delete(notificationHistoryTable).where(
+        inArray(notificationHistoryTable.queueItemId, queueItemIds),
+      );
+    }
+    await db.delete(communicationQueueTable).where(
+      eq(communicationQueueTable.studentId, studentId),
+    );
+
+    // 7. Delete student-parent links
+    await db.delete(studentParentsTable).where(
+      eq(studentParentsTable.studentId, studentId),
+    );
+
+    // 8. Finally delete the student record
     await db.delete(studentsTable).where(eq(studentsTable.id, studentId));
   },
 

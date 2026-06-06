@@ -1,4 +1,4 @@
-import { and, desc, eq, inArray } from "drizzle-orm";
+import { and, desc, eq, inArray, sql, count } from "drizzle-orm";
 import { ROLE_NAMES } from "@toppers/auth";
 import type { AuthenticatedPrincipal } from "@toppers/auth";
 import { HttpError } from "../../lib/http-error";
@@ -9,11 +9,193 @@ import {
   db,
   studentsTable,
   studentScoresTable,
+  usersTable,
+  userRolesTable,
+  rolesTable,
+  parentsTable,
+  studentParentsTable,
+  feeRecordsTable,
+  feeStatusTable,
+  performanceNotesTable,
 } from "@toppers/db";
 
-import type { ClassAttendanceSummary, StudentAttendanceAnalytics } from "./types";
+import type { ClassAttendanceSummary, StudentAttendanceAnalytics, DashboardAnalyticsSummary } from "./types";
 
 export const analyticsService = {
+  /**
+   * Dashboard Summary - Comprehensive analytics overview
+   * Returns total counts, attendance, fees, performance across all students
+   */
+  async getDashboardSummary(auth: AuthenticatedPrincipal): Promise<DashboardAnalyticsSummary> {
+    if (
+      auth.roles.includes(ROLE_NAMES.PARENT) ||
+      auth.roles.includes(ROLE_NAMES.STUDENT)
+    ) {
+      throw new HttpError(
+        403,
+        "ANALYTICS_FORBIDDEN",
+        "Only teachers and administrators may access analytics",
+      );
+    }
+
+    // Total active students
+    const [studentCount] = await db
+      .select({ count: count() })
+      .from(studentsTable)
+      .where(
+        and(
+          eq(studentsTable.isArchived, false),
+          eq(studentsTable.status, "active"),
+        ),
+      );
+
+    // Total teachers
+    const [teacherCount] = await db
+      .select({ count: count() })
+      .from(userRolesTable)
+      .innerJoin(rolesTable, eq(userRolesTable.roleId, rolesTable.id))
+      .innerJoin(usersTable, eq(userRolesTable.userId, usersTable.id))
+      .where(
+        and(
+          eq(rolesTable.name, "TEACHER"),
+          eq(usersTable.status, "active"),
+        ),
+      );
+
+    // Total parents
+    const [parentCount] = await db
+      .select({ count: count() })
+      .from(parentsTable);
+
+    // Total parent-student links
+    const [parentLinkCount] = await db
+      .select({ count: count() })
+      .from(studentParentsTable);
+
+    // Unique classes
+    const classesResult = await db
+      .select({ class: studentsTable.class })
+      .from(studentsTable)
+      .where(eq(studentsTable.isArchived, false))
+      .groupBy(studentsTable.class);
+
+    const activeClasses = classesResult.map(r => r.class);
+
+    // Overall attendance average
+    const attendanceSummaries = await db
+      .select({
+        attendancePercentage: attendanceSummaryTable.attendancePercentage,
+      })
+      .from(attendanceSummaryTable);
+
+    const overallAttendanceAvg =
+      attendanceSummaries.length > 0
+        ? Math.round(
+            attendanceSummaries.reduce((sum, r) => sum + r.attendancePercentage, 0) /
+              attendanceSummaries.length,
+          )
+        : 0;
+
+    // Students below 75% attendance
+    const lowAttendanceCount = attendanceSummaries.filter(
+      r => r.attendancePercentage < 75,
+    ).length;
+
+    // Fee collection summary
+    const feeStats = await db
+      .select({
+        totalDue: sql<number>`COALESCE(SUM(${feeRecordsTable.amountDue}), 0)`,
+        totalPaid: sql<number>`COALESCE(SUM(${feeRecordsTable.amountPaid}), 0)`,
+      })
+      .from(feeRecordsTable);
+
+    // Pending fees count
+    const [pendingFeeResult] = await db
+      .select({ count: count() })
+      .from(feeRecordsTable)
+      .where(eq(feeRecordsTable.status, "pending"));
+
+    // Overdue fees
+    const today = new Date().toISOString().split('T')[0];
+    const [overdueFeeResult] = await db
+      .select({ count: count() })
+      .from(feeRecordsTable)
+      .where(
+        and(
+          eq(feeRecordsTable.status, "pending"),
+          sql`${feeRecordsTable.dueDate} < ${today}::date`,
+        ),
+      );
+
+    // Recent performance notes count (last 30 days)
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    const [recentNotesResult] = await db
+      .select({ count: count() })
+      .from(performanceNotesTable)
+      .where(
+        sql`${performanceNotesTable.createdAt} > ${thirtyDaysAgo.toISOString()}::timestamp`,
+      );
+
+    // Today's attendance
+    const todayAttendance = await db
+      .select({ status: attendanceTable.status })
+      .from(attendanceTable)
+      .where(eq(attendanceTable.date, today));
+
+    const todayPresent = todayAttendance.filter(r => r.status === "present").length;
+    const todayAbsent = todayAttendance.filter(r => r.status === "absent").length;
+
+    // Class distribution
+    const classDistribution = await db
+      .select({
+        className: studentsTable.class,
+        studentCount: count(),
+      })
+      .from(studentsTable)
+      .where(eq(studentsTable.isArchived, false))
+      .groupBy(studentsTable.class)
+      .orderBy(studentsTable.class);
+
+    return {
+      timestamp: new Date().toISOString(),
+      studentStats: {
+        totalStudents: Number(studentCount?.count ?? 0),
+        activeClasses,
+        classCount: activeClasses.length,
+      },
+      staffStats: {
+        totalTeachers: Number(teacherCount?.count ?? 0),
+        totalParents: Number(parentCount?.count ?? 0),
+        parentLinks: Number(parentLinkCount?.count ?? 0),
+      },
+      attendanceStats: {
+        overallAverage: overallAttendanceAvg,
+        lowAttendanceCount,
+        todayPresent,
+        todayAbsent,
+      },
+      feeStats: {
+        totalDue: Number(feeStats[0]?.totalDue ?? 0),
+        totalCollected: Number(feeStats[0]?.totalPaid ?? 0),
+        pendingFees: Number(pendingFeeResult?.count ?? 0),
+        overdueFees: Number(overdueFeeResult?.count ?? 0),
+        collectionRate:
+          feeStats[0] && feeStats[0].totalDue > 0
+            ? Math.round(
+                (Number(feeStats[0].totalPaid) / Number(feeStats[0].totalDue)) * 100,
+              )
+            : 0,
+      },
+      performanceStats: {
+        recentNotes: Number(recentNotesResult?.count ?? 0),
+      },
+      classDistribution: classDistribution.map(c => ({
+        className: c.className,
+        studentCount: Number(c.studentCount),
+      })),
+    };
+  },
+
   async getStudentAttendanceAnalytics(
     auth: AuthenticatedPrincipal,
     studentId: string,
@@ -31,7 +213,7 @@ export const analyticsService = {
 
     const aggregates = await db
       .select({
-        aggregatePeriod: attendanceAggregatesTable.aggregatePeriod, // YYYY-MM
+        aggregatePeriod: attendanceAggregatesTable.aggregatePeriod,
         presentDays: attendanceAggregatesTable.presentDays,
         absentDays: attendanceAggregatesTable.absentDays,
         attendancePercentage: attendanceAggregatesTable.attendancePercentage,
@@ -51,7 +233,6 @@ export const analyticsService = {
       };
     }
 
-    // monthlyAttendance sorted ascending by period for UX consistency
     const monthlyAttendance = aggregates
       .slice()
       .reverse()
@@ -75,7 +256,6 @@ export const analyticsService = {
     const overallPercentage =
       totalDays > 0 ? Math.round((totals.present / totalDays) * 100) : 0;
 
-    // currentStreak is derived from latest persisted score breakdown
     const latestScore = await db
       .select({ breakdown: studentScoresTable.breakdown })
       .from(studentScoresTable)
@@ -97,7 +277,6 @@ export const analyticsService = {
       overallPercentage,
       currentStreak: breakdown?.currentStreak ?? 0,
       warning: overallPercentage < 70,
-      // absentPattern is not yet persisted in v0 aggregates; keep empty for correctness.
       absentPattern: [],
       monthlyAttendance,
     };
@@ -136,8 +315,6 @@ export const analyticsService = {
     const studentIds = studentRows.map((s) => s.id);
     const totalStudents = studentIds.length;
 
-    // For class-day counts, keep consistent with existing UX using raw attendance for that single date.
-    // This is not a heavy computation (bounded by a single date + studentIds).
     const attendanceRows =
       totalStudents === 0
         ? []
@@ -158,7 +335,6 @@ export const analyticsService = {
       (r) => r.status === "absent",
     ).length;
 
-    // Class average from persisted attendance summaries for auditability.
     const summaries =
       totalStudents === 0
         ? []
@@ -196,4 +372,3 @@ export const analyticsService = {
     };
   },
 };
-

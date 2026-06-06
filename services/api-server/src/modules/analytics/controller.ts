@@ -6,6 +6,16 @@ import {
 import { analyticsService } from "./service";
 
 export const analyticsController = {
+  async getSummary(request: Request, response: Response) {
+    const summary = await analyticsService.getDashboardSummary(request.auth!);
+
+    response.json({
+      success: true,
+      data: summary,
+      message: "Analytics dashboard summary retrieved successfully",
+    });
+  },
+
   async getStudentAttendance(request: Request, response: Response) {
     const params = studentAnalyticsParamsSchema.parse(request.params);
     const analytics = await analyticsService.getStudentAttendanceAnalytics(
