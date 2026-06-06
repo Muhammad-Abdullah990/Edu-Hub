@@ -52,35 +52,25 @@ export async function checkDatabase(): Promise<HealthCheckResult> {
  */
 export async function checkRedis(): Promise<HealthCheckResult> {
   const startTime = Date.now();
-  let redis: ReturnType<typeof createClient> | null = null;
-  try {
-    redis = createClient({ url: process.env.REDIS_URL || "redis://localhost:6379" });
-    // CRITICAL: Attach error handlers BEFORE connecting to prevent crashes
-    // The redis package emits SocketClosedUnexpectedlyError as an unhandled error
-    redis.on("error", (err) => {
-      // Swallow all Redis errors during health check to prevent process crash
-    });
-    redis.on("reconnecting", () => {});
-    await redis.connect();
-    const pong = await redis.ping();
-    const latency = Date.now() - startTime;
-    try { await redis.quit(); } catch { /* ignore */ }
+
+  // Check if the queue service already has a working Redis connection
+  const { getQueueService } = await import("./queue");
+  const queueService = getQueueService();
+  if (queueService.isEnabled()) {
     return {
-      status: pong === "PONG" ? "ok" : "error",
-      message: "Redis connection healthy",
-      latency,
-    };
-  } catch (error) {
-    logger.error({ error }, "Redis health check failed");
-    if (redis) {
-      try { await redis.disconnect(); } catch { /* ignore */ }
-    }
-    return {
-      status: "warning",
-      message: `Redis connection failed: ${error instanceof Error ? error.message : "unknown"}`,
-      details: { error: error instanceof Error ? error.message : String(error) },
+      status: "ok",
+      message: "Redis connection healthy (via queue service)",
+      latency: Date.now() - startTime,
     };
   }
+
+  // If queue is disabled, Redis is unreachable — report warning without creating a new client
+  // Creating standalone redis clients causes SocketClosedUnexpectedlyError crashes
+  return {
+    status: "warning",
+    message: "Redis not connected (background jobs disabled)",
+    latency: Date.now() - startTime,
+  };
 }
 
 /**
