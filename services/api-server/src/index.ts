@@ -17,6 +17,17 @@ logger.info({ databaseUrl: env.DATABASE_URL }, "DATABASE_URL loaded by environme
 app.set("trust proxy", 1);
 
 /**
+ * Global error handlers — prevent unhandled errors from crashing the process
+ * (e.g. Redis SocketClosedUnexpectedlyError, network timeouts)
+ */
+process.on("uncaughtException", (error) => {
+  logger.error({ error }, "Uncaught exception — process continuing");
+});
+process.on("unhandledRejection", (reason) => {
+  logger.error({ reason }, "Unhandled promise rejection — process continuing");
+});
+
+/**
  * Initialize background job infrastructure
  */
 async function initializeBackgroundJobs() {

@@ -52,12 +52,16 @@ export async function checkDatabase(): Promise<HealthCheckResult> {
  */
 export async function checkRedis(): Promise<HealthCheckResult> {
   const startTime = Date.now();
+  let redis: ReturnType<typeof createClient> | null = null;
   try {
-    const redis = createClient({ url: process.env.REDIS_URL || "redis://localhost:6379" });
+    redis = createClient({ url: process.env.REDIS_URL || "redis://localhost:6379" });
+    // Catch socket errors to prevent unhandled exceptions from crashing the process
+    redis.on("error", () => {});
+    redis.on("reconnecting", () => {});
     await redis.connect();
     const pong = await redis.ping();
-    await redis.quit();
     const latency = Date.now() - startTime;
+    try { await redis.quit(); } catch { /* ignore */ }
     return {
       status: pong === "PONG" ? "ok" : "error",
       message: "Redis connection healthy",
@@ -65,8 +69,11 @@ export async function checkRedis(): Promise<HealthCheckResult> {
     };
   } catch (error) {
     logger.error({ error }, "Redis health check failed");
+    if (redis) {
+      try { await redis.disconnect(); } catch { /* ignore */ }
+    }
     return {
-      status: "warning", // Redis failures should degrade, not fail
+      status: "warning",
       message: `Redis connection failed: ${error instanceof Error ? error.message : "unknown"}`,
       details: { error: error instanceof Error ? error.message : String(error) },
     };

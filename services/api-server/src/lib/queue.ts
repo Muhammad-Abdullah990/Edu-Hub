@@ -85,9 +85,15 @@ export class QueueService {
         enableOfflineQueue: false,
         maxRetriesPerRequest: 0,
         retryStrategy: () => null,
+        connectTimeout: 5000,
+        commandTimeout: 3000,
       });
+      // Catch ALL Redis errors to prevent unhandled exceptions from crashing the process
       this.redis.on("error", (error) => {
         logger.warn({ error }, "Redis connection error");
+      });
+      this.redis.on("close", () => {
+        // Prevent SocketClosedUnexpectedlyError from crashing the process
       });
     }
     return this.redis;
