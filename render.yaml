@@ -54,26 +54,29 @@ services:
 
   # ──────────────────────────────────────────────
   # Automation Agent (Background Worker)
+  # NOTE: Render free plan does not support workers.
+  #       This service requires a paid plan ($7/mo).
+  #       To re-enable: upgrade to paid plan, then
+  #       uncomment this section.
   # ──────────────────────────────────────────────
-  - type: worker
-    name: toppers-automation
-    env: node
-    region: singapore
-    plan: free
-    buildCommand: pnpm install --frozen-lockfile
-    startCommand: cd apps/automation-agent && pnpm run start
-    envVars:
-      - key: NODE_ENV
-        value: production
-      - key: LOG_LEVEL
-        value: info
-      - key: DATABASE_URL
-        sync: false
-      - key: REDIS_URL
-        sync: false
-      - key: JWT_ACCESS_SECRET
-        sync: false
-      - key: JWT_REFRESH_SECRET
-        sync: false
-      - key: ENABLE_AUTOMATION
-        value: "true"
+  # - type: worker
+  #   name: toppers-automation
+  #   env: node
+  #   region: singapore
+  #   buildCommand: pnpm install --frozen-lockfile
+  #   startCommand: cd apps/automation-agent && pnpm run start
+  #   envVars:
+  #     - key: NODE_ENV
+  #       value: production
+  #     - key: LOG_LEVEL
+  #       value: info
+  #     - key: DATABASE_URL
+  #       sync: false
+  #     - key: REDIS_URL
+  #       sync: false
+  #     - key: JWT_ACCESS_SECRET
+  #       sync: false
+  #     - key: JWT_REFRESH_SECRET
+  #       sync: false
+  #     - key: ENABLE_AUTOMATION
+  #       value: "true"
